@@ -1,0 +1,40 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "MicroServiceClient\\MicroServiceClient\\MicroServiceClient.csproj",
+        "Action": "Start",
+        "DebugTarget": "MicroServiceClient"
+      },
+      {
+        "Path": "MicroServiceProduct\\MicroServiceProduct\\MicroServiceProduct.csproj",
+        "Action": "Start",
+        "DebugTarget": "MicroServiceProduct"
+      },
+      {
+        "Path": "MicroServiceUsers\\MicroServiceUsers\\MicroServiceUsers.csproj",
+        "Action": "Start",
+        "DebugTarget": "MicroServiceUsers"
+      },
+      {
+        "Path": "MicroServiceWeb\\MicroServiceWeb.csproj",
+        "Action": "Start",
+        "DebugTarget": "MicroServiceWeb"
+      },
+      {
+        "Path": "MicroServiceDistributors\\MicroServiceDistributors\\MicroServiceDistributors.API.csproj",
+        "Action": "Start",
+        "DebugTarget": "MicroServiceDistributors.API"
+      },
+      {
+        "Path": "MicroServiceReports\\MicroServiceReports\\MicroServiceReports.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "MicroServiceSales\\MicroServiceSales\\MicroServiceSales.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

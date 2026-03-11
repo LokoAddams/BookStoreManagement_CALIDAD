@@ -1,0 +1,34 @@
+@page
+@model LibraryWeb.Pages.Distributors.CreateModel
+@{
+    ViewData["Title"] = "Añadir Distribuidor";
+}
+<h2>Añadir Distribuidor</h2>
+<form method="post" novalidate>
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Distributor.Name" class="form-label"></label>
+        <input asp-for="Distributor.Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Distributor.Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Distributor.ContactEmail" class="form-label"></label>
+        <input asp-for="Distributor.ContactEmail" class="form-control" />
+        <span class="text-danger" asp-validation-for="Distributor.ContactEmail"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Distributor.Phone" class="form-label"></label>
+        <input asp-for="Distributor.Phone" class="form-control" inputmode="numeric" pattern="\d{8}" maxlength="8" />
+        <span class="text-danger" asp-validation-for="Distributor.Phone"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Distributor.Address" class="form-label"></label>
+        <textarea asp-for="Distributor.Address" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Distributor.Address"></span>
+    </div>
+    <div class="d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-primary">Crear</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+@section Scripts { <partial name="Shared/_ValidationScriptsPartial" /> }

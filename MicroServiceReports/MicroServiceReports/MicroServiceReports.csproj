@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.22" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MicroServiceReports.Application\MicroServiceReports.Application.csproj" />
+        <ProjectReference Include="..\MicroServiceReports.Domain\MicroServiceReports.Domain.csproj" />
+        <ProjectReference Include="..\MicroServiceReports.Infraestructure\MicroServiceReports.Infraestructure.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+@page
+@model LibraryWeb.Pages.Auth.ProfileModel
+@{
+    ViewData["Title"] = "Perfil";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-custom">
+                <div class="card-header d-flex align-items-center">
+                    <i class="fas fa-id-badge me-2"></i>
+                    <span>Perfil de usuario</span>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Usuario</label>
+                            <div class="form-control bg-light">@Model.UserName</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Correo electrónico</label>
+                            <div class="form-control bg-light">@Model.Email</div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

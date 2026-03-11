@@ -1,0 +1,397 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.14.0.0",
+        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
+        "semanticVersion": "4.14.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 29,
+                  "endLine": 91,
+                  "endColumn": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 29,
+                  "endLine": 92,
+                  "endColumn": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 31,
+                  "endLine": 93,
+                  "endColumn": 96
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 283,
+                  "startColumn": 25,
+                  "endLine": 283,
+                  "endColumn": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 284,
+                  "startColumn": 25,
+                  "endLine": 284,
+                  "endColumn": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 285,
+                  "startColumn": 27,
+                  "endLine": 285,
+                  "endColumn": 128
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1905",
+          "level": "warning",
+          "message": "Remove this unnecessary cast to 'NpgsqlConnection'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 37,
+                  "endLine": 40,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1905",
+          "level": "warning",
+          "message": "Remove this unnecessary cast to 'NpgsqlConnection'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 236,
+                  "startColumn": 37,
+                  "endLine": 236,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1905",
+          "level": "warning",
+          "message": "Remove this unnecessary cast to 'NpgsqlDataReader'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 28,
+                  "endLine": 83,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await ExecuteReaderAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 72,
+                  "startColumn": 32,
+                  "endLine": 72,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 26,
+                  "endLine": 88,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 29,
+                  "endLine": 91,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 29,
+                  "endLine": 92,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 31,
+                  "endLine": 93,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1859",
+          "level": "note",
+          "message": "Change type of parameter 'reader' from 'System.Data.IDataReader' to 'Npgsql.NpgsqlDataReader' for improved performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceClient/MicroServiceClient.Infrastructure/Repositories/ClientRepository.cs",
+                "region": {
+                  "startLine": 275,
+                  "startColumn": 65,
+                  "endLine": 275,
+                  "endColumn": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1859": {
+          "id": "CA1859",
+          "shortDescription": "Use concrete types when possible for improved performance",
+          "fullDescription": "Using concrete types avoids virtual or interface call overhead and enables inlining.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1859",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8601": {
+          "id": "CS8601",
+          "shortDescription": "Possible null reference assignment.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8601)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S1905": {
+          "id": "S1905",
+          "shortDescription": "Redundant casts should not be used",
+          "fullDescription": "Casting expressions are utilized to convert one data type to another, such as transforming an integer into a string. This is especially crucial in strongly typed languages like C, C++, C#, Java, Python, and others.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1905",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6966": {
+          "id": "S6966",
+          "shortDescription": "Awaitable method should be used",
+          "fullDescription": "In an async method, any blocking operations should be avoided.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6966",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

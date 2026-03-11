@@ -1,0 +1,453 @@
+/* ============================================
+   BookWise Management System - Custom Styles
+   ============================================ */
+
+/* ---------- Root Variables ---------- */
+:root {
+    --primary-color: #2c5aa0;
+    --secondary-color: #8b4513;
+    --accent-color: #d4af37;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* ---------- Base Styles ---------- */
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: #f5f6fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--primary-color);
+}
+
+/* ---------- Typography ---------- */
+.brand-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+/* ---------- Header Styles ---------- */
+.top-info-bar {
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar {
+    padding: 1rem 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.navbar-brand {
+    transition: var(--transition);
+}
+
+    .navbar-brand:hover {
+        transform: translateY(-2px);
+    }
+
+.nav-link {
+    font-weight: 500;
+    color: var(--dark-color) !important;
+    position: relative;
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+    margin: 0 0.25rem;
+    padding: 0.5rem 1rem !important;
+}
+
+    .nav-link:hover, .nav-link.active {
+        color: var(--primary-color) !important;
+        background-color: rgba(44, 90, 160, 0.1);
+        transform: translateY(-1px);
+    }
+
+.dropdown-menu {
+    border: none;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    margin-top: 0.5rem;
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
+    border-radius: 6px;
+    margin: 0.125rem 0.5rem;
+}
+
+    .dropdown-item:hover {
+        background-color: rgba(44, 90, 160, 0.1);
+        color: var(--primary-color);
+        transform: translateX(5px);
+    }
+
+/* ---------- Search Bar ---------- */
+.input-group .form-control {
+    border-right: none;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.input-group .btn {
+    border-left: none;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb-section {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    border-bottom: 1px solid #dee2e6;
+}
+
+.breadcrumb {
+    background: transparent;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+    .breadcrumb-item a:hover {
+        color: var(--secondary-color);
+    }
+
+/* ---------- Main Content ---------- */
+.main-wrapper {
+    flex: 1;
+}
+
+main {
+    min-height: auto;
+}
+
+/* ---------- Cards ---------- */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    font-weight: 600;
+    border-bottom: none;
+    padding: 1.25rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1e4080 100%);
+    box-shadow: 0 2px 5px rgba(44, 90, 160, 0.3);
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #1e4080 0%, var(--primary-color) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(44, 90, 160, 0.4);
+    }
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #6d3410 100%);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color) 0%, #1e7e34 100%);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #e0a800 100%);
+    color: var(--dark-color);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #bd2130 100%);
+}
+
+/* ---------- Tables ---------- */
+.table {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+    .table thead th {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: white;
+        border: none;
+        font-weight: 600;
+        padding: 1rem;
+    }
+
+    .table tbody tr {
+        transition: var(--transition);
+    }
+
+        .table tbody tr:hover {
+            background-color: rgba(44, 90, 160, 0.05);
+            transform: scale(1.01);
+        }
+
+/* ---------- Forms ---------- */
+.form-control, .form-select {
+    border-radius: var(--border-radius);
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(44, 90, 160, 0.25);
+    }
+
+.form-label {
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- Validation Styling ---------- */
+.input-validation-error,
+.form-control.input-validation-error,
+.form-select.input-validation-error {
+    border-color: var(--danger-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1);
+}
+
+.field-validation-error {
+    display: block;
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.validation-summary-errors {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+/* ---------- Stats Cards ---------- */
+.stats-card {
+    background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+    border-left: 4px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+    .stats-card:hover {
+        border-left-color: var(--accent-color);
+        transform: translateX(5px);
+    }
+
+.stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, var(--dark-color) 100%);
+    margin-top: 0;
+}
+
+.social-links a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    line-height: 35px;
+    transition: var(--transition);
+}
+
+    .social-links a:hover {
+        background: var(--primary-color);
+        color: white !important;
+        transform: translateY(-2px);
+    }
+
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .stats-card {
+        margin-bottom: 1rem;
+    }
+
+    .footer .col-md-6:first-child {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+}
+
+/* ---------- Custom Scrollbar ---------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary-color);
+    }
+
+/* ---------- Utility Classes ---------- */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.shadow-custom {
+    box-shadow: var(--box-shadow) !important;
+}
+
+.rounded-custom {
+    border-radius: var(--border-radius) !important;
+}
+
+/* ---------- Auth (Login) Blue Theme ---------- */
+.bg-gradient-blue {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 50%, #084298 100%);
+}
+
+.auth-wrapper {
+    min-height: calc(100vh - 140px);
+}
+
+.auth-card {
+    max-width: 980px;
+    width: 100%;
+    border: 0;
+    border-radius: 1rem;
+}
+
+.input-group-lg > .form-control,
+.input-group-lg > .input-group-text {
+    border-radius: .5rem;
+}
+
+/* ---------- Alerts ---------- */
+.alert-danger {
+    border: 1px solid rgba(220, 53, 69, .25);
+    box-shadow: 0 0.25rem 0.75rem rgba(220, 53, 69, .08);
+}
+
+/* ---------- Shared Blue Header ---------- */
+.card-header-blue {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+    color: white !important;
+}
+
+.table thead th.th-blue {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+}
+
+/* ---------- Buttons / Tables Utility ---------- */
+.btn-icon i {
+    pointer-events: none;
+}
+
+.table-actions .btn {
+    margin-right: .25rem;
+}

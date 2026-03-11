@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de manejo de una Librería</title>
+    
+    <!-- Bootstrap CSS desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-page="/Index">
+                    <i class="fas fa-book-open text-primary me-2 fs-3"></i>
+                    <div>
+                        <span class="brand-name">Librería</span>
+                        <small class="d-block text-muted">Sistema De Administración</small>
+                    </div>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-page="/Index">
+                                <i class="fas fa-home me-1"></i>Inicio
+                            </a>
+                        </li>
+
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="booksDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-book me-1"></i>Productos
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="booksDropdown">
+                                    <li><a class="dropdown-item" href="/Products"><i class="fas fa-list me-2"></i>Todos Los Productos</a></li>
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a class="dropdown-item" href="/Products/Create"><i class="fas fa-plus me-2"></i>Añadir Producto</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="usersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-shield me-1"></i>Usuarios
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="usersDropdown">
+                                    <li><a class="dropdown-item" href="/Users"><i class="fas fa-list me-2"></i>Todos los Usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/Users/Create"><i class="fas fa-user-plus me-2"></i>Añadir Usuario</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="customersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-users me-1"></i>Clientes
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="customersDropdown">
+                                    <li><a class="dropdown-item" href="/Clients"><i class="fas fa-list me-2"></i>Todos Los Clientes</a></li>
+                                    <li><a class="dropdown-item" href="/Clients/Create"><i class="fas fa-user-plus me-2"></i>Añadir Cliente</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="distributorsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-shopping-cart me-1"></i>Distribuidores
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="distributorsDropdown">
+                                    <li><a class="dropdown-item" href="/Distributors"><i class="fas fa-list me-2"></i>Todos Los Distribuidores</a></li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a class="dropdown-item" href="/Distributors/Create"><i class="fas fa-plus me-2"></i>Añadir Distribuidores</a></li>
+                                    }
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="salesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-cash-register me-1"></i>Ventas
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="salesDropdown">
+                                    <li><a class="dropdown-item" href="/Sales/Create"><i class="fas fa-plus me-2"></i>Registrar Venta</a></li>
+                                    <li><a class="dropdown-item" href="/Sales"><i class="fas fa-list me-2"></i>Listado de Ventas</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="d-flex align-items-center">
+                        <div>
+                            @if (User?.Identity?.IsAuthenticated == true)
+                            {
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="user-avatar me-2">
+                                            <i class="fas fa-user-circle fs-4 text-primary"></i>
+                                        </div>
+                                        <span class="d-none d-lg-inline">
+                                            @{
+                                                var gn = User?.Claims?.FirstOrDefault(c => c.Type == "given_name")?.Value;
+                                                var fn = User?.Claims?.FirstOrDefault(c => c.Type == "family_name")?.Value;
+                                                var displayRaw = !string.IsNullOrWhiteSpace(gn) || !string.IsNullOrWhiteSpace(fn) ? ($"{gn} {fn}").Trim() : (User?.Identity?.Name ?? string.Empty);
+                                                var normalized = displayRaw switch
+                                                {
+                                                    "Admin System" => "Administrador",
+                                                    "Administrator" => "Administrador",
+                                                    "Admin" => "Administrador",
+                                                    "Employee" => "Empleado",
+                                                    _ => displayRaw
+                                                };
+                                                string ToTitle(string s) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase((s ?? string.Empty).ToLower());
+                                            }
+                                            @ToTitle(normalized)
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item" asp-page="/Auth/Profile"><i class="fas fa-user me-2"></i>Perfil</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Users/ChangePassword"><i class="fas fa-key me-2"></i>Cambiar Contraseña</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <form method="post" asp-page="/Auth/Logout" class="px-3 py-1">
+                                                <button type="submit" class="dropdown-item">
+                                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary" asp-page="/Auth/Login"><i class="fas fa-sign-in-alt me-2"></i>Iniciar sesión</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+        <div class="breadcrumb-section bg-light py-2">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a class="text-decoration-none" asp-area="" asp-page="/Index"><i class="fas fa-home me-1"></i>Inicio</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container-fluid px-4">
+            <main role="main" class="py-4">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- jQuery y Bootstrap JS desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

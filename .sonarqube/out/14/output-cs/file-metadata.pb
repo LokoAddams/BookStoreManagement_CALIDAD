@@ -1,0 +1,10 @@
+ñ
+åC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.MvcApplicationPartsAssemblyInfo.csutf-8Þ
+ÒC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.AssemblyInfo.csutf-8ê
+ÞC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8à
+ÔC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.GlobalUsings.g.csutf-8»
+±C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\WeatherForecast.csutf-8º
+©C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Program.cswindows-1252È
+¾C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Controllers\ClientController.csutf-8Ñ
+ÇC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Controllers\WeatherForecastController.csutf-8Ë
+ÁC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Controllers\AuthDebugController.csutf-8

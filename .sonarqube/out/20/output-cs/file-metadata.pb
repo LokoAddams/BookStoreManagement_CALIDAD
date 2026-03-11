@@ -1,0 +1,9 @@
+î
+âC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\obj\Debug\net9.0\MicroServiceSales.MvcApplicationPartsAssemblyInfo.csutf-8Û
+ÏC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\obj\Debug\net9.0\MicroServiceSales.AssemblyInfo.csutf-8è
+ÜC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8Ý
+ÑC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\obj\Debug\net9.0\MicroServiceSales.GlobalUsings.g.csutf-8¹
+¯C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\WeatherForecast.csutf-8±
+§C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\Program.csutf-8Ï
+ÅC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\Controllers\WeatherForecastController.csutf-8Å
+»C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales\Controllers\SalesController.csutf-8

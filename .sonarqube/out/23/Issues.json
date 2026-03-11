@@ -1,0 +1,792 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.14.0.0",
+        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
+        "semanticVersion": "4.14.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 245,
+                  "startColumn": 35,
+                  "endLine": 245,
+                  "endColumn": 144
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitPublisher.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitPublisher.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 33
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitPublisher.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 21,
+                  "endLine": 40,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'RabbitPublisher' or mark the type as 'sealed'.",
+              "1": "'RabbitPublisher.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S1450",
+          "level": "warning",
+          "message": "Remove the field '_exchange' and declare it as a local variable in the relevant methods.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 33,
+                  "endLine": 23,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1816",
+          "level": "note",
+          "message": "Change RabbitPublisher.Dispose() to call GC.SuppressFinalize(object). This will prevent derived types that introduce a finalizer from needing to re-implement 'IDisposable' to call it.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitPublisher.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 21,
+                  "endLine": 40,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1192",
+          "level": "warning",
+          "message": "Define a constant instead of using this literal 'description' 6 times.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 69,
+                  "endLine": 62,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 137,
+                  "endLine": 62,
+                  "endColumn": 150
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 69,
+                  "endLine": 128,
+                  "endColumn": 82
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 137,
+                  "endLine": 128,
+                  "endColumn": 150
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 245,
+                  "startColumn": 69,
+                  "endLine": 245,
+                  "endColumn": 82
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 245,
+                  "startColumn": 129,
+                  "endLine": 245,
+                  "endColumn": 142
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null,
+              "2": null,
+              "3": null,
+              "4": null
+            }
+          }
+        },
+        {
+          "ruleId": "S1192",
+          "level": "warning",
+          "message": "Define a constant instead of using this literal 'category_id' 6 times.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 68,
+                  "endLine": 63,
+                  "endColumn": 81
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 132,
+                  "endLine": 63,
+                  "endColumn": 145
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 129,
+                  "startColumn": 68,
+                  "endLine": 129,
+                  "endColumn": 81
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 129,
+                  "startColumn": 132,
+                  "endLine": 129,
+                  "endColumn": 145
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 246,
+                  "startColumn": 68,
+                  "endLine": 246,
+                  "endColumn": 81
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 246,
+                  "startColumn": 132,
+                  "endLine": 246,
+                  "endColumn": 145
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null,
+              "2": null,
+              "3": null,
+              "4": null
+            }
+          }
+        },
+        {
+          "ruleId": "S1192",
+          "level": "warning",
+          "message": "Define a constant instead of using this literal 'category_name' 6 times.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 70,
+                  "endLine": 64,
+                  "endColumn": 85
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 132,
+                  "endLine": 64,
+                  "endColumn": 147
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 130,
+                  "startColumn": 70,
+                  "endLine": 130,
+                  "endColumn": 85
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 130,
+                  "startColumn": 132,
+                  "endLine": 130,
+                  "endColumn": 147
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 70,
+                  "endLine": 247,
+                  "endColumn": 85
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 132,
+                  "endLine": 247,
+                  "endColumn": 147
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null,
+              "2": null,
+              "3": null,
+              "4": null
+            }
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 196,
+                  "startColumn": 40,
+                  "endLine": 196,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1816",
+          "level": "note",
+          "message": "Change RabbitConsumerForProduct.Dispose() to call GC.SuppressFinalize(object). This will prevent derived types that introduce a finalizer from needing to re-implement 'IDisposable' to call it.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 169,
+                  "startColumn": 30,
+                  "endLine": 169,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 196,
+                  "startColumn": 46,
+                  "endLine": 196,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6678",
+          "level": "warning",
+          "message": "Use PascalCase for named placeholders.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 37,
+                  "endLine": 101,
+                  "endColumn": 94
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 72,
+                  "endLine": 101,
+                  "endColumn": 78
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 87,
+                  "endLine": 101,
+                  "endColumn": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null
+            }
+          }
+        },
+        {
+          "ruleId": "S6678",
+          "level": "warning",
+          "message": "Use PascalCase for named placeholders.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 127,
+                  "startColumn": 41,
+                  "endLine": 127,
+                  "endColumn": 90
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 127,
+                  "startColumn": 82,
+                  "endLine": 127,
+                  "endColumn": 88
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null
+            }
+          }
+        },
+        {
+          "ruleId": "S6678",
+          "level": "warning",
+          "message": "Use PascalCase for named placeholders.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 146,
+                  "startColumn": 37,
+                  "endLine": 146,
+                  "endColumn": 91
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 146,
+                  "startColumn": 74,
+                  "endLine": 146,
+                  "endColumn": 80
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Messaging/RabbitConsumerForProduct.cs",
+                "region": {
+                  "startLine": 146,
+                  "startColumn": 84,
+                  "endLine": 146,
+                  "endColumn": 89
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null
+            }
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 245,
+                  "startColumn": 35,
+                  "endLine": 245,
+                  "endColumn": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 246,
+                  "startColumn": 34,
+                  "endLine": 246,
+                  "endColumn": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6966",
+          "level": "warning",
+          "message": "Await IsDBNullAsync instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct.Infraestructure/Repository/ProductRepository.cs",
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 36,
+                  "endLine": 247,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1816": {
+          "id": "CA1816",
+          "shortDescription": "Dispose methods should call SuppressFinalize",
+          "fullDescription": "A method that is an implementation of Dispose does not call GC.SuppressFinalize; or a method that is not an implementation of Dispose calls GC.SuppressFinalize; or a method calls GC.SuppressFinalize and passes something other than this (Me in Visual Basic).",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1816",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8601": {
+          "id": "CS8601",
+          "shortDescription": "Possible null reference assignment.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8601)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S108": {
+          "id": "S108",
+          "shortDescription": "Nested blocks of code should not be left empty",
+          "fullDescription": "An empty code block is confusing. It will require some effort from maintainers to determine if it is intentional or indicates the implementation is incomplete.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-108",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1192": {
+          "id": "S1192",
+          "shortDescription": "String literals should not be duplicated",
+          "fullDescription": "Duplicated string literals make the process of refactoring complex and error-prone, as any change would need to be propagated on all occurrences.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1192",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1450": {
+          "id": "S1450",
+          "shortDescription": "Private fields only used as local variables in methods should become local variables",
+          "fullDescription": "When the value of a private field is always assigned to in a class' methods before being read, then it is not being used to store class information. Therefore, it should become a local variable in the relevant methods to prevent any misunderstanding.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1450",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2486": {
+          "id": "S2486",
+          "shortDescription": "Generic exceptions should not be ignored",
+          "fullDescription": "When exceptions occur, it is usually a bad idea to simply ignore them. Instead, it is better to handle them properly, or at least to log them.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2486",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6678": {
+          "id": "S6678",
+          "shortDescription": "Use PascalCase for named placeholders",
+          "fullDescription": "Within a message template each named placeholder should be in PascalCase.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6678",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6966": {
+          "id": "S6966",
+          "shortDescription": "Awaitable method should be used",
+          "fullDescription": "In an async method, any blocking operations should be avoided.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6966",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

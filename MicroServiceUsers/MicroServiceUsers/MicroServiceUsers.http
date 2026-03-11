@@ -1,0 +1,35 @@
+@baseUrl = https://localhost:7001
+@token = your_jwt_token_here
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "userOrEmail": "admin@bookstore.com",
+  "password": "Admin123!"
+}
+
+### Register User
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "role": "User"
+}
+
+### Change Password
+POST {{baseUrl}}/api/auth/change-password
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "currentPassword": "CurrentPassword123!",
+  "newPassword": "NewPassword123!",
+  "confirmPassword": "NewPassword123!"
+}
+
+### Get All Users (Requires Auth)
+GET {{baseUrl}}/api/auth/users
+Authorization: Bearer {{token}}

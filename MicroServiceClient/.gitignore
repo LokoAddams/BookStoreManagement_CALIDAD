@@ -1,0 +1,123 @@
+# === General ===
+# Ignora artefactos de build y configuraciones locales, conserva solo código fuente necesario.
+
+# Compilación / Artefactos
+bin/
+obj/
+**/bin/
+**/obj/
+artifacts/
+
+# Publicaciones
+**/publish/
+*.pubxml
+*.pubxml.user
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# Caches y temporales
+*.cache
+*.tmp
+*.temp
+*.log
+logs/
+
+# IDE / Usuario
+.vs/
+*.suo
+*.user
+*.userosscache
+*.rsuser
+
+# Rider / IntelliJ
+.idea/
+
+# Resharper
+*_ReSharper.*
+*.[Rr]e[Ss]harper
+
+# Code analysis
+*.sarif
+
+# Profiler VS
+*.psess
+*.vsp
+*.vspx
+
+# Launch settings locales
+**/Properties/launchSettings.json
+
+# Símbolos
+*.pdb
+*.mdb
+
+# Backups
+*.bak
+*.old
+
+# Test / Cobertura
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Binarios
+*.dll
+*.exe
+*.so
+*.dylib
+*.a
+*.lib
+*.db
+
+# Comprimidos
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.gz
+
+# Logs y diagnósticos
+*.svclog
+*.etl
+
+# Configuraciones locales (mantener solo appsettings.json base)
+appsettings.*.json
+!appsettings.json
+
+# EF Designer auto-generado
+**/Migrations/**/*.Designer.cs
+
+# Node / Frontend
+node_modules/
+dist/
+.build/
+
+# SO
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Git merge restos
+*.orig
+
+# Otros
+*.vsix
+*.response
+*.tlog
+*.out
+
+# Mantener código fuente y archivos de proyecto
+!**/*.cs
+!**/*.csproj
+!**/*.sln
+!**/*.editorconfig
+!**/*.gitignore
+
+# (Se eliminan las excepciones globales para *.json, *.xml, etc. para que los .json dentro de obj/ queden ignorados)

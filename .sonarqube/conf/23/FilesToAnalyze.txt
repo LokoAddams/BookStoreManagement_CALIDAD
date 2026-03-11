@@ -1,0 +1,5 @@
+﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\DataBase\DataBaseConnection.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitConsumerForProduct.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitPublisher.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\CategoryRepository.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\ProductRepository.cs

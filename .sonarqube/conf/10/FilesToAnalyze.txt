@@ -1,0 +1,3 @@
+﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\DataBase\DataBaseConnection.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\Repositories\ClientRepository.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\sql\20251217_add_ci_to_clients.sql

@@ -1,0 +1,8 @@
+Å
+ıC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\obj\Debug\net8.0\MicroServiceReports.Infraestructure.AssemblyInfo.csutf-8¸
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8‰
+⁄C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\Rabbit\SalesConfirmedBackgroundService.csutf-8É
+˜C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\obj\Debug\net8.0\MicroServiceReports.Infraestructure.GlobalUsings.g.csutf-8Ê
+’C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\SaleEventRepositoryEf.cswindows-1252‡
+÷C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\SaleDetailRepositoryEf.csutf-8Ê
+‹C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\MicroServiceReportsDbContext.csutf-8

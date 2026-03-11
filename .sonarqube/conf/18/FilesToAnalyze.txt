@@ -1,0 +1,5 @@
+﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\DataBase\DataBaseConnection.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitConsumerForSales.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitPublisher.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Repositories\SalesRepository.cs
+C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\sql\20240101_add_denormalized_columns.sql

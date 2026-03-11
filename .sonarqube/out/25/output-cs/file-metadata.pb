@@ -1,0 +1,9 @@
+ô
+èC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.MvcApplicationPartsAssemblyInfo.csutf-8á
+ÕC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.AssemblyInfo.csutf-8ì
+àC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8ã
+×C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.GlobalUsings.g.csutf-8µ
+«C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Program.csutf-8Ì
+ÂC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Controllers\ProductsController.csutf-8Ê
+ÀC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Controllers\HealthController.csutf-8Î
+ÄC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Controllers\CategoriesController.csutf-8

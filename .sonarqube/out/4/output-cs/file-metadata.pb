@@ -1,0 +1,8 @@
+ï
+ãC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\obj\Debug\net8.0\MicroServiceReports.Domain.AssemblyInfo.csutf-8ó
+çC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8ñ
+åC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\obj\Debug\net8.0\MicroServiceReports.Domain.GlobalUsings.g.csutf-8Ï
+ÅC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleEventRepository.csutf-8Ð
+ÆC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleDetailRepository.csutf-8Ó
+ÂC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Models\SaleDetailRecord.cswindows-1252Ë
+ÁC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Models\SaleEventRecord.csutf-8

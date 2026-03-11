@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>MicroServiceReports.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MicroServiceReports.Domain\MicroServiceReports.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="QuestPDF" Version="2025.12.0" />
+      <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
+    </ItemGroup>
+
+</Project>
