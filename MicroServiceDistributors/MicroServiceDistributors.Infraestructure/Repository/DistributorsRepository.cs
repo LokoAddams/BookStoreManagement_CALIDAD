@@ -189,7 +189,7 @@ namespace ServiceDistributors.Infrastructure.Repositories
             cmd.Parameters.Add(paramOffset);
 
 
-            using var reader = cmd.ExecuteReader();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             int colum_id_index = reader.GetOrdinal("id");
             int colum_name_index = reader.GetOrdinal("name");
