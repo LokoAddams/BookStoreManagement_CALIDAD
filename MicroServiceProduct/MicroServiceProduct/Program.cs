@@ -178,4 +178,4 @@ app.UseAuthorization();
 // Map controller routes (attribute routing)
 app.MapControllers().RequireAuthorization();
 
-app.Run();
+await app.RunAsync();

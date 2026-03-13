@@ -169,7 +169,7 @@ namespace MicroServiceProduct.Infraestructure.Repository
 
                     if (qty <= 0)
                     {
-                        error = $"Cantidad inválida ({qty}) para el producto '{productName}'";
+                        error = $"Cantidad invï¿½lida ({qty}) para el producto '{productName}'";
                         tx.Rollback();
                         return false;
                     }
@@ -242,9 +242,9 @@ namespace MicroServiceProduct.Infraestructure.Repository
                 {
                     Id = reader.GetGuid(reader.GetOrdinal("id")),
                     Name = reader.GetString(reader.GetOrdinal("name")),
-                    Description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description")),
-                    CategoryId = reader.IsDBNull(reader.GetOrdinal("category_id")) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal("category_id")),
-                    CategoryName = reader.IsDBNull(reader.GetOrdinal("category_name")) ? null : reader.GetString(reader.GetOrdinal("category_name")),
+                    Description = await reader.IsDBNullAsync(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description")),
+                    CategoryId = await reader.IsDBNullAsync(reader.GetOrdinal("category_id")) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal("category_id")),
+                    CategoryName = await reader.IsDBNullAsync(reader.GetOrdinal("category_name")) ? null : reader.GetString(reader.GetOrdinal("category_name")),
                     Price = reader.GetDecimal(reader.GetOrdinal("price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("stock")),
                     CreatedAt = reader.GetDateTime(reader.GetOrdinal("created_at"))

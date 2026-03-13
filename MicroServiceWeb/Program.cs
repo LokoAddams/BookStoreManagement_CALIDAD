@@ -137,4 +137,4 @@ app.MapGet("/api/reports/sale/{saleId}/pdf", async (Guid saleId, IHttpClientFact
 }).RequireAuthorization();
 
 app.MapRazorPages();
-app.Run();
+await app.RunAsync();
