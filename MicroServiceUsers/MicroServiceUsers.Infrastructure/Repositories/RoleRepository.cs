@@ -32,7 +32,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
                 {
                     Id = reader.GetGuid(0),
                     Name = reader.GetString(1),
-                    Description = reader.IsDBNull(2) ? null : reader.GetString(2)
+                    Description = await reader.IsDBNullAsync(2) ? null : reader.GetString(2)
                 });
             }
 
@@ -54,7 +54,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
                 {
                     Id = reader.GetGuid(0),
                     Name = reader.GetString(1),
-                    Description = reader.IsDBNull(2) ? null : reader.GetString(2)
+                    Description = await reader.IsDBNullAsync(2) ? null : reader.GetString(2)
                 };
             }
 
@@ -76,7 +76,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
                 {
                     Id = reader.GetGuid(0),
                     Name = reader.GetString(1),
-                    Description = reader.IsDBNull(2) ? null : reader.GetString(2)
+                    Description = await reader.IsDBNullAsync(2) ? null : reader.GetString(2)
                 };
             }
 

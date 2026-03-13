@@ -1,2 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\Services\IProductService.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\Services\ProductService.cs

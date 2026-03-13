@@ -1,4 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\MicroServiceReportsDbContext.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\SaleDetailRepositoryEf.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\SaleEventRepositoryEf.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Rabbit\SalesConfirmedBackgroundService.cs

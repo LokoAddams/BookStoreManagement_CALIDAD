@@ -1,1 +1,0 @@
-qRdC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales\MicroServiceSales.csprojòCSharp13

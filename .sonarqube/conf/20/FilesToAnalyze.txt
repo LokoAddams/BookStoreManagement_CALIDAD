@@ -1,3 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Application\DTOs\DistributorDto.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Application\Services\DistributorService.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Application\Services\ValidationException.cs

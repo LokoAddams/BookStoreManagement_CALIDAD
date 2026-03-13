@@ -1,1 +1,0 @@
-tRgC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\MicroServiceClient.csprojòCSharp13

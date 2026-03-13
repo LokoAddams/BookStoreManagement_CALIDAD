@@ -1,9 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Interfaces\IDataBase.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Interfaces\IDistributorRepository.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Interfaces\IDistributorService.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Models\Distributor.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Models\PageResult.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Results\Result.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Validations\DistributorValidation.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Validations\TextRules.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Domain\Validations\ValidationError.cs

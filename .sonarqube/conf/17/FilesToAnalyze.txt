@@ -1,5 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\DataBase\DataBaseConnection.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitConsumerForProduct.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitPublisher.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\CategoryRepository.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\ProductRepository.cs

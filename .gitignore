@@ -1,7 +1,9 @@
 # === General ===
 # Ignora artefactos de build y configuraciones locales, conserva solo c digo fuente necesario.
 
-# Compilaci n / Artefactos
+.sonarqube/
+
+# Compilaci�n / Artefactos
 bin/
 obj/
 **/bin/

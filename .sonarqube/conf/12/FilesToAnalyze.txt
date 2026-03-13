@@ -1,8 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\DTOs\AuthRequestDto.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\DTOs\AuthTokenDto.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\DTOs\ChangePasswordDto.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\DTOs\UserCreateDto.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\DTOs\UserReadDto.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\Facade\IUserFacade.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\Facade\UserFacade.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Application\Services\UserService.cs

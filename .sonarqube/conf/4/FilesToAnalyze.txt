@@ -1,4 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Models\SaleDetailRecord.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Models\SaleEventRecord.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleDetailRepository.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleEventRepository.cs

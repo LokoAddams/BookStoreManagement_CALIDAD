@@ -1,2 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Infraestructure\DataBase\DataBaseConnection.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors.Infraestructure\Repository\DistributorsRepository.cs

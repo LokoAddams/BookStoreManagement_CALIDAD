@@ -1,5 +1,0 @@
-﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\DataBase\DataBaseConnection.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitConsumerForSales.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitPublisher.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\Repositories\SalesRepository.cs
-C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\sql\20240101_add_denormalized_columns.sql

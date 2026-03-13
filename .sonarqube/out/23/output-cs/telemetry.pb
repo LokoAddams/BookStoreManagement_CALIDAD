@@ -1,1 +1,0 @@
-qRdC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\MicroServiceUsers.csprojòCSharp13

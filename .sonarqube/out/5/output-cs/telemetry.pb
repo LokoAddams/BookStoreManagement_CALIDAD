@@ -1,1 +1,0 @@
-[RNC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceWeb\MicroServiceWeb.csprojòCSharp13

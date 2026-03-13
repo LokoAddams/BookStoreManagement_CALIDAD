@@ -1,1 +1,0 @@
-wRjC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\MicroServiceProduct.csprojòCSharp13
