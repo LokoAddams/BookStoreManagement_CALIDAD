@@ -5,9 +5,9 @@
     {
       "tool": {
         "name": "Microsoft (R) Visual C# Compiler",
-        "version": "4.14.0.0",
-        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
-        "semanticVersion": "4.14.0",
+        "version": "5.0.0.0",
+        "fileVersion": "5.0.0-2.26119.110 (80d3e14f)",
+        "semanticVersion": "5.0.0",
         "language": "en-US"
       },
       "results": [
@@ -18,12 +18,33 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceDistributors/MicroServiceDistributors/appsettings.json",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/appsettings.json",
                 "region": {
-                  "startLine": 10,
-                  "startColumn": 42,
-                  "endLine": 10,
-                  "endColumn": 147
+                  "startLine": 17,
+                  "startColumn": 27,
+                  "endLine": 17,
+                  "endColumn": 146
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/appsettings.json",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 18,
+                  "endLine": 22,
+                  "endColumn": 23
                 }
               }
             }
@@ -39,11 +60,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceDistributors/MicroServiceDistributors/Controllers/WeatherForecastController.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Controllers/WeatherForecastController.cs",
                 "region": {
-                  "startLine": 16,
+                  "startLine": 14,
                   "startColumn": 61,
-                  "endLine": 16,
+                  "endLine": 14,
                   "endColumn": 68
                 }
               }
@@ -54,18 +75,104 @@
           }
         },
         {
-          "ruleId": "ASP0025",
-          "level": "note",
-          "message": "Use AddAuthorizationBuilder to register authorization services and construct policies",
+          "ruleId": "S6968",
+          "level": "warning",
+          "message": "Annotate this method with ProducesResponseType containing the return type for successful responses.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceDistributors/MicroServiceDistributors/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Controllers/SalesController.cs",
                 "region": {
-                  "startLine": 45,
-                  "startColumn": 1,
+                  "startLine": 41,
+                  "startColumn": 29,
+                  "endLine": 41,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Controllers/SalesController.cs",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 24,
                   "endLine": 50,
-                  "endColumn": 3
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Controllers/SalesController.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 20,
+                  "endLine": 66,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null
+            }
+          }
+        },
+        {
+          "ruleId": "S6968",
+          "level": "warning",
+          "message": "Annotate this method with ProducesResponseType containing the return type for successful responses.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Controllers/SalesController.cs",
+                "region": {
+                  "startLine": 81,
+                  "startColumn": 29,
+                  "endLine": 81,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Controllers/SalesController.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 24,
+                  "endLine": 86,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null
+            }
+          }
+        },
+        {
+          "ruleId": "S5122",
+          "level": "warning",
+          "message": "Make sure this permissive CORS policy is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Program.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 13,
+                  "endLine": 26,
+                  "endColumn": 37
                 }
               }
             }
@@ -81,11 +188,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceDistributors/MicroServiceDistributors/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceSales/MicroServiceSales/Program.cs",
                 "region": {
-                  "startLine": 103,
+                  "startLine": 48,
                   "startColumn": 1,
-                  "endLine": 103,
+                  "endLine": 48,
                   "endColumn": 10
                 }
               }
@@ -97,16 +204,6 @@
         }
       ],
       "rules": {
-        "ASP0025": {
-          "id": "ASP0025",
-          "shortDescription": "Use AddAuthorizationBuilder",
-          "defaultLevel": "note",
-          "helpUri": "https://aka.ms/aspnet/analyzers",
-          "properties": {
-            "category": "Usage",
-            "isEnabledByDefault": true
-          }
-        },
         "S2068": {
           "id": "S2068",
           "shortDescription": "Hard-coded credentials are security-sensitive",
@@ -140,6 +237,22 @@
             ]
           }
         },
+        "S5122": {
+          "id": "S5122",
+          "shortDescription": "Having a permissive Cross-Origin Resource Sharing policy is security-sensitive",
+          "fullDescription": "Having a permissive Cross-Origin Resource Sharing policy is security-sensitive. It has led in the past to the following vulnerabilities:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-5122",
+          "properties": {
+            "category": "Minor Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
         "S6966": {
           "id": "S6966",
           "shortDescription": "Awaitable method should be used",
@@ -153,6 +266,22 @@
               "C#",
               "MainSourceScope",
               "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6968": {
+          "id": "S6968",
+          "shortDescription": "Actions that return a value should be annotated with ProducesResponseTypeAttribute containing the return type",
+          "fullDescription": "In an ASP.NET Core Web API, controller actions can optionally return a result value. If a controller action returns a value in the happy path, for example ControllerBase.Ok(Object), annotating the action with one of the [ProducesResponseType] overloads that describe the type is recommended.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6968",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
               "SonarWay"
             ]
           }

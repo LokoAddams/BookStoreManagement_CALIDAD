@@ -1,5 +1,8 @@
-Ö
-˘C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Application.Tests\obj\Debug\net8.0\MicroServiceReports.Application.Tests.AssemblyInfo.csutf-8˛
-ÚC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Application.Tests\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8Ö
-zC:\Users\Lucas Alcoba\.nuget\packages\microsoft.net.test.sdk\17.10.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.csutf-8€
-—C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Application.Tests\GetSaleBySaleIdHandlerTests.csutf-8
+∞
+§C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\obj\Debug\net8.0\MicroServiceReports.Infraestructure.AssemblyInfo.csutf-8´
+üC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8≤
+¶C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\obj\Debug\net8.0\MicroServiceReports.Infraestructure.GlobalUsings.g.csutf-8ì
+âC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Rabbit\SalesConfirmedBackgroundService.csutf-8ï
+ÑC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\SaleEventRepositoryEf.cswindows-1252è
+ÖC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\SaleDetailRepositoryEf.csutf-8ï
+ãC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Infraestructure\Persistence\MicroServiceReportsDbContext.csutf-8

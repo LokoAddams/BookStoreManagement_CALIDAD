@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
-  <ProjectName>MicroServiceUsers</ProjectName>
+  <ProjectName>MicroServiceDistributors.API</ProjectName>
   <ProjectLanguage>C#</ProjectLanguage>
   <ProjectType>Product</ProjectType>
-  <ProjectGuid>920bcf38-4757-4bb1-bd33-4596707c62cb</ProjectGuid>
-  <FullPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\MicroServiceUsers.csproj</FullPath>
+  <ProjectGuid>f0fa2f83-d4ef-415c-8c75-f6f294e8c768</ProjectGuid>
+  <FullPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceDistributors\MicroServiceDistributors\MicroServiceDistributors.API.csproj</FullPath>
   <IsExcluded>false</IsExcluded>
   <AnalysisResultFiles>
-    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\24\FilesToAnalyze.txt" />
+    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\24\FilesToAnalyze.txt" />
   </AnalysisResultFiles>
   <AnalysisSettings>
-    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\24\Issues.json</Property>
-    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\24</Property>
-    <Property Name="sonar.cs.scanner.telemetry">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\24\Telemetry.json</Property>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\24\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\24</Property>
+    <Property Name="sonar.cs.scanner.telemetry">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\24\Telemetry.json</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>

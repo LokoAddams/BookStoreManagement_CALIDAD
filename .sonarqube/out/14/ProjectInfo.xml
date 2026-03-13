@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
-  <ProjectName>MicroServiceClient</ProjectName>
+  <ProjectName>MicroServiceSales.Infrastructure</ProjectName>
   <ProjectLanguage>C#</ProjectLanguage>
   <ProjectType>Product</ProjectType>
-  <ProjectGuid>cfc658fe-0175-4f0c-be65-1bf58778cb80</ProjectGuid>
-  <FullPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\MicroServiceClient.csproj</FullPath>
+  <ProjectGuid>3f3b2cbd-deae-67f1-2ff8-06fe70a27fca</ProjectGuid>
+  <FullPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\MicroServiceSales.Infrastructure.csproj</FullPath>
   <IsExcluded>false</IsExcluded>
   <AnalysisResultFiles>
-    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\14\FilesToAnalyze.txt" />
+    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\14\FilesToAnalyze.txt" />
   </AnalysisResultFiles>
   <AnalysisSettings>
-    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\14\Issues.json</Property>
-    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\14</Property>
-    <Property Name="sonar.cs.scanner.telemetry">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\14\Telemetry.json</Property>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\14\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\14</Property>
+    <Property Name="sonar.cs.scanner.telemetry">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\14\Telemetry.json</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>
-  <TargetFramework>net9.0</TargetFramework>
+  <TargetFramework>net8.0</TargetFramework>
 </ProjectInfo>

@@ -1,6 +1,9 @@
-Ù
-ËC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.MvcApplicationPartsAssemblyInfo.csutf-8·
-’C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.AssemblyInfo.csutf-8µ
-´C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\Program.csutf-8Ï
-‡C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8„
-◊C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.GlobalUsings.g.csutf-8
+´
+üC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8∞
+§C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\obj\Debug\net9.0\MicroServiceProduct.Infraestructure.AssemblyInfo.csutf-8≤
+¶C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\obj\Debug\net9.0\MicroServiceProduct.Infraestructure.GlobalUsings.g.csutf-8è
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\ProductRepository.cswindows-1252ä
+ÄC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\CategoryRepository.csutf-8Ö
+|C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitPublisher.csutf-8è
+ÖC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitConsumerForProduct.csutf-8á
+~C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\DataBase\DataBaseConnection.csutf-8

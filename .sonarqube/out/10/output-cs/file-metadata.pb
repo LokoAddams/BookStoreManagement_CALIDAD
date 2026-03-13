@@ -1,6 +1,6 @@
-ü
-ðC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\obj\Debug\net8.0\MicroServiceClient.Infrastructure.AssemblyInfo.csutf-8ù
-íC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8þ
-òC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\obj\Debug\net8.0\MicroServiceClient.Infrastructure.GlobalUsings.g.csutf-8Ø
-ÎC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\Repositories\ClientRepository.csutf-8Ö
-ÌC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\DataBase\DataBaseConnection.csutf-8
+¨
+œC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\obj\Debug\net9.0\MicroServiceProduct.Application.AssemblyInfo.csutf-8§
+›C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8ª
+žC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\obj\Debug\net9.0\MicroServiceProduct.Application.GlobalUsings.g.csutf-8
+vC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\Services\ProductService.csutf-8€
+wC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Application\Services\IProductService.csutf-8

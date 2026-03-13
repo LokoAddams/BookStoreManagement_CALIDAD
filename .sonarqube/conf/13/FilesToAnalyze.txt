@@ -1,1 +1,3 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Application\Services\SalesService.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Infrastructure\DataBase\DataBaseConnection.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Infrastructure\Repositories\ClientRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Infrastructure\sql\20251217_add_ci_to_clients.sql

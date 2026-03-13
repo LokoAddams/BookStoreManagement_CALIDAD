@@ -4,15 +4,15 @@
   <ProjectLanguage>C#</ProjectLanguage>
   <ProjectType>Product</ProjectType>
   <ProjectGuid>39a1bcb7-e46b-5340-7ded-41ab8afdb6d4</ProjectGuid>
-  <FullPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\MicroServiceReports.Domain.csproj</FullPath>
+  <FullPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\MicroServiceReports.Domain.csproj</FullPath>
   <IsExcluded>false</IsExcluded>
   <AnalysisResultFiles>
-    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\4\FilesToAnalyze.txt" />
+    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\4\FilesToAnalyze.txt" />
   </AnalysisResultFiles>
   <AnalysisSettings>
-    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\4\Issues.json</Property>
-    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\4</Property>
-    <Property Name="sonar.cs.scanner.telemetry">C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\4\Telemetry.json</Property>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\4\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\4</Property>
+    <Property Name="sonar.cs.scanner.telemetry">C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\4\Telemetry.json</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>

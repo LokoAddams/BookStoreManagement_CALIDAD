@@ -5,9 +5,9 @@
     {
       "tool": {
         "name": "Microsoft (R) Visual C# Compiler",
-        "version": "4.14.0.0",
-        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
-        "semanticVersion": "4.14.0",
+        "version": "5.0.0.0",
+        "fileVersion": "5.0.0-2.26119.110 (80d3e14f)",
+        "semanticVersion": "5.0.0",
         "language": "en-US"
       },
       "results": [
@@ -18,12 +18,12 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceUsers/MicroServiceUsers/appsettings.json",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceDistributors/MicroServiceDistributors/appsettings.json",
                 "region": {
                   "startLine": 10,
-                  "startColumn": 29,
+                  "startColumn": 42,
                   "endLine": 10,
-                  "endColumn": 124
+                  "endColumn": 147
                 }
               }
             }
@@ -33,18 +33,18 @@
           }
         },
         {
-          "ruleId": "S6418",
+          "ruleId": "S4487",
           "level": "warning",
-          "message": "\"ApiKey\" detected here, make sure this is not a hard-coded secret.",
+          "message": "Remove this unread private field '_logger' or refactor the code to use its value.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceUsers/MicroServiceUsers/appsettings.json",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceDistributors/MicroServiceDistributors/Controllers/WeatherForecastController.cs",
                 "region": {
-                  "startLine": 20,
-                  "startColumn": 18,
-                  "endLine": 20,
-                  "endColumn": 87
+                  "startLine": 16,
+                  "startColumn": 61,
+                  "endLine": 16,
+                  "endColumn": 68
                 }
               }
             }
@@ -54,48 +54,24 @@
           }
         },
         {
-          "ruleId": "CA1825",
+          "ruleId": "ASP0025",
           "level": "note",
-          "message": "Avoid unnecessary zero-length array allocations.  Use Array.Empty<string>() instead.",
+          "message": "Use AddAuthorizationBuilder to register authorization services and construct policies",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceUsers/MicroServiceUsers/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceDistributors/MicroServiceDistributors/Program.cs",
                 "region": {
-                  "startLine": 104,
-                  "startColumn": 13,
-                  "endLine": 104,
-                  "endColumn": 28
+                  "startLine": 45,
+                  "startColumn": 1,
+                  "endLine": 50,
+                  "endColumn": 3
                 }
               }
             }
           ],
           "properties": {
             "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1861",
-          "level": "note",
-          "message": "Prefer 'static readonly' fields over constant array arguments if the called method is called repeatedly and is not mutating the passed array",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceUsers/MicroServiceUsers/Program.cs",
-                "region": {
-                  "startLine": 104,
-                  "startColumn": 13,
-                  "endLine": 104,
-                  "endColumn": 28
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1,
-            "customProperties": {
-              "paramName": "value"
-            }
           }
         },
         {
@@ -105,11 +81,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceUsers/MicroServiceUsers/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceDistributors/MicroServiceDistributors/Program.cs",
                 "region": {
-                  "startLine": 135,
+                  "startLine": 103,
                   "startColumn": 1,
-                  "endLine": 135,
+                  "endLine": 103,
                   "endColumn": 10
                 }
               }
@@ -121,33 +97,14 @@
         }
       ],
       "rules": {
-        "CA1825": {
-          "id": "CA1825",
-          "shortDescription": "Avoid zero-length array allocations",
+        "ASP0025": {
+          "id": "ASP0025",
+          "shortDescription": "Use AddAuthorizationBuilder",
           "defaultLevel": "note",
-          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1825",
+          "helpUri": "https://aka.ms/aspnet/analyzers",
           "properties": {
-            "category": "Performance",
-            "isEnabledByDefault": true,
-            "tags": [
-              "Telemetry",
-              "EnabledRuleInAggressiveMode"
-            ]
-          }
-        },
-        "CA1861": {
-          "id": "CA1861",
-          "shortDescription": "Avoid constant arrays as arguments",
-          "fullDescription": "Constant arrays passed as arguments are not reused when called repeatedly, which implies a new array is created each time. Consider extracting them to 'static readonly' fields to improve performance if the passed array is not mutated within the called method.",
-          "defaultLevel": "note",
-          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1861",
-          "properties": {
-            "category": "Performance",
-            "isEnabledByDefault": true,
-            "tags": [
-              "Telemetry",
-              "EnabledRuleInAggressiveMode"
-            ]
+            "category": "Usage",
+            "isEnabledByDefault": true
           }
         },
         "S2068": {
@@ -166,18 +123,19 @@
             ]
           }
         },
-        "S6418": {
-          "id": "S6418",
-          "shortDescription": "Hard-coded secrets are security-sensitive",
-          "fullDescription": "Because it is easy to extract strings from an application source code or binary, secrets should not be hard-coded. This is particularly true for applications that are distributed or that are open-source.",
+        "S4487": {
+          "id": "S4487",
+          "shortDescription": "Unread \"private\" fields should be removed",
+          "fullDescription": "Private fields which are written but never read are a case of \"dead store\". Changing the value of such a field is useless and most probably indicates an error in the code.",
           "defaultLevel": "warning",
-          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6418",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4487",
           "properties": {
-            "category": "Blocker Security Hotspot",
+            "category": "Critical Code Smell",
             "isEnabledByDefault": true,
             "tags": [
               "C#",
               "MainSourceScope",
+              "TestSourceScope",
               "SonarWay"
             ]
           }

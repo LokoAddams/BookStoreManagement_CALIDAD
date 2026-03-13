@@ -1,4 +1,4 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Models\SaleDetailRecord.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Models\SaleEventRecord.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleDetailRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleEventRepository.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Models\SaleDetailRecord.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Models\SaleEventRecord.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleDetailRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Domain\Ports\ISaleEventRepository.cs

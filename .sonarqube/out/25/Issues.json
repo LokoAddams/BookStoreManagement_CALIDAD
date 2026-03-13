@@ -5,75 +5,12 @@
     {
       "tool": {
         "name": "Microsoft (R) Visual C# Compiler",
-        "version": "4.14.0.0",
-        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
-        "semanticVersion": "4.14.0",
+        "version": "5.0.0.0",
+        "fileVersion": "5.0.0-2.26119.110 (80d3e14f)",
+        "semanticVersion": "5.0.0",
         "language": "en-US"
       },
       "results": [
-        {
-          "ruleId": "S2068",
-          "level": "warning",
-          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/appsettings.json",
-                "region": {
-                  "startLine": 10,
-                  "startColumn": 29,
-                  "endLine": 10,
-                  "endColumn": 115
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "S2068",
-          "level": "warning",
-          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/appsettings.json",
-                "region": {
-                  "startLine": 11,
-                  "startColumn": 27,
-                  "endLine": 11,
-                  "endColumn": 127
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "S2068",
-          "level": "warning",
-          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/appsettings.json",
-                "region": {
-                  "startLine": 29,
-                  "startColumn": 18,
-                  "endLine": 29,
-                  "endColumn": 23
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
         {
           "ruleId": "S3776",
           "level": "warning",
@@ -81,7 +18,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 1,
                   "startColumn": 1,
@@ -94,7 +31,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 25,
                   "startColumn": 5,
@@ -105,7 +42,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 76,
                   "startColumn": 1,
@@ -116,7 +53,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 100,
                   "startColumn": 1,
@@ -127,7 +64,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 100,
                   "startColumn": 39,
@@ -138,7 +75,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 115,
                   "startColumn": 76,
@@ -149,7 +86,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 129,
                   "startColumn": 17,
@@ -160,7 +97,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 130,
                   "startColumn": 17,
@@ -171,7 +108,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 132,
                   "startColumn": 21,
@@ -182,7 +119,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 151,
                   "startColumn": 17,
@@ -193,7 +130,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 153,
                   "startColumn": 17,
@@ -204,7 +141,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 163,
                   "startColumn": 1,
@@ -232,13 +169,76 @@
           }
         },
         {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/appsettings.json",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 29,
+                  "endLine": 10,
+                  "endColumn": 115
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/appsettings.json",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 27,
+                  "endLine": 11,
+                  "endColumn": 127
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/appsettings.json",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 18,
+                  "endLine": 29,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "S1125",
           "level": "warning",
           "message": "Remove the unnecessary Boolean literal(s).",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 115,
                   "startColumn": 78,
@@ -259,7 +259,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 130,
                   "startColumn": 37,
@@ -272,7 +272,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 132,
                   "startColumn": 25,
@@ -296,7 +296,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 64,
                   "startColumn": 1,
@@ -317,7 +317,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/Lucas%20Alcoba/Documents/0.-Universidad/6.-SextoSemestre/arqui%20de%20software/BookstoreManagementSystemMicroServices/MicroServiceProduct/MicroServiceProduct/Program.cs",
+                "uri": "file:///C:/Users/USUARIO/Desktop/TAREAS/Calidad/MicroServiceProduct/MicroServiceProduct/Program.cs",
                 "region": {
                   "startLine": 181,
                   "startColumn": 1,

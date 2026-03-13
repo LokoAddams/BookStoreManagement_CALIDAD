@@ -1,5 +1,12 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\DataBase\DataBaseConnection.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitConsumerForSales.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitPublisher.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Repositories\SalesRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\sql\20240101_add_denormalized_columns.sql
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\Controllers\AuthDebugController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\Controllers\ClientController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\Controllers\WeatherForecastController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\Program.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\WeatherForecast.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.GlobalUsings.g.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.AssemblyInfo.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\appsettings.json
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\MicroServiceClient.http
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient\Properties\launchSettings.json

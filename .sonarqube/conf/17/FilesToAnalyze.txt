@@ -1,27 +1,5 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\Program.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.GlobalUsings.g.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.AssemblyInfo.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\appsettings.json
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\MicroServiceReports.http
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceReports\MicroServiceReports\Properties\launchSettings.json
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Black.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-BlackItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Bold.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-BoldItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraBold.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraBoldItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraLight.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraLightItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Italic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Light.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-LightItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Medium.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-MediumItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Regular.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-SemiBold.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-SemiBoldItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Thin.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ThinItalic.ttf
-C:\Users\Lucas Alcoba\.nuget\packages\questpdf\2025.12.0\LatoFont\OFL.txt
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\DataBase\DataBaseConnection.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitConsumerForProduct.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitPublisher.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\CategoryRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\ProductRepository.cs

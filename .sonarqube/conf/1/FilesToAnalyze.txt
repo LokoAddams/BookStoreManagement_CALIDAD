@@ -1,12 +1,12 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Interfaces\ICategoryRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Interfaces\IEventPublisher.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Interfaces\IProductRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Models\Category.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Models\PagedResult.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Models\Product.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Results\Result.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Services\IDataBase.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Validations\ProductValidation.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Validations\TextRules.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Validations\ValidationError.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Domain\Validations\ValidationException.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Interfaces\ICategoryRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Interfaces\IEventPublisher.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Interfaces\IProductRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Models\Category.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Models\PagedResult.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Models\Product.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Results\Result.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Services\IDataBase.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Validations\ProductValidation.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Validations\TextRules.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Validations\ValidationError.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct.Domain\Validations\ValidationException.cs

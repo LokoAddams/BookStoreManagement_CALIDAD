@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AnalysisConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
-  <SonarConfigDir>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf</SonarConfigDir>
-  <SonarOutputDir>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out</SonarOutputDir>
-  <SonarBinDir>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\bin</SonarBinDir>
-  <SonarScannerWorkingDirectory>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices</SonarScannerWorkingDirectory>
-  <JavaExePath>C:\Users\Lucas Alcoba\.sonar\cache\39c5e23f3ce4d420663afba8ffde28034b72e2b3e240943dc2321bc1f912eef9\OpenJDK21U-jre_x64_windows_hotspot_21.0.9_10.zip_extracted\jdk-21.0.9+10-jre\bin\java.exe</JavaExePath>
-  <EngineJarPath>C:\Users\Lucas Alcoba\.sonar\cache\6638ba85ce42e3932d84e2a6fa4e88da59fb6dc108749aa9079633593d82b651\sonar-scanner-engine-shaded-26.3.0.120487-all.jar</EngineJarPath>
+  <SonarConfigDir>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf</SonarConfigDir>
+  <SonarOutputDir>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out</SonarOutputDir>
+  <SonarBinDir>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\bin</SonarBinDir>
+  <SonarScannerWorkingDirectory>C:\Users\USUARIO\Desktop\TAREAS\Calidad</SonarScannerWorkingDirectory>
+  <JavaExePath>C:\Users\USUARIO\.sonar\cache\39c5e23f3ce4d420663afba8ffde28034b72e2b3e240943dc2321bc1f912eef9\OpenJDK21U-jre_x64_windows_hotspot_21.0.9_10.zip_extracted\jdk-21.0.9+10-jre\bin\java.exe</JavaExePath>
+  <EngineJarPath>C:\Users\USUARIO\.sonar\cache\6638ba85ce42e3932d84e2a6fa4e88da59fb6dc108749aa9079633593d82b651\sonar-scanner-engine-shaded-26.3.0.120487-all.jar</EngineJarPath>
   <UseSonarScannerCli>false</UseSonarScannerCli>
   <ScanAllAnalysis>true</ScanAllAnalysis>
   <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
@@ -18,8 +18,8 @@
     <ConfigSetting Id="TfsUri" />
     <ConfigSetting Id="VsCoverageConverterToolPath" />
     <ConfigSetting Id="UnchangedFilesPath" />
-    <ConfigSetting Id="sonar.pullrequest.cache.basepath" Value="C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices" />
-    <ConfigSetting Id="settings.file.path" Value="C:\Users\Lucas Alcoba\.dotnet\tools\.store\dotnet-sonarscanner\11.2.0\dotnet-sonarscanner\11.2.0\tools\netcoreapp3.1\any\SonarQube.Analysis.xml" />
+    <ConfigSetting Id="sonar.pullrequest.cache.basepath" Value="C:\Users\USUARIO\Desktop\TAREAS\Calidad" />
+    <ConfigSetting Id="settings.file.path" Value="C:\Users\USUARIO\.dotnet\tools\.store\dotnet-sonarscanner\11.2.0\dotnet-sonarscanner\11.2.0\tools\netcoreapp3.1\any\SonarQube.Analysis.xml" />
   </AdditionalConfig>
   <ServerSettings>
     <Property Name="sonar.cs.ignoreHeaderComments">true</Property>
@@ -150,8 +150,8 @@
     <Property Name="sonaranalyzer-vbnet.pluginKey">vbnet</Property>
     <Property Name="sonar.java.jvmframeworkconfig.activate">true</Property>
     <Property Name="sonar.updatecenter.url">https://downloads.sonarsource.com/sonarqube/update/update-center.properties</Property>
-    <Property Name="sonar.core.startTime">3/10/2026 12:25:03 PM</Property>
-    <Property Name="sonar.core.id">147B411E-AZzYkPvOr9sj0IOYNBLb</Property>
+    <Property Name="sonar.core.id">147B411E-AZzabSFWAFktXB3aEN_q</Property>
+    <Property Name="sonar.core.startTime">3/12/2026 10:54:11 PM</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
@@ -160,38 +160,38 @@
   <AnalyzersSettings>
     <AnalyzerSettings>
       <Language>cs</Language>
-      <RulesetPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\Sonar-cs.ruleset</RulesetPath>
-      <DeactivatedRulesetPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\Sonar-cs-none.ruleset</DeactivatedRulesetPath>
+      <RulesetPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\Sonar-cs.ruleset</RulesetPath>
+      <DeactivatedRulesetPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\Sonar-cs-none.ruleset</DeactivatedRulesetPath>
       <AnalyzerPlugins>
         <AnalyzerPlugin Key="csharp" Version="10.19.0.132793" StaticResourceName="SonarAnalyzer-csharp-10.19.0.132793.zip">
           <AssemblyPaths>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\0\SonarAnalyzer.CSharp.dll</Path>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\0\licenses\LICENSE.txt</Path>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\0\licenses\THIRD_PARTY_LICENSES\Google.Protobuf-LICENSE.txt</Path>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\0\licenses\THIRD_PARTY_LICENSES\StyleCop.Analyzers-LICENSE.txt</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\0\SonarAnalyzer.CSharp.dll</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\0\licenses\LICENSE.txt</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\0\licenses\THIRD_PARTY_LICENSES\Google.Protobuf-LICENSE.txt</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\0\licenses\THIRD_PARTY_LICENSES\StyleCop.Analyzers-LICENSE.txt</Path>
           </AssemblyPaths>
         </AnalyzerPlugin>
       </AnalyzerPlugins>
       <AdditionalFilePaths>
-        <Path>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\cs\SonarLint.xml</Path>
+        <Path>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\cs\SonarLint.xml</Path>
       </AdditionalFilePaths>
     </AnalyzerSettings>
     <AnalyzerSettings>
       <Language>vbnet</Language>
-      <RulesetPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\Sonar-vbnet.ruleset</RulesetPath>
-      <DeactivatedRulesetPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\Sonar-vbnet-none.ruleset</DeactivatedRulesetPath>
+      <RulesetPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\Sonar-vbnet.ruleset</RulesetPath>
+      <DeactivatedRulesetPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\Sonar-vbnet-none.ruleset</DeactivatedRulesetPath>
       <AnalyzerPlugins>
         <AnalyzerPlugin Key="vbnet" Version="10.19.0.132793" StaticResourceName="SonarAnalyzer-vbnet-10.19.0.132793.zip">
           <AssemblyPaths>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.dll</Path>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\1\licenses\LICENSE.txt</Path>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\1\licenses\THIRD_PARTY_LICENSES\Google.Protobuf-LICENSE.txt</Path>
-            <Path>C:\Users\Lucas Alcoba\AppData\Local\Temp\.sonarqube\resources\1\licenses\THIRD_PARTY_LICENSES\StyleCop.Analyzers-LICENSE.txt</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.dll</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\1\licenses\LICENSE.txt</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\1\licenses\THIRD_PARTY_LICENSES\Google.Protobuf-LICENSE.txt</Path>
+            <Path>C:\Users\USUARIO\AppData\Local\Temp\.sonarqube\resources\1\licenses\THIRD_PARTY_LICENSES\StyleCop.Analyzers-LICENSE.txt</Path>
           </AssemblyPaths>
         </AnalyzerPlugin>
       </AnalyzerPlugins>
       <AdditionalFilePaths>
-        <Path>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\vbnet\SonarLint.xml</Path>
+        <Path>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\vbnet\SonarLint.xml</Path>
       </AdditionalFilePaths>
     </AnalyzerSettings>
   </AnalyzersSettings>

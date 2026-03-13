@@ -1,8 +1,26 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\DTOs\AuthRequestDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\DTOs\AuthTokenDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\DTOs\ChangePasswordDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\DTOs\UserCreateDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\DTOs\UserReadDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\Facade\IUserFacade.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\Facade\UserFacade.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Application\Services\UserService.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application.Tests\GetSaleBySaleIdHandlerTests.cs
+C:\Users\USUARIO\.nuget\packages\microsoft.net.test.sdk\17.10.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
+C:\Users\USUARIO\.nuget\packages\microsoft.testplatform.testhost\17.10.0\build\netcoreapp3.1\x64\testhost.exe
+C:\Users\USUARIO\.nuget\packages\microsoft.testplatform.testhost\17.10.0\build\netcoreapp3.1\x64\testhost.dll
+C:\Users\USUARIO\.nuget\packages\xunit.runner.visualstudio\2.8.0\build\net6.0\xunit.runner.visualstudio.testadapter.dll
+C:\Users\USUARIO\.nuget\packages\xunit.runner.visualstudio\2.8.0\build\net6.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\USUARIO\.nuget\packages\xunit.runner.visualstudio\2.8.0\build\net6.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Black.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-BlackItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Bold.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-BoldItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraBold.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraBoldItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraLight.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraLightItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Italic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Light.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-LightItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Medium.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-MediumItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Regular.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-SemiBold.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-SemiBoldItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Thin.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ThinItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\OFL.txt

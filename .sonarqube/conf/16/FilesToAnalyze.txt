@@ -1,3 +1,27 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\DTOs\DistributorDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\Services\DistributorService.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\Services\ValidationException.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\Builders\ISalePdfBuilder.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\Builders\ProductLineItem.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\Builders\QuestPdfSaleBuilder.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\Builders\SalePdfDirector.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\DTOs\SaleConfirmedEventDto.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\Services\SalePdfGenerator.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\UseCases\GenerateSalePdfHandler.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports.Application\UseCases\GetSaleBySaleIdHandler.cs
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Black.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-BlackItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Bold.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-BoldItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraBold.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraBoldItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraLight.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ExtraLightItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Italic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Light.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-LightItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Medium.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-MediumItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Regular.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-SemiBold.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-SemiBoldItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-Thin.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\Lato-ThinItalic.ttf
+C:\Users\USUARIO\.nuget\packages\questpdf\2025.12.0\LatoFont\OFL.txt

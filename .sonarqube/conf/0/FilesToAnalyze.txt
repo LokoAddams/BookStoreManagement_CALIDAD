@@ -1,17 +1,10 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IDataBase.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IEmailService.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IJwtAuthService.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IPasswordGenerator.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IRoleRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\ITokenGenerator.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IUsernameGenerator.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IUserRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IUserService.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Models\PagedResult.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Models\Role.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Models\User.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Results\Result.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Validations\TextRules.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Validations\UserValidation.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Validations\ValidationError.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers.Domain\Validations\ValidationException.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Interfaces\IClientRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Interfaces\IClientService.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Interfaces\IDataBase.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Models\Client.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Models\PagedResult.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Results\Result.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Validations\ClientValidation.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Validations\TextRules.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Validations\ValidationError.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Domain\Validations\ValidationException.cs

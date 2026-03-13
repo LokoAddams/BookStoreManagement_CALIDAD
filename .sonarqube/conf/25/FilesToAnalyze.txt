@@ -1,11 +1,11 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Controllers\CategoriesController.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Controllers\HealthController.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Controllers\ProductsController.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Program.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.GlobalUsings.g.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.AssemblyInfo.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\appsettings.json
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\MicroServiceProduct.http
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct\Properties\launchSettings.json
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\Controllers\CategoriesController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\Controllers\HealthController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\Controllers\ProductsController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\Program.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.GlobalUsings.g.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.AssemblyInfo.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\obj\Debug\net9.0\MicroServiceProduct.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\appsettings.json
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\MicroServiceProduct.http
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceProduct\MicroServiceProduct\Properties\launchSettings.json

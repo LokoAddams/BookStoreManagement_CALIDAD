@@ -1,9 +1,17 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Interfaces\IDataBase.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Interfaces\IDistributorRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Interfaces\IDistributorService.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Models\Distributor.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Models\PageResult.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Results\Result.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Validations\DistributorValidation.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Validations\TextRules.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Domain\Validations\ValidationError.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IDataBase.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IEmailService.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IJwtAuthService.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IPasswordGenerator.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IRoleRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\ITokenGenerator.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IUsernameGenerator.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IUserRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Interfaces\IUserService.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Models\PagedResult.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Models\Role.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Models\User.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Results\Result.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Validations\TextRules.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Validations\UserValidation.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Validations\ValidationError.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers.Domain\Validations\ValidationException.cs

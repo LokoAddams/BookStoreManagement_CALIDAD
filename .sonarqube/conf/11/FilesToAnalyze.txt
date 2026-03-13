@@ -1,2 +1,1 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Infraestructure\DataBase\DataBaseConnection.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Infraestructure\Repository\DistributorsRepository.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceClient\MicroServiceClient.Application\Services\ClientService.cs

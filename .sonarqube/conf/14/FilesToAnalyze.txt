@@ -1,12 +1,5 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Controllers\AuthDebugController.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Controllers\ClientController.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Controllers\WeatherForecastController.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Program.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\WeatherForecast.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.GlobalUsings.g.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.AssemblyInfo.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\obj\Debug\net9.0\MicroServiceClient.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\appsettings.json
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\MicroServiceClient.http
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient\Properties\launchSettings.json
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\DataBase\DataBaseConnection.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitConsumerForSales.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitPublisher.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\Repositories\SalesRepository.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceSales\MicroServiceSales.Infrastructure\sql\20240101_add_denormalized_columns.sql

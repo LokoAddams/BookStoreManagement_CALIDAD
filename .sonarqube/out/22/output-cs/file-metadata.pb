@@ -1,6 +1,6 @@
-˘
-ÌC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Application\obj\Debug\net9.0\MicroServiceProduct.Application.AssemblyInfo.csutf-8¯
-ÏC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Application\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8˚
-ÔC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Application\obj\Debug\net9.0\MicroServiceProduct.Application.GlobalUsings.g.csutf-8—
-«C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Application\Services\ProductService.csutf-8“
-»C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Application\Services\IProductService.csutf-8
+£
+óC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.MvcApplicationPartsAssemblyInfo.csutf-8ê
+ÑC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.AssemblyInfo.csutf-8õ
+èC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8í
+ÜC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports\obj\Debug\net9.0\MicroServiceReports.GlobalUsings.g.csutf-8c
+ZC:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceReports\MicroServiceReports\Program.csutf-8

@@ -1,5 +1,12 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\DataBase\DataBaseConnection.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitConsumerForProduct.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Messaging\RabbitPublisher.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\CategoryRepository.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\Repository\ProductRepository.cs
+﻿C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\Controllers\AuthController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\Controllers\RoleController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\Controllers\UserController.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\Program.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\MicroServiceUsers.GlobalUsings.g.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\MicroServiceUsers.AssemblyInfo.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\MicroServiceUsers.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\appsettings.Development.json
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\appsettings.json
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\MicroServiceUsers.http
+C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\Properties\launchSettings.json

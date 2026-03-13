@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
-  <AnalysisConfigPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
-  <ProjectPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceProduct\MicroServiceProduct.Infraestructure\MicroServiceProduct.Infraestructure.csproj</ProjectPath>
-  <FilesToAnalyzePath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\conf\23\FilesToAnalyze.txt</FilesToAnalyzePath>
-  <OutPath>C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\.sonarqube\out\23</OutPath>
+  <AnalysisConfigPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
+  <ProjectPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\MicroServiceUsers\MicroServiceUsers\MicroServiceUsers.csproj</ProjectPath>
+  <FilesToAnalyzePath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\conf\23\FilesToAnalyze.txt</FilesToAnalyzePath>
+  <OutPath>C:\Users\USUARIO\Desktop\TAREAS\Calidad\.sonarqube\out\23</OutPath>
   <ProjectType>Product</ProjectType>
   <TargetFramework>net9.0</TargetFramework>
 </SonarProjectConfig>

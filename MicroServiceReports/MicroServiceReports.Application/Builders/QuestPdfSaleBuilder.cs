@@ -214,68 +214,61 @@ namespace MicroServiceReports.Application.Builders
             if (numero == 0) return "Cero";
             if (numero < 0) return "Menos " + ConvertirNumeroATexto(-numero);
 
-            string texto = "";
+            string resultado = "";
 
-            // Millones
-            if (numero >= 1000000)
-            {
-                int millones = numero / 1000000;
-                texto += (millones == 1 ? "Un Millón" : ConvertirNumeroATexto(millones) + " Millones");
-                numero %= 1000000;
-                if (numero > 0) texto += " ";
-            }
+            // Procesar bloques de magnitud
+            resultado = AgregarSeccion(resultado, ref numero, 1000000, "Un Millón", "Millones");
+            resultado = AgregarSeccion(resultado, ref numero, 1000, "Mil", "Mil");
+            resultado = ProcesarResto(resultado, numero);
 
-            // Miles
-            if (numero >= 1000)
-            {
-                int miles = numero / 1000;
-                texto += (miles == 1 ? "Mil" : ConvertirNumeroATexto(miles) + " Mil");
-                numero %= 1000;
-                if (numero > 0) texto += " ";
-            }
+            return resultado.Trim();
+        }
 
-            // Centenas
-            if (numero >= 100)
-            {
-                int centenas = numero / 100;
-                string[] nombresCentenas = { "", "Ciento", "Doscientos", "Trescientos", "Cuatrocientos", 
-                    "Quinientos", "Seiscientos", "Setecientos", "Ochocientos", "Novecientos" };
-                
-                if (numero == 100)
-                    texto += "Cien";
-                else
-                    texto += nombresCentenas[centenas];
-                
-                numero %= 100;
-                if (numero > 0) texto += " ";
-            }
+        private string AgregarSeccion(string texto, ref int numero, int divisor, string singular, string plural)
+        {
+            if (numero < divisor) return texto;
 
-            // Decenas y unidades
-            if (numero >= 20)
-            {
-                string[] decenas = { "", "", "Veinte", "Treinta", "Cuarenta", "Cincuenta", 
-                    "Sesenta", "Setenta", "Ochenta", "Noventa" };
-                int d = numero / 10;
-                int u = numero % 10;
-                
-                texto += decenas[d];
-                if (u > 0)
-                {
-                    texto += " y " + ConvertirUnidades(u);
-                }
-            }
-            else if (numero >= 10)
-            {
-                string[] especiales = { "Diez", "Once", "Doce", "Trece", "Catorce", "Quince", 
-                    "Dieciséis", "Diecisiete", "Dieciocho", "Diecinueve" };
-                texto += especiales[numero - 10];
-            }
-            else if (numero > 0)
-            {
-                texto += ConvertirUnidades(numero);
-            }
+            int cantidad = numero / divisor;
+            string prefijo = (cantidad == 1 && divisor >= 1000) ? singular : $"{ConvertirNumeroATexto(cantidad)} {plural}";
 
-            return texto.Trim();
+            numero %= divisor;
+            return $"{texto} {prefijo}".TrimStart();
+        }
+
+        private string ProcesarResto(string texto, int numero)
+        {
+            if (numero <= 0) return texto;
+
+            string sufijo = "";
+            if (numero >= 100) sufijo = ProcesarCentenas(ref numero);
+            else if (numero >= 20) sufijo = ProcesarDecenas(ref numero);
+            else sufijo = ProcesarEspeciales(numero);
+
+            return $"{texto} {sufijo}".TrimStart();
+        }
+
+        private string ProcesarCentenas(ref int numero)
+        {
+            if (numero == 100) return "Cien";
+            string[] nombres = { "", "Ciento", "Doscientos", "Trescientos", "Cuatrocientos", "Quinientos", "Seiscientos", "Setecientos", "Ochocientos", "Novecientos" };
+            int c = numero / 100;
+            numero %= 100;
+            return nombres[c];
+        }
+
+        private string ProcesarDecenas(ref int numero)
+        {
+            string[] decenas = { "", "", "Veinte", "Treinta", "Cuarenta", "Cincuenta", "Sesenta", "Setenta", "Ochenta", "Noventa" };
+            int d = numero / 10;
+            int u = numero % 10;
+            numero = 0; // Finalizar proceso
+            return u > 0 ? $"{decenas[d]} y {ConvertirUnidades(u)}" : decenas[d];
+        }
+
+        private string ProcesarEspeciales(int numero)
+        {
+            string[] especiales = { "Diez", "Once", "Doce", "Trece", "Catorce", "Quince", "Dieciséis", "Diecisiete", "Dieciocho", "Diecinueve" };
+            return numero >= 10 ? especiales[numero - 10] : ConvertirUnidades(numero);
         }
 
         private string ConvertirUnidades(int numero)
