@@ -1,8 +1,0 @@
-ù
-íC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\obj\Debug\net8.0\MicroServiceSales.Infrastructure.AssemblyInfo.csutf-8÷
-ëC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8û
-ïC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\obj\Debug\net8.0\MicroServiceSales.Infrastructure.GlobalUsings.g.csutf-8Õ
-ËC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Repositories\SalesRepository.csutf-8Ò
-ÈC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitPublisher.csutf-8Ù
-ÏC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\Messaging\RabbitConsumerForSales.csutf-8Ô
-ÊC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceSales\MicroServiceSales.Infrastructure\DataBase\DataBaseConnection.csutf-8

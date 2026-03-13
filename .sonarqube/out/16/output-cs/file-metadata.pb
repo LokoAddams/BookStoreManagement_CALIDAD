@@ -1,7 +1,0 @@
-ˆ
-üC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\obj\Debug\net8.0\MicroServiceDistributors.Application.AssemblyInfo.csutf-8‚
-öC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8Š
-þC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\obj\Debug\net8.0\MicroServiceDistributors.Application.GlobalUsings.g.csutf-8à
-ÖC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\Services\ValidationException.csutf-8ß
-ÕC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\Services\DistributorService.csutf-8×
-ÍC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\DTOs\DistributorDto.csutf-8

@@ -1,9 +1,0 @@
-î
-âC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\MicroServiceUsers.MvcApplicationPartsAssemblyInfo.csutf-8Û
-ÏC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\MicroServiceUsers.AssemblyInfo.csutf-8è
-ÜC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8Ý
-ÑC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\obj\Debug\net9.0\MicroServiceUsers.GlobalUsings.g.csutf-8±
-§C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\Program.csutf-8Ä
-ºC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\Controllers\UserController.csutf-8Ä
-ºC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\Controllers\RoleController.csutf-8Ä
-ºC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceUsers\MicroServiceUsers\Controllers\AuthController.csutf-8
