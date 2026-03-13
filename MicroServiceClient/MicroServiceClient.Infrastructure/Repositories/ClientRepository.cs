@@ -37,7 +37,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
 
         public async Task<int> CountAsync(CancellationToken ct = default)
         {
-            await using var conn = (NpgsqlConnection)_database.GetConnection();
+            await using var conn = _database.GetConnection();
             await using var cmd = new NpgsqlCommand("SELECT COUNT(*) FROM clients WHERE is_active = TRUE", conn);
             var count = await cmd.ExecuteScalarAsync(ct);
             return Convert.ToInt32(count);
@@ -80,7 +80,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             int colAddress = reader.GetOrdinal("address");
             int colCreatedAt = reader.GetOrdinal("created_at");
 
-            while (await ((NpgsqlDataReader)reader).ReadAsync(ct))
+            while (await (reader).ReadAsync(ct))
             {
                 clients.Add(new Client
                 {
@@ -233,7 +233,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
 
         public async Task<Client?> GetByCiAsync(string ci, CancellationToken ct = default)
         {
-            await using var conn = (NpgsqlConnection)_database.GetConnection();
+            await using var conn = _database.GetConnection();
             await using var cmd = new NpgsqlCommand("SELECT * FROM clients WHERE ci = @ci AND is_active = TRUE LIMIT 1", conn);
             cmd.Parameters.AddWithValue("@ci", ci);
 

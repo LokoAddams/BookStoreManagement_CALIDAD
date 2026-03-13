@@ -39,7 +39,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             param.Value = input;
             cmd.Parameters.Add(param);
 
-            await using var reader = await ((NpgsqlCommand)cmd).ExecuteReaderAsync(ct);
+            await using var reader = await cmd.ExecuteReaderAsync(ct);
             if (await reader.ReadAsync(ct))
             {
                 return MapUser(reader);
@@ -64,7 +64,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             param.Value = userId;
             cmd.Parameters.Add(param);
 
-            await using var reader = await ((NpgsqlCommand)cmd).ExecuteReaderAsync(ct);
+            await using var reader = await cmd.ExecuteReaderAsync(ct);
             while (await reader.ReadAsync(ct))
                 roles.Add(reader.GetString(0));
 
@@ -86,7 +86,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             param.Value = id;
             cmd.Parameters.Add(param);
 
-            await using var reader = await ((NpgsqlCommand)cmd).ExecuteReaderAsync(ct);
+            await using var reader = await cmd.ExecuteReaderAsync(ct);
             if (await reader.ReadAsync(ct))
             {
                 return MapUser(reader);
@@ -108,7 +108,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             await using var cmd = conn.CreateCommand();
             cmd.CommandText = sql;
             
-            await using var reader = await ((NpgsqlCommand)cmd).ExecuteReaderAsync(ct);
+            await using var reader = await cmd.ExecuteReaderAsync(ct);
             while (await reader.ReadAsync(ct))
             {
                 users.Add(MapUser(reader));
@@ -122,7 +122,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             await using var conn = _database.GetConnection();
             await using var cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT COUNT(*) FROM users WHERE is_active = TRUE";
-            var count = await ((NpgsqlCommand)cmd).ExecuteScalarAsync(ct);
+            var count = await cmd.ExecuteScalarAsync(ct);
             return Convert.ToInt32(count);
         }
 
@@ -154,7 +154,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             paramOffset.Value = offset;
             cmd.Parameters.Add(paramOffset);
 
-            await using var reader = await ((NpgsqlCommand)cmd).ExecuteReaderAsync(ct);
+            await using var reader = await cmd.ExecuteReaderAsync(ct);
             while (await reader.ReadAsync(ct))
             {
                 users.Add(MapUser(reader));
@@ -198,7 +198,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             AddParameter(cmd, "@isActive", user.IsActive);
             AddParameter(cmd, "@mustChange", user.MustChangePassword);
 
-            await ((NpgsqlCommand)cmd).ExecuteNonQueryAsync(ct);
+            await cmd.ExecuteNonQueryAsync(ct);
 
             foreach (var roleName in roles)
             {
@@ -207,7 +207,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
                                         SELECT @userId, r.id FROM roles r WHERE r.name = @roleName";
                 AddParameter(roleCmd, "@userId", newId);
                 AddParameter(roleCmd, "@roleName", roleName);
-                await ((NpgsqlCommand)roleCmd).ExecuteNonQueryAsync(ct);
+                await roleCmd.ExecuteNonQueryAsync(ct);
             }
         }
 
@@ -238,7 +238,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             AddParameter(cmd, "@isActive", user.IsActive);
             AddParameter(cmd, "@mustChange", user.MustChangePassword);
 
-            await ((NpgsqlCommand)cmd).ExecuteNonQueryAsync(ct);
+            await cmd.ExecuteNonQueryAsync(ct);
         }
 
         public async Task DeleteAsync(Guid id, CancellationToken ct = default)
@@ -247,7 +247,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             await using var cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE users SET is_active = FALSE WHERE id = @id";
             AddParameter(cmd, "@id", id);
-            await ((NpgsqlCommand)cmd).ExecuteNonQueryAsync(ct);
+            await cmd.ExecuteNonQueryAsync(ct);
         }
 
         public async Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword, CancellationToken ct = default)
@@ -273,7 +273,7 @@ namespace MicroServiceUsers.Infrastructure.Repositories
             AddParameter(cmd, "@id", userId);
             AddParameter(cmd, "@passwordHash", newPasswordHash);
 
-            var rowsAffected = await ((NpgsqlCommand)cmd).ExecuteNonQueryAsync(ct);
+            var rowsAffected = await cmd.ExecuteNonQueryAsync(ct);
             return rowsAffected > 0;
         }
 
