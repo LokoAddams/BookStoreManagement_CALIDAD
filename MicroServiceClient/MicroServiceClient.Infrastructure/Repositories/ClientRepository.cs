@@ -69,7 +69,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             paramOffset.Value = offset;
             cmd.Parameters.Add(paramOffset);
 
-            using var reader = cmd.ExecuteReader();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             int colId = reader.GetOrdinal("id");
             int colCi = reader.GetOrdinal("ci");
