@@ -129,4 +129,4 @@ app.MapGet("/health", () => Results.Ok(new { status = "healthy", service = "Micr
 .WithName("HealthCheck")
 .WithOpenApi();
 
-app.Run();
+await app.RunAsync();
