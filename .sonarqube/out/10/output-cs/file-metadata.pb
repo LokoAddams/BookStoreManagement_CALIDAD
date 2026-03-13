@@ -1,6 +1,0 @@
-ü
-ðC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\obj\Debug\net8.0\MicroServiceClient.Infrastructure.AssemblyInfo.csutf-8ù
-íC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8þ
-òC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\obj\Debug\net8.0\MicroServiceClient.Infrastructure.GlobalUsings.g.csutf-8Ø
-ÎC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\Repositories\ClientRepository.csutf-8Ö
-ÌC:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceClient\MicroServiceClient.Infrastructure\DataBase\DataBaseConnection.csutf-8

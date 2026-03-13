@@ -1,3 +1,0 @@
-﻿C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\DTOs\DistributorDto.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\Services\DistributorService.cs
-C:\Users\Lucas Alcoba\Documents\0.-Universidad\6.-SextoSemestre\arqui de software\BookstoreManagementSystemMicroServices\MicroServiceDistributors\MicroServiceDistributors.Application\Services\ValidationException.cs
