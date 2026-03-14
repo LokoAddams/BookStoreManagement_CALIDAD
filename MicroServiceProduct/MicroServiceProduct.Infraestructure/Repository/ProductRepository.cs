@@ -242,9 +242,9 @@ namespace MicroServiceProduct.Infraestructure.Repository
                 {
                     Id = reader.GetGuid(reader.GetOrdinal("id")),
                     Name = reader.GetString(reader.GetOrdinal("name")),
-                    Description = await reader.IsDBNullAsync(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description")),
-                    CategoryId = await reader.IsDBNullAsync(reader.GetOrdinal("category_id")) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal("category_id")),
-                    CategoryName = await reader.IsDBNullAsync(reader.GetOrdinal("category_name")) ? null : reader.GetString(reader.GetOrdinal("category_name")),
+                    Description = await reader.IsDBNullAsync(reader.GetOrdinal("description"), ct) ? null : reader.GetString(reader.GetOrdinal("description")),
+                    CategoryId = await reader.IsDBNullAsync(reader.GetOrdinal("category_id"), ct) ? Guid.Empty : reader.GetGuid(reader.GetOrdinal("category_id")),
+                    CategoryName = await reader.IsDBNullAsync(reader.GetOrdinal("category_name"), ct) ? null : reader.GetString(reader.GetOrdinal("category_name")),
                     Price = reader.GetDecimal(reader.GetOrdinal("price")),
                     Stock = reader.GetInt32(reader.GetOrdinal("stock")),
                     CreatedAt = reader.GetDateTime(reader.GetOrdinal("created_at"))
