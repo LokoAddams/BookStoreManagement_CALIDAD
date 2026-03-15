@@ -2,6 +2,8 @@
 # Ignora artefactos de build y configuraciones locales, conserva solo c digo fuente necesario.
 
 .sonarqube/
+./global.json
+./scan.bat
 
 # Compilaci�n / Artefactos
 bin/

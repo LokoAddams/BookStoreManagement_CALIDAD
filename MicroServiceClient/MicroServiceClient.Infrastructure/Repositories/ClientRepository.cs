@@ -3,6 +3,7 @@ using MicroServiceClient.Domain.Models;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -59,15 +60,8 @@ namespace MicroServiceClient.Infrastructure.Repositories
                                 ORDER BY last_name, first_name 
                                 LIMIT @limit OFFSET @offset";
 
-            var paramLimit = cmd.CreateParameter();
-            paramLimit.ParameterName = "@limit";
-            paramLimit.Value = pageSize;
-            cmd.Parameters.Add(paramLimit);
-
-            var paramOffset = cmd.CreateParameter();
-            paramOffset.ParameterName = "@offset";
-            paramOffset.Value = offset;
-            cmd.Parameters.Add(paramOffset);
+            AddParameter(cmd, "@limit", pageSize);
+            AddParameter(cmd, "@offset", offset);
 
             using var reader = await cmd.ExecuteReaderAsync();
 
@@ -110,10 +104,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT * FROM clients WHERE id = @id";
 
-            var paramId = cmd.CreateParameter();
-            paramId.ParameterName = "@id";
-            paramId.Value = id;
-            cmd.Parameters.Add(paramId);
+            AddParameter(cmd, "@id", id);
 
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
@@ -132,35 +123,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
                 INSERT INTO clients (ci, first_name, last_name, email, phone, address)
                 VALUES (@ci, @first_name, @last_name, @email, @phone, @address)";
 
-            var paramCi = cmd.CreateParameter();
-            paramCi.ParameterName = "@ci";
-            paramCi.Value = client.Ci;
-            cmd.Parameters.Add(paramCi);
-
-            var paramFirstName = cmd.CreateParameter();
-            paramFirstName.ParameterName = "@first_name";
-            paramFirstName.Value = client.FirstName;
-            cmd.Parameters.Add(paramFirstName);
-
-            var paramLastName = cmd.CreateParameter();
-            paramLastName.ParameterName = "@last_name";
-            paramLastName.Value = client.LastName;
-            cmd.Parameters.Add(paramLastName);
-
-            var paramEmail = cmd.CreateParameter();
-            paramEmail.ParameterName = "@email";
-            paramEmail.Value = client.Email ?? (object)DBNull.Value;
-            cmd.Parameters.Add(paramEmail);
-
-            var paramPhone = cmd.CreateParameter();
-            paramPhone.ParameterName = "@phone";
-            paramPhone.Value = client.Phone ?? (object)DBNull.Value;
-            cmd.Parameters.Add(paramPhone);
-
-            var paramAddress = cmd.CreateParameter();
-            paramAddress.ParameterName = "@address";
-            paramAddress.Value = client.Address ?? (object)DBNull.Value;
-            cmd.Parameters.Add(paramAddress);
+            AddClientParameters(cmd, client);
 
             cmd.ExecuteNonQuery();
         }
@@ -179,40 +142,8 @@ namespace MicroServiceClient.Infrastructure.Repositories
                     address = @address
                 WHERE id = @id";
 
-            var paramId = cmd.CreateParameter();
-            paramId.ParameterName = "@id";
-            paramId.Value = client.Id;
-            cmd.Parameters.Add(paramId);
-
-            var paramCi = cmd.CreateParameter();
-            paramCi.ParameterName = "@ci";
-            paramCi.Value = client.Ci;
-            cmd.Parameters.Add(paramCi);
-
-            var paramFirstName = cmd.CreateParameter();
-            paramFirstName.ParameterName = "@first_name";
-            paramFirstName.Value = client.FirstName;
-            cmd.Parameters.Add(paramFirstName);
-
-            var paramLastName = cmd.CreateParameter();
-            paramLastName.ParameterName = "@last_name";
-            paramLastName.Value = client.LastName;
-            cmd.Parameters.Add(paramLastName);
-
-            var paramEmail = cmd.CreateParameter();
-            paramEmail.ParameterName = "@email";
-            paramEmail.Value = client.Email ?? (object)DBNull.Value;
-            cmd.Parameters.Add(paramEmail);
-
-            var paramPhone = cmd.CreateParameter();
-            paramPhone.ParameterName = "@phone";
-            paramPhone.Value = client.Phone ?? (object)DBNull.Value;
-            cmd.Parameters.Add(paramPhone);
-
-            var paramAddress = cmd.CreateParameter();
-            paramAddress.ParameterName = "@address";
-            paramAddress.Value = client.Address ?? (object)DBNull.Value;
-            cmd.Parameters.Add(paramAddress);
+            AddParameter(cmd, "@id", client.Id);
+            AddClientParameters(cmd, client);
 
             cmd.ExecuteNonQuery();
         }
@@ -223,10 +154,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE clients SET is_active = FALSE WHERE id = @id";
 
-            var paramId = cmd.CreateParameter();
-            paramId.ParameterName = "@id";
-            paramId.Value = id;
-            cmd.Parameters.Add(paramId);
+            AddParameter(cmd, "@id", id);
 
             cmd.ExecuteNonQuery();
         }
@@ -235,7 +163,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
         {
             await using var conn = (NpgsqlConnection)_database.GetConnection();
             await using var cmd = new NpgsqlCommand("SELECT * FROM clients WHERE ci = @ci AND is_active = TRUE LIMIT 1", conn);
-            cmd.Parameters.AddWithValue("@ci", ci);
+            AddParameter(cmd, "@ci", ci);
 
             await using var reader = await cmd.ExecuteReaderAsync(ct);
             if (await reader.ReadAsync(ct))
@@ -253,26 +181,38 @@ namespace MicroServiceClient.Infrastructure.Repositories
             if (excludeId.HasValue)
             {
                 cmd.CommandText = "SELECT 1 FROM clients WHERE ci = @ci AND id <> @id AND is_active = TRUE LIMIT 1";
-                var pId = cmd.CreateParameter();
-                pId.ParameterName = "@id";
-                pId.Value = excludeId.Value;
-                cmd.Parameters.Add(pId);
+                AddParameter(cmd, "@id", excludeId.Value);
             }
             else
             {
                 cmd.CommandText = "SELECT 1 FROM clients WHERE ci = @ci AND is_active = TRUE LIMIT 1";
             }
 
-            var pCi = cmd.CreateParameter();
-            pCi.ParameterName = "@ci";
-            pCi.Value = ci;
-            cmd.Parameters.Add(pCi);
+            AddParameter(cmd, "@ci", ci);
 
             using var reader = cmd.ExecuteReader();
             return reader.Read();
         }
 
-        private static Client MapClient(System.Data.IDataReader reader)
+        private static void AddClientParameters(IDbCommand cmd, Client client)
+        {
+            AddParameter(cmd, "@ci", client.Ci);
+            AddParameter(cmd, "@first_name", client.FirstName);
+            AddParameter(cmd, "@last_name", client.LastName);
+            AddParameter(cmd, "@email", client.Email);
+            AddParameter(cmd, "@phone", client.Phone);
+            AddParameter(cmd, "@address", client.Address);
+        }
+
+        private static void AddParameter(IDbCommand cmd, string name, object? value)
+        {
+            var parameter = cmd.CreateParameter();
+            parameter.ParameterName = name;
+            parameter.Value = value ?? (object)DBNull.Value;
+            cmd.Parameters.Add(parameter);
+        }
+
+        private static Client MapClient(Npgsql.NpgsqlDataReader reader)
         {
             return new Client
             {

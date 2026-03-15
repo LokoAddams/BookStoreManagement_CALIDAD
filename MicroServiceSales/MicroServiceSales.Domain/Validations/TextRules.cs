@@ -6,8 +6,8 @@ namespace MicroServiceSales.Domain.Validations
 {
     public static class TextRules
     {
-        private static readonly Regex LettersOnly = new("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$", RegexOptions.Compiled);
-        private static readonly Regex LettersAndSpaces = new("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$", RegexOptions.Compiled);
+        private static readonly Regex LettersOnly = new("^[A-Za-zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+$", RegexOptions.Compiled);
+        private static readonly Regex LettersAndSpaces = new("^[A-Za-zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\s]+$", RegexOptions.Compiled);
         private static readonly Regex EmailPattern = new("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex SentenceCleaner = new("\\s+", RegexOptions.Compiled);
 

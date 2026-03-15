@@ -1,8 +1,20 @@
 @page
+@using System.Collections.Generic
+@using System.Text.Json
 @model LibraryWeb.Pages.Sales.IndexModel
 @{
     ViewData["Title"] = "Ventas";
     int startNumber = (Model.Page - 1) * Model.PageSize;
+    var statusMap = new Dictionary<string, (string, string)>
+    {
+        ["COMPLETED"] = ("bg-success", "Completada"),
+        ["PENDING"] = ("bg-warning text-dark", "Pendiente"),
+        ["CANCELLED"] = ("bg-danger", "Cancelada"),
+        ["REFUNDED"] = ("bg-info", "Reembolsada")
+    };
+    var statusMapJson = JsonSerializer.Serialize(statusMap.ToDictionary(
+        kvp => kvp.Key,
+        kvp => new { badge = kvp.Value.Item1, label = kvp.Value.Item2 }));
 }
 
 <div class="card shadow-custom">
@@ -39,7 +51,7 @@
             <table class="table table-striped table-hover table-bordered align-middle">
                 <thead>
                     <tr>
-                        <th class="th-blue">N°</th>
+                        <th class="th-blue">Nï¿½</th>
                         <th class="th-blue">Fecha</th>
                         <th class="th-blue">Cliente</th>
                         <th class="th-blue">CI-Cliente</th>
@@ -64,24 +76,15 @@
                             <td class="text-end fw-bold">Bs @sale.Total.ToString("N2")</td>
                             <td class="text-center">
                                 @{
-                                    var badgeClass = sale.Status switch
+                                    var statusKey = sale.Status ?? string.Empty;
+
+                                    if (!statusMap.TryGetValue(statusKey, out var statusInfo))
                                     {
-                                        "COMPLETED" => "bg-success",
-                                        "PENDING" => "bg-warning text-dark",
-                                        "CANCELLED" => "bg-danger",
-                                        "REFUNDED" => "bg-info",
-                                        _ => "bg-secondary"
-                                    };
-                                    var statusText = sale.Status switch
-                                    {
-                                        "COMPLETED" => "Completada",
-                                        "PENDING" => "Pendiente",
-                                        "CANCELLED" => "Cancelada",
-                                        "REFUNDED" => "Reembolsada",
-                                        _ => sale.Status
-                                    };
+                                        var label = string.IsNullOrWhiteSpace(statusKey) ? "-" : statusKey;
+                                        statusInfo = ("bg-secondary", label);
+                                    }
                                 }
-                                <span class="badge @badgeClass">@statusText</span>
+                                <span class="badge @statusInfo.Item1">@statusInfo.Item2</span>
                             </td>
                             @* <td class="text-center table-actions">
                                 <button type="button" class="btn btn-info btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#saleDetailModal" data-sale-id="@sale.Id">
@@ -105,12 +108,12 @@
             <div class="alert alert-info mb-0">No hay ventas registradas.</div>
         }
 
-        <!-- Paginación -->
+        <!-- Paginaciï¿½n -->
         @if (Model.TotalPages > 1)
         {
             <nav class="d-flex justify-content-between align-items-center mt-3">
                 <div class="text-muted small">
-                    Página @Model.Page de @Model.TotalPages
+                    Pï¿½gina @Model.Page de @Model.TotalPages
                 </div>
                 <ul class="pagination pagination-sm mb-0">
                     <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
@@ -147,7 +150,7 @@
                         </a>
                     </li>
                     <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
-                        <a class="page-link rounded-end-pill" asp-page="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-pageSize="@Model.PageSize" title="Última">
+                        <a class="page-link rounded-end-pill" asp-page="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-pageSize="@Model.PageSize" title="ï¿½ltima">
                             <i class="fas fa-angles-right"></i>
                         </a>
                     </li>
@@ -166,14 +169,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <div id="saleDetailContent">
-                    <div class="text-center py-4">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Cargando...</span>
-                        </div>
-                        <p class="mt-2 text-muted">Cargando detalles...</p>
-                    </div>
-                </div>
+                <div id="saleDetailContent"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -186,6 +182,22 @@
     <script>
         var salesApiUrl = '@Model.SalesApiUrl';
         var reportsApiUrl = '@Model.ReportsApiUrl';
+        const statusConfig = @Html.Raw(statusMapJson);
+        const defaultStatus = { badge: 'bg-secondary', label: '-' };
+        const getStatusBadge = (status) => {
+            const config = status ? statusConfig[status] : null;
+            const badge = config?.badge ?? defaultStatus.badge;
+            const label = config?.label ?? (status || defaultStatus.label);
+            return `<span class="badge ${badge}">${label}</span>`;
+        };
+        const loadingTemplate = `
+            <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+                <p class="mt-2 text-muted">Cargando detalles...</p>
+            </div>
+        `;
         
         const saleDetailModal = document.getElementById('saleDetailModal');
         saleDetailModal.addEventListener('show.bs.modal', function (event) {
@@ -194,27 +206,13 @@
             const contentDiv = document.getElementById('saleDetailContent');
             
             // Mostrar spinner
-            contentDiv.innerHTML = `
-                <div class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                    <p class="mt-2 text-muted">Cargando detalles...</p>
-                </div>
-            `;
+            contentDiv.innerHTML = loadingTemplate;
             
             // Cargar detalles de la venta
             fetch(salesApiUrl + '/api/sales/' + saleId)
                 .then(response => response.json())
                 .then(sale => {
-                    var statusBadge = '';
-                    switch (sale.status) {
-                        case 'COMPLETED': statusBadge = '<span class="badge bg-success">Completada</span>'; break;
-                        case 'PENDING': statusBadge = '<span class="badge bg-warning text-dark">Pendiente</span>'; break;
-                        case 'CANCELLED': statusBadge = '<span class="badge bg-danger">Cancelada</span>'; break;
-                        case 'REFUNDED': statusBadge = '<span class="badge bg-info">Reembolsada</span>'; break;
-                        default: statusBadge = '<span class="badge bg-secondary">' + sale.status + '</span>';
-                    }
+                    const statusBadge = getStatusBadge(sale.status);
                     
                     var detailsHtml = `
                         <div class="row mb-4">
