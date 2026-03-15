@@ -79,84 +79,96 @@ namespace MicroServiceReports.Infraestructure.Rabbit
 
         private async Task HandleMessageAsync(RabbitMQ.Client.Events.BasicDeliverEventArgs ea)
         {
-            var bodyBytes = ea.Body.ToArray();
-            var payload = Encoding.UTF8.GetString(bodyBytes, 0, bodyBytes.Length);
-            string saleId = string.Empty;
+            var payload = Encoding.UTF8.GetString(ea.Body.ToArray());
 
-            try
+            // 1. Extracción y Validación
+            string saleId = ExtractSaleId(payload);
+
+            if (string.IsNullOrEmpty(saleId))
             {
-                using var doc = JsonDocument.Parse(payload);
-                // Leer SaleId como string (GUID)
-                if (doc.RootElement.TryGetProperty("SaleId", out var saleIdProp))
-                {
-                    saleId = saleIdProp.GetString() ?? string.Empty;
-                }
-                // Fallback a minúscula por compatibilidad
-                else if (doc.RootElement.TryGetProperty("saleId", out var saleIdPropLower))
-                {
-                    if (saleIdPropLower.ValueKind == JsonValueKind.Number)
-                    {
-                        saleId = saleIdPropLower.GetInt64().ToString();
-                    }
-                    else
-                    {
-                        saleId = saleIdPropLower.GetString() ?? string.Empty;
-                    }
-                }
-                
-                if (string.IsNullOrEmpty(saleId))
-                {
-                    _logger.LogWarning("Received message without valid saleId, will nack and not requeue. DeliveryTag={DeliveryTag}", ea.DeliveryTag);
-                    // Permanent bad message - reject without requeue (send to DLX if configured)
-                    if (_channel != null) await _channel.BasicNackAsync(ea.DeliveryTag, false, false);
-                    return;
-                }
-            }
-            catch (JsonException jex)
-            {
-                _logger.LogError(jex, "Failed to parse incoming message JSON. DeliveryTag={DeliveryTag}", ea.DeliveryTag);
-                if (_channel != null) await _channel.BasicNackAsync(ea.DeliveryTag, false, false);
+                await TerminarConErrorPermanente(ea, "Missing or invalid saleId");
                 return;
             }
 
+            // 2. Procesamiento y Persistencia
+            await ProcesarMensajeAsync(ea, payload, saleId);
+        }
+
+        private string ExtractSaleId(string payload)
+        {
+            try
+            {
+                using var doc = JsonDocument.Parse(payload);
+                var root = doc.RootElement;
+
+                if (root.TryGetProperty("SaleId", out var prop)) return prop.GetString() ?? "";
+                if (root.TryGetProperty("saleId", out var propLower)) return GetJsonValueAsString(propLower);
+
+                return "";
+            }
+            catch (JsonException)
+            {
+                return "";
+            }
+        }
+
+        private string GetJsonValueAsString(JsonElement element)
+        {
+            return element.ValueKind == JsonValueKind.Number
+                ? element.GetInt64().ToString()
+                : element.GetString() ?? "";
+        }
+
+        private async Task ProcesarMensajeAsync(RabbitMQ.Client.Events.BasicDeliverEventArgs ea, string payload, string saleId)
+        {
             try
             {
                 using var scope = _scopeFactory.CreateScope();
-                var repo = scope.ServiceProvider.GetRequiredService<ISaleEventRepository>();
-                var detailRepo = scope.ServiceProvider.GetRequiredService<ISaleDetailRepository>();
+                await GuardarEnRepositorio(scope, ea, payload, saleId);
 
-                var record = new SaleEventRecord
-                {
-                    Id = Guid.NewGuid(),
-                    SaleId = (saleId),
-                    Payload = payload,
-                    Exchange = ea.Exchange,
-                    RoutingKey = ea.RoutingKey,
-                    ReceivedAt = DateTime.UtcNow
-                };
-
-                await repo.SaveAsync(record).ConfigureAwait(false);
-
-                // Extraer y guardar los detalles de productos
-                await SaveSaleDetailsAsync(payload, saleId, detailRepo).ConfigureAwait(false);
-
-                // ACK only after successful save
-                if (_channel != null) await _channel.BasicAckAsync(ea.DeliveryTag, false);
-                _logger.LogInformation("Message persisted and ACKed. SaleId={SaleId}, DeliveryTag={DeliveryTag}", saleId, ea.DeliveryTag);
+                await ConfirmarMensaje(ea.DeliveryTag);
+                _logger.LogInformation("Message persisted and ACKed. SaleId={SaleId}", saleId);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to persist message. DeliveryTag={DeliveryTag}, SaleId={SaleId}", ea.DeliveryTag, saleId);
-                // Transient error policy: NACK with requeue true to retry later
-                try
-                {
-                    if (_channel != null) await _channel.BasicNackAsync(ea.DeliveryTag, false, true);
-                }
-                catch (Exception nackEx)
-                {
-                    _logger.LogError(nackEx, "Failed to NACK message. DeliveryTag={DeliveryTag}", ea.DeliveryTag);
-                }
+                await ReintentarMensaje(ea, saleId, ex);
             }
+        }
+
+        private async Task GuardarEnRepositorio(IServiceScope scope, RabbitMQ.Client.Events.BasicDeliverEventArgs ea, string payload, string saleId)
+        {
+            var repo = scope.ServiceProvider.GetRequiredService<ISaleEventRepository>();
+            var detailRepo = scope.ServiceProvider.GetRequiredService<ISaleDetailRepository>();
+
+            var record = new SaleEventRecord
+            {
+                Id = Guid.NewGuid(),
+                SaleId = saleId,
+                Payload = payload,
+                Exchange = ea.Exchange,
+                RoutingKey = ea.RoutingKey,
+                ReceivedAt = DateTime.UtcNow
+            };
+
+            await repo.SaveAsync(record).ConfigureAwait(false);
+            await SaveSaleDetailsAsync(payload, saleId, detailRepo).ConfigureAwait(false);
+        }
+
+        private async Task ConfirmarMensaje(ulong deliveryTag)
+        {
+            if (_channel != null) await _channel.BasicAckAsync(deliveryTag, false);
+        }
+
+        private async Task TerminarConErrorPermanente(RabbitMQ.Client.Events.BasicDeliverEventArgs ea, string motivo)
+        {
+            _logger.LogWarning("{Motivo}, will nack and not requeue. Tag={Tag}", motivo, ea.DeliveryTag);
+            if (_channel != null) await _channel.BasicNackAsync(ea.DeliveryTag, false, false);
+        }
+
+        private async Task ReintentarMensaje(RabbitMQ.Client.Events.BasicDeliverEventArgs ea, string saleId, Exception ex)
+        {
+            _logger.LogError(ex, "Failed to persist. Requeuing. SaleId={SaleId}", saleId);
+            if (_channel != null) await _channel.BasicNackAsync(ea.DeliveryTag, false, true);
         }
 
         private async Task SaveSaleDetailsAsync(string payload, string saleId, ISaleDetailRepository detailRepo)
