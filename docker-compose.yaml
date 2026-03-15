@@ -13,6 +13,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data 
       - ./Scripts:/docker-entrypoint-initdb.d/
+      - ./inserts:/docker-entrypoint-initdb.d/inserts/
   
   rabbitmq:
     image: rabbitmq:3-management
