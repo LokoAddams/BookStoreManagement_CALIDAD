@@ -3,9 +3,9 @@
 
 .sonarqube/
 ./global.json
-./scan.bat
+/scan.bat
 
-# Compilaci�n / Artefactos
+# Compilacin / Artefactos
 bin/
 obj/
 **/bin/
