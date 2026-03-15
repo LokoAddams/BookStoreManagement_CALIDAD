@@ -28,51 +28,77 @@ namespace MicroServiceClient.Domain.Validations
 
         public static IEnumerable<ValidationError> Validate(Client c)
         {
-            var ci = TextRules.NormalizeSpaces(c.Ci).ToUpperInvariant();
+            // Agregamos los resultados de cada función pequeña
+            foreach (var error in ValidateCi(c.Ci)) yield return error;
+            foreach (var error in ValidateFirstName(c.FirstName)) yield return error;
+            foreach (var error in ValidateLastName(c.LastName)) yield return error;
+            foreach (var error in ValidateEmail(c.Email)) yield return error;
+            foreach (var error in ValidatePhone(c.Phone)) yield return error;
+            foreach (var error in ValidateAddress(c.Address)) yield return error;
+        }
+
+        private static IEnumerable<ValidationError> ValidateCi(string ciRaw)
+        {
+            var ci = TextRules.NormalizeSpaces(ciRaw).ToUpperInvariant();
             if (string.IsNullOrWhiteSpace(ci))
-                yield return new ValidationError(nameof(c.Ci), "El CI es obligatorio.");
+                yield return new ValidationError("Ci", "El CI es obligatorio.");
             else if (ci.Length > CiMaxLength)
-                yield return new ValidationError(nameof(c.Ci), $"El CI no debe superar {CiMaxLength} caracteres.");
+                yield return new ValidationError("Ci", $"El CI no debe superar {CiMaxLength} caracteres.");
             else if (!TextRules.IsValidBoliviaCi(ci))
-                yield return new ValidationError(nameof(c.Ci), "El CI debe contener solo números y una extensión válida opcional (p. ej. 1234567-CB).");
+                yield return new ValidationError("Ci", "El CI debe contener solo números y una extensión válida opcional (p. ej. 1234567-CB).");
+        }
 
-            var first = TextRules.NormalizeSpaces(c.FirstName);
+        private static IEnumerable<ValidationError> ValidateFirstName(string nameRaw)
+        {
+            var first = TextRules.NormalizeSpaces(nameRaw);
             if (string.IsNullOrWhiteSpace(first))
-                yield return new ValidationError(nameof(c.FirstName), "El nombre es obligatorio.");
+                yield return new ValidationError("FirstName", "El nombre es obligatorio.");
             else if (first.Contains(' '))
-                yield return new ValidationError(nameof(c.FirstName), "El nombre no debe contener espacios.");
+                yield return new ValidationError("FirstName", "El nombre no debe contener espacios.");
             else if (first.Length > FirstNameMaxLength)
-                yield return new ValidationError(nameof(c.FirstName), $"El nombre no debe superar {FirstNameMaxLength} caracteres.");
+                yield return new ValidationError("FirstName", $"El nombre no debe superar {FirstNameMaxLength} caracteres.");
             else if (!TextRules.IsValidLettersOnly(first))
-                yield return new ValidationError(nameof(c.FirstName), "El nombre solo puede contener letras.");
+                yield return new ValidationError("FirstName", "El nombre solo puede contener letras.");
+        }
 
-            var last = TextRules.NormalizeSpaces(c.LastName);
+        private static IEnumerable<ValidationError> ValidateLastName(string lastRaw)
+        {
+            var last = TextRules.NormalizeSpaces(lastRaw);
             if (string.IsNullOrWhiteSpace(last))
-                yield return new ValidationError(nameof(c.LastName), "El apellido es obligatorio.");
+                yield return new ValidationError("LastName", "El apellido es obligatorio.");
             else if (last.Length > LastNameMaxLength)
-                yield return new ValidationError(nameof(c.LastName), $"El apellido no debe superar {LastNameMaxLength} caracteres.");
+                yield return new ValidationError("LastName", $"El apellido no debe superar {LastNameMaxLength} caracteres.");
             else if (!TextRules.IsValidLettersAndSpaces(last))
-                yield return new ValidationError(nameof(c.LastName), "El apellido solo puede contener letras y espacios.");
+                yield return new ValidationError("LastName", "El apellido solo puede contener letras y espacios.");
+        }
 
-            var email = c.Email?.Trim();
+        private static IEnumerable<ValidationError> ValidateEmail(string emailRaw)
+        {
+            var email = emailRaw?.Trim();
             if (string.IsNullOrWhiteSpace(email))
-                yield return new ValidationError(nameof(c.Email), "El correo electrónico es obligatorio.");
+                yield return new ValidationError("Email", "El correo electrónico es obligatorio.");
             else if (email.Length > EmailMaxLength)
-                yield return new ValidationError(nameof(c.Email), $"El correo no debe superar {EmailMaxLength} caracteres.");
+                yield return new ValidationError("Email", $"El correo no debe superar {EmailMaxLength} caracteres.");
             else if (!TextRules.IsValidEmail(email))
-                yield return new ValidationError(nameof(c.Email), "Debe ingresar un correo electrónico válido.");
+                yield return new ValidationError("Email", "Debe ingresar un correo electrónico válido.");
+        }
 
-            var phone = TextRules.NormalizeSpaces(c.Phone);
+        private static IEnumerable<ValidationError> ValidatePhone(string phoneRaw)
+        {
+            var phone = TextRules.NormalizeSpaces(phoneRaw);
             if (string.IsNullOrWhiteSpace(phone))
-                yield return new ValidationError(nameof(c.Phone), "El número de teléfono es obligatorio.");
+                yield return new ValidationError("Phone", "El número de teléfono es obligatorio.");
             else if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d{8}$"))
-                yield return new ValidationError(nameof(c.Phone), "El número de teléfono debe tener exactamente 8 dígitos.");
+                yield return new ValidationError("Phone", "El número de teléfono debe tener exactamente 8 dígitos.");
+        }
 
-            var address = TextRules.NormalizeSpaces(c.Address);
+        private static IEnumerable<ValidationError> ValidateAddress(string addressRaw)
+        {
+            var address = TextRules.NormalizeSpaces(addressRaw);
             if (string.IsNullOrWhiteSpace(address))
-                yield return new ValidationError(nameof(c.Address), "La dirección es obligatoria.");
+                yield return new ValidationError("Address", "La dirección es obligatoria.");
             else if (address.Length > AddressMaxLength)
-                yield return new ValidationError(nameof(c.Address), $"La dirección no debe superar {AddressMaxLength} caracteres.");
+                yield return new ValidationError("Address", $"La dirección no debe superar {AddressMaxLength} caracteres.");
         }
 
         public static Result ValidateAsResult(Client c)
