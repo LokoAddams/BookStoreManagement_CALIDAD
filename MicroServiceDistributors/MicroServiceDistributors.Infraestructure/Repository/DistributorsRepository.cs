@@ -189,7 +189,7 @@ namespace ServiceDistributors.Infrastructure.Repositories
             cmd.Parameters.Add(paramOffset);
 
 
-            using var reader = cmd.ExecuteReader();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             int colum_id_index = reader.GetOrdinal("id");
             int colum_name_index = reader.GetOrdinal("name");
@@ -206,9 +206,9 @@ namespace ServiceDistributors.Infrastructure.Repositories
                 {
                     Id = reader.GetGuid(colum_id_index),
                     Name = reader.GetString(colum_name_index),
-                    ContactEmail = reader.IsDBNull(colum_contacEmail_index) ? null : reader.GetString(colum_contacEmail_index),
-                    Phone = reader.IsDBNull(colum_contacPhone_index) ? null : reader.GetString(colum_contacPhone_index),
-                    Address = reader.IsDBNull(colum_addres_index) ? null : reader.GetString(colum_addres_index),
+                    ContactEmail = await reader.IsDBNullAsync(colum_contacEmail_index) ? null : reader.GetString(colum_contacEmail_index),
+                    Phone = await reader.IsDBNullAsync(colum_contacPhone_index) ? null : reader.GetString(colum_contacPhone_index),
+                    Address = await reader.IsDBNullAsync(colum_addres_index) ? null : reader.GetString(colum_addres_index),
                     CreatedAt = reader.GetDateTime(colum_createAt_index)
                 });
             }

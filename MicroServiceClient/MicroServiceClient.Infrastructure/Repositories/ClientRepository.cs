@@ -63,7 +63,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             AddParameter(cmd, "@limit", pageSize);
             AddParameter(cmd, "@offset", offset);
 
-            using var reader = cmd.ExecuteReader();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             int colId = reader.GetOrdinal("id");
             int colCi = reader.GetOrdinal("ci");
@@ -79,12 +79,12 @@ namespace MicroServiceClient.Infrastructure.Repositories
                 clients.Add(new Client
                 {
                     Id = reader.GetGuid(colId),
-                    Ci = reader.IsDBNull(colCi) ? string.Empty : reader.GetString(colCi),
+                    Ci = await reader.IsDBNullAsync(colCi) ? string.Empty : reader.GetString(colCi),
                     FirstName = reader.GetString(colFirstName),
                     LastName = reader.GetString(colLastName),
-                    Email = reader.IsDBNull(colEmail) ? null : reader.GetString(colEmail),
-                    Phone = reader.IsDBNull(colPhone) ? null : reader.GetString(colPhone),
-                    Address = reader.IsDBNull(colAddress) ? null : reader.GetString(colAddress),
+                    Email = await reader.IsDBNullAsync(colEmail) ? null : reader.GetString(colEmail),
+                    Phone = await reader.IsDBNullAsync(colPhone) ? null : reader.GetString(colPhone),
+                    Address = await reader.IsDBNullAsync(colAddress) ? null : reader.GetString(colAddress),
                     CreatedAt = reader.GetDateTime(colCreatedAt)
                 });
             }

@@ -1,5 +1,5 @@
 # === General ===
-# Ignora artefactos de build y configuraciones locales, conserva solo c�digo fuente necesario.
+# Ignora artefactos de build y configuraciones locales, conserva solo c digo fuente necesario.
 
 .sonarqube/
 ./global.json
@@ -55,7 +55,7 @@ logs/
 # Launch settings locales
 **/Properties/launchSettings.json
 
-# S�mbolos
+# S mbolos
 *.pdb
 *.mdb
 
@@ -85,7 +85,7 @@ TestResults/
 *.7z
 *.gz
 
-# Logs y diagn�sticos
+# Logs y diagn sticos
 *.svclog
 *.etl
 
@@ -117,7 +117,7 @@ $RECYCLE.BIN/
 *.tlog
 *.out
 
-# Mantener c�digo fuente y archivos de proyecto
+# Mantener c digo fuente y archivos de proyecto
 !**/*.cs
 !**/*.csproj
 !**/*.sln
@@ -131,3 +131,7 @@ $RECYCLE.BIN/
 **/obj/
 [Bb]in/
 [Oo]bj/
+
+
+
+./sonar-project.properties
