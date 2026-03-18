@@ -131,6 +131,7 @@ namespace MicroServiceReports.Infraestructure.Rabbit
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Failed to parse and save sale details for SaleId={SaleId}", saleId);
                 await ReintentarMensaje(ea, saleId, ex);
             }
         }
@@ -267,10 +268,9 @@ namespace MicroServiceReports.Infraestructure.Rabbit
                     _logger.LogInformation("Saved {Count} sale details for SaleId={SaleId}", details.Count, saleId);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, "Failed to parse and save sale details for SaleId={SaleId}", saleId);
-                throw; // Re-throw para que el mensaje se reencole
+                 // Re-throw para que el mensaje se reencole en cath superior
             }
         }
 
