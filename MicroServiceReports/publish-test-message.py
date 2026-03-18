@@ -7,7 +7,7 @@ Requiere: pip install pika
 import pika
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
 def publish_test_sale(sale_id=123):
     # Conectar a RabbitMQ
@@ -23,7 +23,7 @@ def publish_test_sale(sale_id=123):
     # Crear mensaje de prueba
     message = {
         "saleId": sale_id,
-        "date": datetime.utcnow().isoformat() + "Z",
+        "date": datetime.now(timezone.utc).isoformat(),
         "user": "admin",
         "ci": "12345678",
         "client": "Juan Pérez",
