@@ -91,7 +91,12 @@ namespace MicroServiceWeb.External.Http
                             }
                             items.Add(dto);
                         } 
-                        catch { }
+                        catch (Exception)
+                        {
+                            // Se ignora intencionalmente la excepción de deserialización para este elemento.
+                            // Esto permite tolerancia a fallos: un producto mal formado en el JSON 
+                            // no detendrá la carga del resto de los elementos de la página.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
