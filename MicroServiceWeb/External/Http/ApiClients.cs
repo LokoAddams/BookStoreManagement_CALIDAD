@@ -568,7 +568,12 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora intencionalmente la excepción de parseo JSON.
+                    // Si el servidor de usuarios devuelve un cuerpo corrupto o HTML en lugar de JSON,
+                    // el método no falla y retorna el 'result' base de forma segura.
+                }
             }
             return result;
         }
