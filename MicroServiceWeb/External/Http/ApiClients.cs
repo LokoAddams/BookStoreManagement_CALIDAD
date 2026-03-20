@@ -302,7 +302,12 @@ namespace MicroServiceWeb.External.Http
                             }
                         }
                     }
-                    catch { }
+                    catch (System.Text.Json.JsonException)
+                    {
+                        // Se ignora el error de deserialización intencionalmente.
+                        // Si la API de ventas devuelve una respuesta que no es un JSON válido
+                        // mantenemos el estado HTTP en el objeto 'result' sin crashear.
+                    }
                 }
 
                 return result;
@@ -408,7 +413,12 @@ namespace MicroServiceWeb.External.Http
                             var pwdHash = el.TryGetProperty("passwordHash", out var phP) ? phP.GetString() ?? "" : "";
                             items.Add(new UserFullDto(id, username, email, firstName, middleName, lastName, mustChange, new List<string>(), pwdHash));
                         }
-                        catch { }
+                        catch (System.Text.Json.JsonException)
+                        {
+                            // Se ignora intencionalmente la excepción al parsear este usuario.
+                            // Si un elemento del JSON viene mal formado, simplemente lo saltamos 
+                            // para no interrumpir la carga del resto de la lista.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
