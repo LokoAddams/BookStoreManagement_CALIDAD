@@ -241,7 +241,11 @@ namespace MicroServiceWeb.External.Http
                             var dto = JsonSerializer.Deserialize<SaleDto>(el.GetRawText(), options);
                             if (dto != null) pagedItems.Add(dto);
                         }
-                        catch { }
+                        catch (System.Text.Json.JsonException)
+                        {
+                            // Se ignora el error de deserialización para evitar crashear la aplicación
+                            // en caso de que la API retorne un payload corrupto o no compatible.
+                        }
                     }
                 }
 
