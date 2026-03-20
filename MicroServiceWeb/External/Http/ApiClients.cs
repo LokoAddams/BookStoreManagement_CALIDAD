@@ -746,7 +746,13 @@ namespace MicroServiceWeb.External.Http
                             var dto = System.Text.Json.JsonSerializer.Deserialize<DistributorDto>(el.GetRawText(), options);
                             if (dto != null) items.Add(dto);
                         }
-                        catch { }
+                        catch (System.Text.Json.JsonException)
+                        {
+                            // Se ignora intencionalmente la excepción de deserialización.
+                            // Esta estrategia de tolerancia a fallos permite que, si un distribuidor 
+                            // específico en el JSON está corrupto, el proceso iterativo continúe 
+                            // construyendo la lista con los registros válidos restantes.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
