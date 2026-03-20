@@ -639,7 +639,12 @@ namespace MicroServiceWeb.External.Http
                             }
                             if (dto != null) items.Add(dto);
                         }
-                        catch { }
+                        catch (Exception)
+                        {
+                            // Se ignora intencionalmente la excepción al parsear este cliente.
+                            // Si el JSON de un cliente específico está corrupto, lo omitimos
+                            // para que la lista general se siga cargando correctamente.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
