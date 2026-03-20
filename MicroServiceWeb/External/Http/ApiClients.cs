@@ -687,7 +687,17 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora intencionalmente la excepción de parseo JSON.
+                    // Si el servidor falla y retorna un cuerpo HTML o corrupto en lugar de JSON,
+                    // evitamos que la aplicación colapse y retornamos el objeto 'result' base.
+                }
+                catch (System.Exception)
+                {
+                    // Captura de seguridad genérica en caso de que el stream falle a nivel de red
+                    // durante la lectura asíncrona, manteniendo el retorno seguro.
+                }
             }
             return result;
         }
