@@ -172,7 +172,11 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora el error de deserialización para evitar crashear la aplicación
+                    // en caso de que la API retorne un payload corrupto o no compatible.
+                }
             }
             return result;
         }
