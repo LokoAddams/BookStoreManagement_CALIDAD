@@ -33,7 +33,17 @@ namespace LibraryWeb.Pages.Distributors
             if (obj == null)
                 return RedirectToPage("Index");
 
-            Guid id = obj is Guid g ? g : (Guid.TryParse(obj.ToString(), out var p) ? p : Guid.Empty);
+            Guid id = Guid.Empty;
+
+            if (obj is Guid g)
+            {
+                id = g;
+            }
+            else if (obj != null && Guid.TryParse(obj.ToString(), out var p))
+            {
+                id = p;
+            }
+
             if (id == Guid.Empty)
                 return RedirectToPage("Index");
 
