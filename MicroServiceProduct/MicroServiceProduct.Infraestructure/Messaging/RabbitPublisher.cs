@@ -7,11 +7,12 @@ using RabbitMQ.Client;
 
 namespace MicroServiceProduct.Infraestructure.Messaging
 {
-    public class RabbitPublisher : IEventPublisher, IDisposable
+    public sealed class RabbitPublisher : IEventPublisher, IDisposable
     {
         private readonly IConnection _conn;
         private readonly IModel _channel;
         private readonly string _exchange;
+        private bool _disposed;
 
         public RabbitPublisher(IConfiguration cfg)
         {
@@ -30,6 +31,11 @@ namespace MicroServiceProduct.Infraestructure.Messaging
 
         public Task PublishAsync(string routingKey, object @event)
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(RabbitPublisher));
+            }
+
             var body = JsonSerializer.SerializeToUtf8Bytes(@event);
             var props = _channel.CreateBasicProperties();
             props.DeliveryMode = 2; // persistent
@@ -39,8 +45,15 @@ namespace MicroServiceProduct.Infraestructure.Messaging
 
         public void Dispose()
         {
+            if (_disposed)
+            {
+                return;
+            }
             _channel?.Dispose();
             _conn?.Dispose();
+
+            _disposed = true;
+            GC.SuppressFinalize(this);
         }
     }
 }
