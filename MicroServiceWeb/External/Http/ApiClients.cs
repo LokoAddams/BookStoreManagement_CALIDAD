@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,30 @@ using System.Threading.Tasks;
 
 namespace MicroServiceWeb.External.Http
 {
+
+
+    
+
     public class ProductsApiClient : IProductsApiClient
     {
         private readonly HttpClient _http;
         private static readonly JsonSerializerOptions CamelCaseOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         public ProductsApiClient(IHttpClientFactory f)=>_http=f.CreateClient("ProductsService");
+
+        private static string? GetCategoryName(JsonElement el)
+        {
+            if (el.TryGetProperty("categoryName", out var cnP))
+            {
+                return cnP.GetString();
+            }
+
+            if (el.TryGetProperty("category_name", out var cnSnake))
+            {
+                return cnSnake.GetString();
+            }
+
+            return null;
+        }
         public async Task<IReadOnlyList<ProductDto>> GetAllAsync(CancellationToken ct)
         {
             var resp = await _http.GetAsync("api/products", ct);
@@ -40,7 +60,7 @@ namespace MicroServiceWeb.External.Http
                         Guid catId = Guid.Empty;
                         if (el.TryGetProperty("categoryId", out var cidP)) Guid.TryParse(cidP.GetString(), out catId);
                         else if (el.TryGetProperty("category_id", out var cidSnake) && cidSnake.ValueKind == JsonValueKind.String) Guid.TryParse(cidSnake.GetString(), out catId);
-                        var catName = el.TryGetProperty("categoryName", out var cnP) ? cnP.GetString() : (el.TryGetProperty("category_name", out var cnSnake) ? cnSnake.GetString() : null);
+                        var catName = GetCategoryName(el);
                         var price = el.TryGetProperty("price", out var prP) && prP.TryGetDecimal(out var prVal) ? prVal : 0m;
                         var stock = el.TryGetProperty("stock", out var stP) && stP.TryGetInt32(out var stVal) ? stVal : 0;
                         if (id != Guid.Empty)
@@ -84,7 +104,7 @@ namespace MicroServiceWeb.External.Http
                                 Guid catId = Guid.Empty;
                                 if (el.TryGetProperty("categoryId", out var cidP)) Guid.TryParse(cidP.GetString(), out catId);
                                 else if (el.TryGetProperty("category_id", out var cidSnake) && cidSnake.ValueKind == JsonValueKind.String) Guid.TryParse(cidSnake.GetString(), out catId);
-                                var catName = el.TryGetProperty("categoryName", out var cnP) ? cnP.GetString() : (el.TryGetProperty("category_name", out var cnSnake) ? cnSnake.GetString() : null);
+                                var catName = GetCategoryName(el);
                                 var price = el.TryGetProperty("price", out var prP) && prP.TryGetDecimal(out var prVal) ? prVal : 0m;
                                 var stock = el.TryGetProperty("stock", out var stP) && stP.TryGetInt32(out var stVal) ? stVal : 0;
                                 dto = new ProductDto(id, name, desc, catId, catName, price, stock);
@@ -129,7 +149,7 @@ namespace MicroServiceWeb.External.Http
                 Guid catId = Guid.Empty;
                 if (el.TryGetProperty("categoryId", out var cidP)) Guid.TryParse(cidP.GetString(), out catId);
                 else if (el.TryGetProperty("category_id", out var cidSnake) && cidSnake.ValueKind == JsonValueKind.String) Guid.TryParse(cidSnake.GetString(), out catId);
-                var catName = el.TryGetProperty("categoryName", out var cnP) ? cnP.GetString() : (el.TryGetProperty("category_name", out var cnSnake) ? cnSnake.GetString() : null);
+                var catName = GetCategoryName(el);
                 var price = el.TryGetProperty("price", out var prP) && prP.TryGetDecimal(out var prVal) ? prVal : 0m;
                 var stock = el.TryGetProperty("stock", out var stP) && stP.TryGetInt32(out var stVal) ? stVal : 0;
                 return pid == Guid.Empty ? null : new ProductDto(pid, name, desc, catId, catName, price, stock);
