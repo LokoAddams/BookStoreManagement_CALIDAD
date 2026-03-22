@@ -193,7 +193,16 @@ namespace MicroServiceProduct.Infraestructure.Repository
             }
             catch (Exception ex)
             {
-                try { tx.Rollback(); } catch { }
+                try 
+                { 
+                    tx.Rollback(); 
+                } 
+                catch (Exception rollbackEx) 
+                { 
+                    // Se ignora intencionalmente el error del rollback 
+                    // para no enmascarar la excepción principal (ex).
+                }
+                
                 error = ex.Message;
                 return false;
             }
