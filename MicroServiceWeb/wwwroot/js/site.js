@@ -141,7 +141,7 @@
                 var start = upper.startsWith('NRO') ? (endsWithDot ? 4 : 3) : (upper.startsWith('NO') ? (endsWithDot ? 3 : 2) : (endsWithDot ? 2 : 1));
                 var rest = raw.substring(start);
                 if (rest.length > 0){ if (!/^\d+$/.test(rest)) return false; else continue; }
-                if (i+1 < tokens.length && /^\d+$/.test(tokens[i+1])) { i++; continue; }
+                if (i + 1 < tokens.length && /^\d+$/.test(tokens[i + 1])) { continue;}
                 return false;
             }
             if (/^\d+$/.test(t)) continue;
