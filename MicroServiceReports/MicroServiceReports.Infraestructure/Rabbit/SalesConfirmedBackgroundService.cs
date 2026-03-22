@@ -172,105 +172,98 @@ namespace MicroServiceReports.Infraestructure.Rabbit
             if (_channel != null) await _channel.BasicNackAsync(ea.DeliveryTag, false, true);
         }
 
+        public static class JsonHelper
+        {
+            // Obtiene un string buscando en varias opciones de nombre (case-insensitive)
+            public static string GetString(JsonElement el, params string[] names)
+            {
+                foreach (var name in names)
+                {
+                    if (el.TryGetProperty(name, out var prop))
+                        return prop.GetString() ?? string.Empty;
+                }
+                return string.Empty;
+            }
+
+            // Obtiene un Int buscando en varias opciones
+            public static int GetInt(JsonElement el, params string[] names)
+            {
+                foreach (var name in names)
+                {
+                    if (el.TryGetProperty(name, out var prop))
+                        return prop.GetInt32();
+                }
+                return 0;
+            }
+
+            // Obtiene un Decimal buscando en varias opciones
+            public static decimal GetDecimal(JsonElement el, params string[] names)
+            {
+                foreach (var name in names)
+                {
+                    if (el.TryGetProperty(name, out var prop))
+                        return prop.GetDecimal();
+                }
+                return 0m;
+            }
+
+            // Intenta obtener un elemento (como el array de productos)
+            public static bool TryGetElement(JsonElement el, out JsonElement result, params string[] names)
+            {
+                foreach (var name in names)
+                {
+                    if (el.TryGetProperty(name, out result)) return true;
+                }
+                result = default;
+                return false;
+            }
+        }
+
         private async Task SaveSaleDetailsAsync(string payload, string saleId, ISaleDetailRepository detailRepo)
         {
             try
             {
                 using var doc = JsonDocument.Parse(payload);
-                var root = doc.RootElement;
 
-                // Buscar la propiedad Products (puede ser "Products" o "products")
-                JsonElement productsElement;
-                if (!root.TryGetProperty("Products", out productsElement))
+                // 1. Buscar el array de productos de forma limpia
+                if (!JsonHelper.TryGetElement(doc.RootElement, out var productsElement, "Products", "products")
+                    || productsElement.ValueKind != JsonValueKind.Array)
                 {
-                    if (!root.TryGetProperty("products", out productsElement))
-                    {
-                        _logger.LogWarning("No Products array found in message for SaleId={SaleId}", saleId);
-                        return;
-                    }
-                }
-
-                if (productsElement.ValueKind != JsonValueKind.Array)
-                {
-                    _logger.LogWarning("Products is not an array for SaleId={SaleId}", saleId);
+                    _logger.LogWarning("No valid Products array found for SaleId={SaleId}", saleId);
                     return;
                 }
 
                 var details = new List<SaleDetailRecord>();
                 var now = DateTime.UtcNow;
 
+                // 2. Mapeo simplificado
                 foreach (var product in productsElement.EnumerateArray())
                 {
                     var detail = new SaleDetailRecord
                     {
                         Id = Guid.NewGuid(),
                         SaleId = saleId,
-                        CreatedAt = now
+                        CreatedAt = now,
+                        ProductId = JsonHelper.GetString(product, "ProductId", "productId"),
+                        ProductName = JsonHelper.GetString(product, "Name", "name", "ProductName", "productName"),
+                        Quantity = JsonHelper.GetInt(product, "Quantity", "quantity"),
+                        UnitPrice = JsonHelper.GetDecimal(product, "UnitPrice", "unitPrice")
                     };
 
-                    // ProductId
-                    if (product.TryGetProperty("ProductId", out var productIdProp))
-                    {
-                        detail.ProductId = productIdProp.GetString() ?? string.Empty;
-                    }
-                    else if (product.TryGetProperty("productId", out var productIdLower))
-                    {
-                        detail.ProductId = productIdLower.GetString() ?? string.Empty;
-                    }
-
-                    // ProductName / Name
-                    if (product.TryGetProperty("Name", out var nameProp))
-                    {
-                        detail.ProductName = nameProp.GetString() ?? string.Empty;
-                    }
-                    else if (product.TryGetProperty("name", out var nameLower))
-                    {
-                        detail.ProductName = nameLower.GetString() ?? string.Empty;
-                    }
-                    else if (product.TryGetProperty("ProductName", out var productNameProp))
-                    {
-                        detail.ProductName = productNameProp.GetString() ?? string.Empty;
-                    }
-                    else if (product.TryGetProperty("productName", out var productNameLower))
-                    {
-                        detail.ProductName = productNameLower.GetString() ?? string.Empty;
-                    }
-
-                    // Quantity
-                    if (product.TryGetProperty("Quantity", out var quantityProp))
-                    {
-                        detail.Quantity = quantityProp.GetInt32();
-                    }
-                    else if (product.TryGetProperty("quantity", out var quantityLower))
-                    {
-                        detail.Quantity = quantityLower.GetInt32();
-                    }
-
-                    // UnitPrice
-                    if (product.TryGetProperty("UnitPrice", out var unitPriceProp))
-                    {
-                        detail.UnitPrice = unitPriceProp.GetDecimal();
-                    }
-                    else if (product.TryGetProperty("unitPrice", out var unitPriceLower))
-                    {
-                        detail.UnitPrice = unitPriceLower.GetDecimal();
-                    }
-
-                    // Calcular Subtotal
                     detail.Subtotal = detail.UnitPrice * detail.Quantity;
-
                     details.Add(detail);
                 }
 
                 if (details.Count > 0)
                 {
                     await detailRepo.SaveManyAsync(details).ConfigureAwait(false);
-                    _logger.LogInformation("Saved {Count} sale details for SaleId={SaleId}", details.Count, saleId);
+                    _logger.LogInformation("Saved {Count} details for SaleId={SaleId}", details.Count, saleId);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                 // Re-throw para que el mensaje se reencole en cath superior
+                _logger.LogError(ex, "Error processing sale details for SaleId={SaleId}", saleId);
+                throw; 
             }
         }
 
