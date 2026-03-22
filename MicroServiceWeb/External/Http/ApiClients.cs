@@ -111,7 +111,12 @@ namespace MicroServiceWeb.External.Http
                             }
                             items.Add(dto);
                         } 
-                        catch { }
+                        catch (Exception)
+                        {
+                            // Se ignora intencionalmente la excepción de deserialización para este elemento.
+                            // Esto permite tolerancia a fallos: un producto mal formado en el JSON 
+                            // no detendrá la carga del resto de los elementos de la página.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
@@ -187,7 +192,11 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora el error de deserialización para evitar crashear la aplicación
+                    // en caso de que la API retorne un payload corrupto o no compatible.
+                }
             }
             return result;
         }
@@ -252,7 +261,11 @@ namespace MicroServiceWeb.External.Http
                             var dto = JsonSerializer.Deserialize<SaleDto>(el.GetRawText(), options);
                             if (dto != null) pagedItems.Add(dto);
                         }
-                        catch { }
+                        catch (System.Text.Json.JsonException)
+                        {
+                            // Se ignora el error de deserialización para evitar crashear la aplicación
+                            // en caso de que la API retorne un payload corrupto o no compatible.
+                        }
                     }
                 }
 
@@ -309,7 +322,12 @@ namespace MicroServiceWeb.External.Http
                             }
                         }
                     }
-                    catch { }
+                    catch (System.Text.Json.JsonException)
+                    {
+                        // Se ignora el error de deserialización intencionalmente.
+                        // Si la API de ventas devuelve una respuesta que no es un JSON válido
+                        // mantenemos el estado HTTP en el objeto 'result' sin crashear.
+                    }
                 }
 
                 return result;
@@ -415,7 +433,12 @@ namespace MicroServiceWeb.External.Http
                             var pwdHash = el.TryGetProperty("passwordHash", out var phP) ? phP.GetString() ?? "" : "";
                             items.Add(new UserFullDto(id, username, email, firstName, middleName, lastName, mustChange, new List<string>(), pwdHash));
                         }
-                        catch { }
+                        catch (System.Text.Json.JsonException)
+                        {
+                            // Se ignora intencionalmente la excepción al parsear este usuario.
+                            // Si un elemento del JSON viene mal formado, simplemente lo saltamos 
+                            // para no interrumpir la carga del resto de la lista.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
@@ -565,7 +588,12 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora intencionalmente la excepción de parseo JSON.
+                    // Si el servidor de usuarios devuelve un cuerpo corrupto o HTML en lugar de JSON,
+                    // el método no falla y retorna el 'result' base de forma segura.
+                }
             }
             return result;
         }
@@ -631,7 +659,12 @@ namespace MicroServiceWeb.External.Http
                             }
                             if (dto != null) items.Add(dto);
                         }
-                        catch { }
+                        catch (Exception)
+                        {
+                            // Se ignora intencionalmente la excepción al parsear este cliente.
+                            // Si el JSON de un cliente específico está corrupto, lo omitimos
+                            // para que la lista general se siga cargando correctamente.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
@@ -674,7 +707,17 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora intencionalmente la excepción de parseo JSON.
+                    // Si el servidor falla y retorna un cuerpo HTML o corrupto en lugar de JSON,
+                    // evitamos que la aplicación colapse y retornamos el objeto 'result' base.
+                }
+                catch (System.Exception)
+                {
+                    // Captura de seguridad genérica en caso de que el stream falle a nivel de red
+                    // durante la lectura asíncrona, manteniendo el retorno seguro.
+                }
             }
             return result;
         }
@@ -723,7 +766,13 @@ namespace MicroServiceWeb.External.Http
                             var dto = System.Text.Json.JsonSerializer.Deserialize<DistributorDto>(el.GetRawText(), options);
                             if (dto != null) items.Add(dto);
                         }
-                        catch { }
+                        catch (System.Text.Json.JsonException)
+                        {
+                            // Se ignora intencionalmente la excepción de deserialización.
+                            // Esta estrategia de tolerancia a fallos permite que, si un distribuidor 
+                            // específico en el JSON está corrupto, el proceso iterativo continúe 
+                            // construyendo la lista con los registros válidos restantes.
+                        }
                     }
                 }
                 int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
@@ -766,7 +815,12 @@ namespace MicroServiceWeb.External.Http
                         }
                     }
                 }
-                catch { }
+                catch (System.Text.Json.JsonException)
+                {
+                    // Se ignora intencionalmente la excepción de parseo JSON.
+                    // Si el servidor de distribuidores retorna un formato inválido o no JSON,
+                    // evitamos que la aplicación colapse y retornamos el 'result' base de forma segura.
+                }
             }
             return result;
         }
