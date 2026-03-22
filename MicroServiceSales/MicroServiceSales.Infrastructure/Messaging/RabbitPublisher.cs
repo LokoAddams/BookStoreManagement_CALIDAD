@@ -5,11 +5,12 @@ using System.Text.Json;
 
 namespace MicroServiceSales.Infrastructure.Messaging
 {
-    public class RabbitPublisher : IEventPublisher, IDisposable
+    public sealed class RabbitPublisher : IEventPublisher, IDisposable
     {
         private readonly IConnection _conn;
         private readonly IModel _channel;
         private readonly string _exchange;
+        private bool _disposed;
 
         public RabbitPublisher(IConfiguration cfg)
         {
@@ -28,7 +29,12 @@ namespace MicroServiceSales.Infrastructure.Messaging
 
         public Task PublishAsync(string routingKey, object @event)
         {
-            var body = JsonSerializer.SerializeToUtf8Bytes(@event);
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(RabbitPublisher));
+            }
+
+            var body = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(@event);
             var props = _channel.CreateBasicProperties();
             props.DeliveryMode = 2; // persistent
             _channel.BasicPublish(_exchange, routingKey, props, body);
@@ -37,8 +43,16 @@ namespace MicroServiceSales.Infrastructure.Messaging
 
         public void Dispose()
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             _channel?.Dispose();
             _conn?.Dispose();
+
+            _disposed = true;
+            GC.SuppressFinalize(this);
         }
     }
 }
