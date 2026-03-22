@@ -29,7 +29,7 @@
             <!-- CLIENTE -->
             <div class="row g-3 mb-4">
                 <div class="col-md-5">
-                    <label class="form-label fw-bold">CI/NIT Cliente</label>
+                    <label asp-for="ClientSearch" class="form-label fw-bold">CI/NIT Cliente</label>
                     <div class="input-group">
                         <input type="text" 
                                name="ClientSearch"
@@ -52,7 +52,7 @@
                     <div id="clientSuggestionsList" class="list-group position-absolute shadow" style="z-index:1050; max-height:250px; overflow-y:auto;"></div>
                 </div>
                 <div class="col-md-7">
-                    <label class="form-label fw-bold">Cliente Seleccionado</label>
+                    <label asp-for="SelectedClient" class="form-label fw-bold">Cliente Seleccionado</label>
                     <div class="d-flex gap-2 align-items-center">
                         @if (Model.SelectedClient != null)
                         {
@@ -117,7 +117,7 @@
 
             <!-- PRODUCTO -->
             <div class="mb-4">
-                <label class="form-label fw-bold">Producto a Agregar</label>
+                <label asp-for="ProductSearch" class="form-label fw-bold">Producto a Agregar</label>
                 <div class="input-group">
                     <input type="text"
                            name="ProductSearch"
@@ -249,32 +249,32 @@
         <div class="modal-body">
             <div class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label">Nombre *</label>
+                    <label asp-for="NewClient.FirstName" class="form-label">Nombre *</label>
                     <input asp-for="NewClient.FirstName" class="form-control" />
                     <span class="text-danger small" asp-validation-for="NewClient.FirstName"></span>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Apellido *</label>
+                    <label asp-for="NewClient.LastName" class="form-label">Apellido *</label>
                     <input asp-for="NewClient.LastName" class="form-control" />
                     <span class="text-danger small" asp-validation-for="NewClient.LastName"></span>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">CI/NIT *</label>
+                    <label asp-for="NewClient.Ci" class="form-label">CI/NIT *</label>
                     <input asp-for="NewClient.Ci" class="form-control" />
                     <span class="text-danger small" asp-validation-for="NewClient.Ci"></span>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Correo *</label>
+                    <label asp-for="NewClient.Email" class="form-label">Correo *</label>
                     <input asp-for="NewClient.Email" class="form-control" type="email" />
                     <span class="text-danger small" asp-validation-for="NewClient.Email"></span>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Telófono *</label>
+                    <label asp-for="NewClient.Phone" class="form-label">Telófono *</label>
                     <input asp-for="NewClient.Phone" class="form-control" maxlength="8" />
                     <span class="text-danger small" asp-validation-for="NewClient.Phone"></span>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Dirección *</label>
+                    <label asp-for="NewClient.Address" class="form-label">Dirección *</label>
                     <input asp-for="NewClient.Address" class="form-control" />
                     <span class="text-danger small" asp-validation-for="NewClient.Address"></span>
                 </div>

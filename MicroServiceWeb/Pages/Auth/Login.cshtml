@@ -27,7 +27,7 @@
                 <form method="post" novalidate>
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" role="alert"></div>
                     <div class="mb-3">
-                        <label class="form-label text-muted small mb-1">Usuario o Correo</label>
+                        <label htmlfor="UserOrEmail" class="form-label text-muted small mb-1">Usuario o Correo</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light text-primary"><i class="fas fa-user"></i></span>
                             <input asp-for="UserOrEmail" class="form-control" placeholder="Usuario o Correo" />
@@ -35,7 +35,7 @@
                         <span asp-validation-for="UserOrEmail" class="text-danger small"></span>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-muted small mb-1">Contraseña</label>
+                        <label htmlfor="Password" class="form-label text-muted small mb-1">Contraseña</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light text-primary"><i class="fas fa-lock"></i></span>
                             <input asp-for="Password" class="form-control" type="password" placeholder="Contraseña" autocomplete="current-password" />
