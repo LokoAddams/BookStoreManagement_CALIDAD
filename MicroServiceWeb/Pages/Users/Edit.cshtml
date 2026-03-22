@@ -13,12 +13,12 @@
             <input type="hidden" asp-for="UserId" />
             
             <div class="mb-3">
-                <label class="form-label">Correo Electrónico</label>
+                <label asp-for="Email" class="form-label">Correo Electrónico</label>
                 <input asp-for="Email" class="form-control" type="email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label class="form-label">Rol</label>
+                <label asp-for="SelectedRole" class="form-label">Rol</label>
                 <select asp-for="SelectedRole" class="form-select">
                     <option value="">Seleccionar rol...</option>
                     <option value="Admin">Administrador</option>
