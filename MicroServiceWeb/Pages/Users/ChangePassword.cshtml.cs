@@ -52,35 +52,33 @@ namespace LibraryWeb.Pages.Users
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // 1. Guardias de Seguridad (Early Return)
             bool authenticated = User.Identity?.IsAuthenticated == true;
             bool firstLoginFlow = TempData.ContainsKey("PendingUser") && PendingToken != null;
-            if (!authenticated && !firstLoginFlow) return RedirectToPage("/Auth/Login");
 
+            if (!authenticated && !firstLoginFlow)
+                return RedirectToPage("/Auth/Login");
+
+            // 2. Validaciones Previas
             if (!ModelState.IsValid)
             {
-                if (firstLoginFlow)
-                {
-                    TempData.Keep("PendingUser"); TempData.Keep("FirstLogin"); TempData.Keep("PendingToken");
-                }
-                return Page();
+                return MantenerEstadoYRegresar(firstLoginFlow);
             }
 
-            var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\p{P}\p{S}]).{8,64}$");
-            if (!regex.IsMatch(NewPassword))
+            if (!ValidarSeguridadPassword())
             {
-                ModelState.AddModelError(nameof(NewPassword), "La nueva contraseña debe incluir mayúsculas, minúsculas, números y un carácter especial.");
-                if (firstLoginFlow) { TempData.Keep("PendingUser"); TempData.Keep("FirstLogin"); TempData.Keep("PendingToken"); }
-                return Page();
+                return MantenerEstadoYRegresar(firstLoginFlow);
             }
 
-            // Obtener token: del claim (sesión normal) o de TempData (primer login)
+            // 3. Obtención de Token
             var token = authenticated ? User.FindFirst("access_token")?.Value : PendingToken;
             if (string.IsNullOrEmpty(token))
             {
-                ModelState.AddModelError(string.Empty, "No se encontró el token de autenticación. Inicie sesión nuevamente.");
+                ModelState.AddModelError(string.Empty, "Sesión expirada. Inicie sesión nuevamente.");
                 return Page();
             }
 
+            // 4. Ejecución del Cambio de Contraseña
             var result = await _usersApi.ChangePasswordAsync(new ChangePasswordRequest
             {
                 CurrentPassword = CurrentPassword,
@@ -90,21 +88,55 @@ namespace LibraryWeb.Pages.Users
 
             if (!result.Success)
             {
-                var msg = result.Error ?? "No se pudo cambiar la contraseña.";
-                if (msg.Contains("actual", System.StringComparison.OrdinalIgnoreCase) || msg.Contains("incorrecta", System.StringComparison.OrdinalIgnoreCase))
-                    ModelState.AddModelError(nameof(CurrentPassword), msg);
-                else
-                    ModelState.AddModelError(string.Empty, msg);
-                if (firstLoginFlow) { TempData.Keep("PendingUser"); TempData.Keep("FirstLogin"); TempData.Keep("PendingToken"); }
-                return Page();
+                ProcesarErrorApi(result.Error);
+                return MantenerEstadoYRegresar(firstLoginFlow);
             }
 
-            // Éxito: cerrar sesión (si había) y redirigir a login con mensaje
+            // 5. Finalización Exitosa
+            return await FinalizarCambioPassword(authenticated);
+        }
+
+
+        private bool ValidarSeguridadPassword()
+        {
+            var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\p{P}\p{S}]).{8,64}$");
+            if (regex.IsMatch(NewPassword)) return true;
+
+            ModelState.AddModelError(nameof(NewPassword), "La nueva contraseña debe incluir mayúsculas, minúsculas, números y un carácter especial.");
+            return false;
+        }
+
+        private void ProcesarErrorApi(string? error)
+        {
+            var msg = error ?? "No se pudo cambiar la contraseña.";
+            bool esErrorPasswordActual = msg.Contains("actual", StringComparison.OrdinalIgnoreCase) ||
+                                         msg.Contains("incorrecta", StringComparison.OrdinalIgnoreCase);
+
+            if (esErrorPasswordActual)
+                ModelState.AddModelError(nameof(CurrentPassword), msg);
+            else
+                ModelState.AddModelError(string.Empty, msg);
+        }
+
+        private IActionResult MantenerEstadoYRegresar(bool firstLoginFlow)
+        {
+            if (firstLoginFlow)
+            {
+                TempData.Keep("PendingUser");
+                TempData.Keep("FirstLogin");
+                TempData.Keep("PendingToken");
+            }
+            return Page();
+        }
+
+        private async Task<IActionResult> FinalizarCambioPassword(bool authenticated)
+        {
             if (authenticated)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
-            PasswordChanged = true; // para vista que muestra mensaje antes del redirect si se mantiene
+
+            PasswordChanged = true;
             TempData.Clear();
             TempData["PasswordChanged"] = "La contraseña se cambió correctamente. Inicia sesión con tu nueva contraseña.";
             return RedirectToPage("/Auth/Login");

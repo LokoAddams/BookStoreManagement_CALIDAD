@@ -63,74 +63,74 @@ namespace LibraryWeb.Pages.Sales
 
         private async Task EnrichSalesDataAsync(List<SaleDto> sales, CancellationToken ct)
         {
-            // Obtener IDs únicos de clientes y usuarios
             var clientIds = sales.Where(s => s.ClientId != Guid.Empty && string.IsNullOrEmpty(s.ClientName))
                                  .Select(s => s.ClientId).Distinct().ToList();
+
             var userIds = sales.Where(s => s.UserId != Guid.Empty && string.IsNullOrEmpty(s.UserName))
                                .Select(s => s.UserId).Distinct().ToList();
 
-            // Obtener información de clientes
-            var clientsDict = new Dictionary<Guid, ClientDto>();
-            foreach (var clientId in clientIds)
-            {
-                try
-                {
-                    var client = await _clientsApi.GetByIdAsync(clientId, ct);
-                    if (client != null)
-                        clientsDict[clientId] = client;
-                }
-                catch { /* Ignorar errores individuales */ }
-            }
+            var clientsTask = FetchClientsAsync(clientIds, ct);
+            var usersTask = FetchUsersAsync(userIds, ct);
 
-            // Obtener información de usuarios
-            var usersDict = new Dictionary<Guid, UserDto>();
-            foreach (var userId in userIds)
-            {
-                try
-                {
-                    var user = await _usersApi.GetByIdAsync(userId, ct);
-                    if (user != null)
-                        usersDict[userId] = user;
-                }
-                catch { /* Ignorar errores individuales */ }
-            }
+            await Task.WhenAll(clientsTask, usersTask);
 
-            // Actualizar las ventas con la información obtenida
+            var clientsDict = await clientsTask;
+            var usersDict = await usersTask;
+
             for (int i = 0; i < sales.Count; i++)
             {
-                var sale = sales[i];
-                string? clientName = sale.ClientName;
-                string? clientCi = sale.ClientCi;
-                string? userName = sale.UserName;
-
-                // Enriquecer datos del cliente si no están presentes
-                if (string.IsNullOrEmpty(clientName) && clientsDict.TryGetValue(sale.ClientId, out var client))
-                {
-                    clientName = $"{client.FirstName} {client.LastName}".Trim();
-                    clientCi = client.Ci;
-                }
-
-                // Enriquecer datos del usuario si no están presentes
-                if (string.IsNullOrEmpty(userName) && usersDict.TryGetValue(sale.UserId, out var user))
-                {
-                    userName = user.Username;
-                }
-
-                // Crear nuevo DTO con los datos enriquecidos
-                sales[i] = new SaleDto(
-                    sale.Id,
-                    sale.ClientId,
-                    clientName,
-                    clientCi,
-                    sale.UserId,
-                    userName,
-                    sale.SaleDate,
-                    sale.Subtotal,
-                    sale.Total,
-                    sale.Status,
-                    sale.Details
-                );
+                sales[i] = MapEnrichedSale(sales[i], clientsDict, usersDict);
             }
+        }
+
+
+        private async Task<Dictionary<Guid, ClientDto>> FetchClientsAsync(IEnumerable<Guid> ids, CancellationToken ct)
+        {
+            var dict = new Dictionary<Guid, ClientDto>();
+            var tasks = ids.Select(async id =>
+            {
+                try { return await _clientsApi.GetByIdAsync(id, ct); }
+                catch { return null; }
+            });
+
+            var results = await Task.WhenAll(tasks);
+            foreach (var c in results.Where(x => x != null)) dict[c!.Id] = c;
+            return dict;
+        }
+
+        private async Task<Dictionary<Guid, UserDto>> FetchUsersAsync(IEnumerable<Guid> ids, CancellationToken ct)
+        {
+            var dict = new Dictionary<Guid, UserDto>();
+            var tasks = ids.Select(async id =>
+            {
+                try { return await _usersApi.GetByIdAsync(id, ct); }
+                catch { return null; }
+            });
+
+            var results = await Task.WhenAll(tasks);
+            foreach (var u in results.Where(x => x != null)) dict[u!.Id] = u;
+            return dict;
+        }
+
+        private SaleDto MapEnrichedSale(SaleDto s, Dictionary<Guid, ClientDto> cDict, Dictionary<Guid, UserDto> uDict)
+        {
+            string? clientName = s.ClientName;
+            string? clientCi = s.ClientCi;
+            string? userName = s.UserName;
+
+            if (string.IsNullOrEmpty(clientName) && cDict.TryGetValue(s.ClientId, out var client))
+            {
+                clientName = $"{client.FirstName} {client.LastName}".Trim();
+                clientCi = client.Ci;
+            }
+
+            if (string.IsNullOrEmpty(userName) && uDict.TryGetValue(s.UserId, out var user))
+            {
+                userName = user.Username;
+            }
+
+            return new SaleDto(s.Id, s.ClientId, clientName, clientCi, s.UserId, userName,
+                               s.SaleDate, s.Subtotal, s.Total, s.Status, s.Details);
         }
     }
 }

@@ -9,13 +9,62 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using static MicroServiceWeb.External.Http.ProductsApiClient;
 
 namespace MicroServiceWeb.External.Http
 {
 
 
-    
 
+    public static class JsonHelper
+    {
+        public static string GetString(JsonElement el, params string[] names)
+        {
+            foreach (var name in names)
+            {
+                if (el.TryGetProperty(name, out var prop))
+                    return prop.GetString() ?? string.Empty;
+            }
+            return string.Empty;
+        }
+
+        public static int GetInt(JsonElement el, params string[] names)
+        {
+            foreach (var name in names)
+            {
+                if (el.TryGetProperty(name, out var prop) && prop.TryGetInt32(out var val))
+                    return val;
+            }
+            return 0;
+        }
+
+        public static decimal GetDecimal(JsonElement el, params string[] names)
+        {
+            foreach (var name in names)
+            {
+                if (el.TryGetProperty(name, out var prop) && prop.TryGetDecimal(out var val))
+                    return val;
+            }
+            return 0m;
+        }
+
+        public static Guid GetGuid(JsonElement el, params string[] names)
+        {
+            foreach (var name in names)
+            {
+                if (el.TryGetProperty(name, out var prop) && Guid.TryParse(prop.GetString(), out var res))
+                    return res;
+            }
+            return Guid.Empty;
+        }
+
+        public static string? GetCategoryName(JsonElement el)
+        {
+            if (el.TryGetProperty("categoryName", out var cnP)) return cnP.GetString();
+            if (el.TryGetProperty("category_name", out var cnSnake)) return cnSnake.GetString();
+            return null;
+        }
+    }
     public class ProductsApiClient : IProductsApiClient
     {
         private readonly HttpClient _http;
@@ -36,126 +85,122 @@ namespace MicroServiceWeb.External.Http
 
             return null;
         }
+        
+
         public async Task<IReadOnlyList<ProductDto>> GetAllAsync(CancellationToken ct)
         {
             var resp = await _http.GetAsync("api/products", ct);
             if (!resp.IsSuccessStatusCode) return Array.Empty<ProductDto>();
+
             var json = await resp.Content.ReadAsStringAsync(ct);
+
             try
             {
+                // 1. Intento de deserialización automática
                 var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 var list = JsonSerializer.Deserialize<List<ProductDto>>(json, opts);
                 if (list != null) return list;
-                // Fallback manual parsing
+
+                // 2. Fallback manual usando el Helper
                 using var doc = JsonDocument.Parse(json);
-                var root = doc.RootElement;
+                if (doc.RootElement.ValueKind != JsonValueKind.Array) return Array.Empty<ProductDto>();
+
                 var items = new List<ProductDto>();
-                if (root.ValueKind == JsonValueKind.Array)
+                foreach (var el in doc.RootElement.EnumerateArray())
                 {
-                    foreach (var el in root.EnumerateArray())
-                    {
-                        var id = el.TryGetProperty("id", out var idP) && Guid.TryParse(idP.GetString(), out var gid) ? gid : Guid.Empty;
-                        var name = el.TryGetProperty("name", out var nP) ? nP.GetString() ?? string.Empty : string.Empty;
-                        var desc = el.TryGetProperty("description", out var dP) ? dP.GetString() : null;
-                        Guid catId = Guid.Empty;
-                        if (el.TryGetProperty("categoryId", out var cidP)) Guid.TryParse(cidP.GetString(), out catId);
-                        else if (el.TryGetProperty("category_id", out var cidSnake) && cidSnake.ValueKind == JsonValueKind.String) Guid.TryParse(cidSnake.GetString(), out catId);
-                        var catName = GetCategoryName(el);
-                        var price = el.TryGetProperty("price", out var prP) && prP.TryGetDecimal(out var prVal) ? prVal : 0m;
-                        var stock = el.TryGetProperty("stock", out var stP) && stP.TryGetInt32(out var stVal) ? stVal : 0;
-                        if (id != Guid.Empty)
-                            items.Add(new ProductDto(id, name, desc, catId, catName, price, stock));
-                    }
+                    var product = MapJsonToProductDto(el);
+                    if (product.Id != Guid.Empty) items.Add(product);
                 }
                 return items;
             }
-            catch { return Array.Empty<ProductDto>(); }
+            catch
+            {
+                return Array.Empty<ProductDto>();
+            }
         }
+
+        // Función privada para separar la lógica de mapeo
+        private ProductDto MapJsonToProductDto(JsonElement el)
+        {
+            return new ProductDto(
+                Id: JsonHelper.GetGuid(el, "id", "Id"),
+                Name: JsonHelper.GetString(el, "name", "Name"),
+                Description: JsonHelper.GetString(el, "description", "Description"),
+                CategoryId: JsonHelper.GetGuid(el, "categoryId", "category_id"),
+                CategoryName: JsonHelper.GetCategoryName(el) ?? string.Empty,
+                Price: JsonHelper.GetDecimal(el, "price", "Price"),
+                Stock: JsonHelper.GetInt(el, "stock", "Stock")
+            );
+        }
+
         public async Task<PagedResult<ProductDto>> GetPagedAsync(int page, int pageSize, CancellationToken ct)
         {
-            // Llama al endpoint paginado: api/products/paged?page={page}&pageSize={pageSize}
             var url = $"api/products/paged?page={page}&pageSize={pageSize}";
             var resp = await _http.GetAsync(url, ct);
+
             if (!resp.IsSuccessStatusCode)
-            {
                 return new PagedResult<ProductDto>(new List<ProductDto>(), page, pageSize, 0, 0);
-            }
+
             try
             {
                 var json = await resp.Content.ReadAsStringAsync(ct);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var doc = JsonDocument.Parse(json);
+                using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
-                // Se espera estructura: { items: [...], page: n, pageSize: n, totalItems: n, totalPages: n }
+
+                // 1. Extraer los items usando LINQ y el método de mapeo que ya tenemos
                 var items = new List<ProductDto>();
                 if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
                 {
                     foreach (var el in itemsProp.EnumerateArray())
                     {
-                        try 
-                        { 
-                            // Deserializaci�n tolerante con snake_case fallback
-                            var dto = System.Text.Json.JsonSerializer.Deserialize<ProductDto>(el.GetRawText(), options);
-                            if (dto == null)
-                            {
-                                var id = el.TryGetProperty("id", out var idP) && Guid.TryParse(idP.GetString(), out var gid) ? gid : Guid.Empty;
-                                var name = el.TryGetProperty("name", out var nP) ? nP.GetString() ?? string.Empty : string.Empty;
-                                var desc = el.TryGetProperty("description", out var dP) ? dP.GetString() : null;
-                                Guid catId = Guid.Empty;
-                                if (el.TryGetProperty("categoryId", out var cidP)) Guid.TryParse(cidP.GetString(), out catId);
-                                else if (el.TryGetProperty("category_id", out var cidSnake) && cidSnake.ValueKind == JsonValueKind.String) Guid.TryParse(cidSnake.GetString(), out catId);
-                                var catName = GetCategoryName(el);
-                                var price = el.TryGetProperty("price", out var prP) && prP.TryGetDecimal(out var prVal) ? prVal : 0m;
-                                var stock = el.TryGetProperty("stock", out var stP) && stP.TryGetInt32(out var stVal) ? stVal : 0;
-                                dto = new ProductDto(id, name, desc, catId, catName, price, stock);
-                            }
-                            items.Add(dto);
-                        } 
-                        catch (Exception)
-                        {
-                            // Se ignora intencionalmente la excepción de deserialización para este elemento.
-                            // Esto permite tolerancia a fallos: un producto mal formado en el JSON 
-                            // no detendrá la carga del resto de los elementos de la página.
-                        }
+                        // Reutilizamos el método MapJsonToProductDto para matar la duplicidad
+                        var dto = MapJsonToProductDto(el);
+                        if (dto.Id != Guid.Empty) items.Add(dto);
                     }
                 }
-                int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
-                int totalPages = root.TryGetProperty("totalPages", out var tp) && tp.TryGetInt32(out var tpVal) ? tpVal : (int)Math.Ceiling((double)totalItems / pageSize);
-                int currentPage = root.TryGetProperty("page", out var pg) && pg.TryGetInt32(out var pgVal) ? pgVal : page;
-                int currentPageSize = root.TryGetProperty("pageSize", out var ps) && ps.TryGetInt32(out var psVal) ? psVal : pageSize;
-                return new PagedResult<ProductDto>(items, currentPage, currentPageSize, totalItems, totalPages);
+
+                // 2. Extraer metadatos de paginación usando el Helper
+                int totalItems = JsonHelper.GetInt(root, "totalItems") > 0 ? JsonHelper.GetInt(root, "totalItems") : items.Count;
+                int totalPages = JsonHelper.GetInt(root, "totalPages") > 0 ? JsonHelper.GetInt(root, "totalPages") : (int)Math.Ceiling((double)totalItems / pageSize);
+                int currentPage = JsonHelper.GetInt(root, "page", "currentPage");
+                int currentSize = JsonHelper.GetInt(root, "pageSize");
+
+                return new PagedResult<ProductDto>(items, currentPage, currentSize, totalItems, totalPages);
             }
             catch
             {
                 return new PagedResult<ProductDto>(new List<ProductDto>(), page, pageSize, 0, 0);
             }
         }
+
         public async Task<ProductDto?> GetByIdAsync(Guid id, CancellationToken ct)
         {
             var resp = await _http.GetAsync($"api/products/{id}", ct);
             if (!resp.IsSuccessStatusCode) return null;
+
             var json = await resp.Content.ReadAsStringAsync(ct);
+
             try
             {
+                // 1. Intento automático
                 var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 var dto = JsonSerializer.Deserialize<ProductDto>(json, opts);
                 if (dto != null) return dto;
+
+                // 2. Fallback usando nuestro método de mapeo centralizado
                 using var doc = JsonDocument.Parse(json);
-                var el = doc.RootElement;
-                if (el.ValueKind != JsonValueKind.Object) return null;
-                var pid = el.TryGetProperty("id", out var idP) && Guid.TryParse(idP.GetString(), out var gid) ? gid : Guid.Empty;
-                var name = el.TryGetProperty("name", out var nP) ? nP.GetString() ?? string.Empty : string.Empty;
-                var desc = el.TryGetProperty("description", out var dP) ? dP.GetString() : null;
-                Guid catId = Guid.Empty;
-                if (el.TryGetProperty("categoryId", out var cidP)) Guid.TryParse(cidP.GetString(), out catId);
-                else if (el.TryGetProperty("category_id", out var cidSnake) && cidSnake.ValueKind == JsonValueKind.String) Guid.TryParse(cidSnake.GetString(), out catId);
-                var catName = GetCategoryName(el);
-                var price = el.TryGetProperty("price", out var prP) && prP.TryGetDecimal(out var prVal) ? prVal : 0m;
-                var stock = el.TryGetProperty("stock", out var stP) && stP.TryGetInt32(out var stVal) ? stVal : 0;
-                return pid == Guid.Empty ? null : new ProductDto(pid, name, desc, catId, catName, price, stock);
+                if (doc.RootElement.ValueKind != JsonValueKind.Object) return null;
+
+                var mappedDto = MapJsonToProductDto(doc.RootElement);
+
+                return mappedDto.Id == Guid.Empty ? null : mappedDto;
             }
-            catch { return null; }
+            catch
+            {
+                return null;
+            }
         }
+
         public async Task<ProductApiResult> CreateAsync(ProductCreateDto dto, CancellationToken ct)
         { var resp = await _http.PostAsJsonAsync("api/products", dto, CamelCaseOptions, ct); return await ParseProductResult(resp, ct); }
         public async Task<ProductApiResult> UpdateAsync(Guid id, ProductUpdateDto dto, CancellationToken ct)
@@ -169,36 +214,74 @@ namespace MicroServiceWeb.External.Http
             try { return await resp.Content.ReadFromJsonAsync<IReadOnlyList<CategoryDto>>(cancellationToken: ct) ?? Array.Empty<CategoryDto>(); }
             catch { return Array.Empty<CategoryDto>(); }
         }
+
         private static async Task<ProductApiResult> ParseProductResult(HttpResponseMessage resp, CancellationToken ct)
         {
             var result = new ProductApiResult { Success = resp.IsSuccessStatusCode };
-            if (resp.Content.Headers.ContentType?.MediaType == "application/json")
+
+            // 1. Verificación de tipo de contenido (Fail Fast)
+            var mediaType = resp.Content.Headers.ContentType?.MediaType;
+            if (mediaType != "application/json")
             {
-                var json = await resp.Content.ReadAsStringAsync(ct);
-                try
+                return result;
+            }
+
+            var json = await resp.Content.ReadAsStringAsync(ct);
+
+            try
+            {
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                // 2. Si la respuesta es exitosa (200 OK), deserializamos el objeto principal
+                if (resp.IsSuccessStatusCode)
                 {
-                    using var doc = JsonDocument.Parse(json);
-                    var root = doc.RootElement;
-                    if (resp.IsSuccessStatusCode && root.ValueKind == JsonValueKind.Object)
-                    { result.Product = System.Text.Json.JsonSerializer.Deserialize<ProductDto>(root.GetRawText()); }
-                    else if (root.ValueKind == JsonValueKind.Object)
+                    if (root.ValueKind == JsonValueKind.Object)
                     {
-                        foreach (var prop in root.EnumerateObject())
-                        {
-                            if (prop.Value.ValueKind == JsonValueKind.Array)
-                            { var list = new List<string>(); foreach (var item in prop.Value.EnumerateArray()) list.Add(item.GetString() ?? "Error"); result.Errors[prop.Name] = list; }
-                            else if (prop.Value.ValueKind == JsonValueKind.String)
-                            { result.Errors[prop.Name] = new List<string> { prop.Value.GetString() ?? "Error" }; }
-                        }
+                        result.Product = JsonSerializer.Deserialize<ProductDto>(root.GetRawText());
                     }
+                    return result;
                 }
-                catch (System.Text.Json.JsonException)
+
+                // 3. Si la respuesta es de error (400, 500, etc.), procesamos el diccionario de errores
+                if (root.ValueKind == JsonValueKind.Object)
                 {
-                    // Se ignora el error de deserialización para evitar crashear la aplicación
-                    // en caso de que la API retorne un payload corrupto o no compatible.
+                    ExtractErrorsFromElement(root, result.Errors);
                 }
             }
+            catch (JsonException)
+            {
+                // Se mantiene el manejo silencioso para evitar excepciones en cascada por JSON mal formado
+            }
+
             return result;
+        }
+
+        private static void ExtractErrorsFromElement(JsonElement root, Dictionary<string, List<string>> errorDict)
+        {
+            foreach (var prop in root.EnumerateObject())
+            {
+                var errorList = new List<string>();
+
+                // Caso A: El error viene como una lista de strings
+                if (prop.Value.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var item in prop.Value.EnumerateArray())
+                    {
+                        errorList.Add(item.GetString() ?? "Error desconocido");
+                    }
+                }
+                // Caso B: El error viene como un string simple
+                else if (prop.Value.ValueKind == JsonValueKind.String)
+                {
+                    errorList.Add(prop.Value.GetString() ?? "Error desconocido");
+                }
+
+                if (errorList.Count > 0)
+                {
+                    errorDict[prop.Name] = errorList;
+                }
+            }
         }
     }
 
@@ -231,55 +314,65 @@ namespace MicroServiceWeb.External.Http
         {
             try
             {
-                // Primero intentar con endpoint paginado
                 var url = $"api/sales/paged?page={page}&pageSize={pageSize}";
                 var resp = await _http.GetAsync(url, ct);
-                
+
+                // 1. Lógica de Fallback (Si el endpoint no existe o falla)
                 if (!resp.IsSuccessStatusCode)
                 {
-                    // Si no existe endpoint paginado, usar GetAll y paginar manualmente
-                    var all = await GetAllAsync(ct);
-                    var ordered = all.OrderByDescending(s => s.SaleDate).ToList();
-                    var totalItems = ordered.Count;
-                    var totalPages = pageSize > 0 ? (int)Math.Ceiling((double)totalItems / pageSize) : 0;
-                    var items = ordered.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-                    return new PagedResult<SaleDto>(items, page, pageSize, totalItems, totalPages);
+                    return await GetManualPagedResult(page, pageSize, ct);
                 }
 
+                // 2. Procesar respuesta paginada exitosa
                 var json = await resp.Content.ReadAsStringAsync(ct);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
 
-                var pagedItems = new List<SaleDto>();
-                if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
-                {
-                    foreach (var el in itemsProp.EnumerateArray())
-                    {
-                        try
-                        {
-                            var dto = JsonSerializer.Deserialize<SaleDto>(el.GetRawText(), options);
-                            if (dto != null) pagedItems.Add(dto);
-                        }
-                        catch (System.Text.Json.JsonException)
-                        {
-                            // Se ignora el error de deserialización para evitar crashear la aplicación
-                            // en caso de que la API retorne un payload corrupto o no compatible.
-                        }
-                    }
-                }
+                var items = ParseSaleDtoList(root);
 
-                int totalItemsPaged = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : pagedItems.Count;
-                int totalPagesPaged = root.TryGetProperty("totalPages", out var tp) && tp.TryGetInt32(out var tpVal) ? tpVal : (int)Math.Ceiling((double)totalItemsPaged / pageSize);
-                int currentPage = root.TryGetProperty("page", out var pg) && pg.TryGetInt32(out var pgVal) ? pgVal : page;
-                int currentPageSize = root.TryGetProperty("pageSize", out var ps) && ps.TryGetInt32(out var psVal) ? psVal : pageSize;
+                // 3. Extraer metadatos usando el Helper
+                int totalItems = JsonHelper.GetInt(root, "totalItems") > 0 ? JsonHelper.GetInt(root, "totalItems") : items.Count;
+                int totalPages = JsonHelper.GetInt(root, "totalPages") > 0 ? JsonHelper.GetInt(root, "totalPages") : (int)Math.Ceiling((double)totalItems / pageSize);
+                int currentPage = JsonHelper.GetInt(root, "page") > 0 ? JsonHelper.GetInt(root, "page") : page;
 
-                return new PagedResult<SaleDto>(pagedItems, currentPage, currentPageSize, totalItemsPaged, totalPagesPaged);
+                return new PagedResult<SaleDto>(items, currentPage, pageSize, totalItems, totalPages);
             }
             catch
             {
                 return new PagedResult<SaleDto>(new List<SaleDto>(), page, pageSize, 0, 0);
             }
+        }
+
+
+        private async Task<PagedResult<SaleDto>> GetManualPagedResult(int page, int pageSize, CancellationToken ct)
+        {
+            var all = await GetAllAsync(ct);
+            var ordered = all.OrderByDescending(s => s.SaleDate).ToList();
+            var totalItems = ordered.Count;
+            var totalPages = pageSize > 0 ? (int)Math.Ceiling((double)totalItems / pageSize) : 0;
+            var items = ordered.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return new PagedResult<SaleDto>(items, page, pageSize, totalItems, totalPages);
+        }
+
+        private List<SaleDto> ParseSaleDtoList(JsonElement root)
+        {
+            var items = new List<SaleDto>();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var el in itemsProp.EnumerateArray())
+                {
+                    try
+                    {
+                        var dto = JsonSerializer.Deserialize<SaleDto>(el.GetRawText(), options);
+                        if (dto != null) items.Add(dto);
+                    }
+                    catch (JsonException) { /* Ignorar corruptos */ }
+                }
+            }
+            return items;
         }
 
         public async Task<SaleApiResult> CreateAsync(SaleCreateDto dto, CancellationToken ct)
@@ -289,58 +382,72 @@ namespace MicroServiceWeb.External.Http
                 var resp = await _http.PostAsJsonAsync("api/sales", dto, CamelCaseOptions, ct);
                 var result = new SaleApiResult { Success = resp.IsSuccessStatusCode };
 
-                if (resp.Content.Headers.ContentType?.MediaType == "application/json")
+                // 1. Verificación rápida de contenido (Fail Fast)
+                if (resp.Content.Headers.ContentType?.MediaType != "application/json")
+                    return result;
+
+                var json = await resp.Content.ReadAsStringAsync(ct);
+
+                try
                 {
-                    var json = await resp.Content.ReadAsStringAsync(ct);
-                    try
-                    {
-                        using var doc = JsonDocument.Parse(json);
-                        var root = doc.RootElement;
+                    using var doc = JsonDocument.Parse(json);
+                    var root = doc.RootElement;
 
-                        if (resp.IsSuccessStatusCode)
-                        {
-                            // Parsear la respuesta exitosa
-                            result.Sale = JsonSerializer.Deserialize<SaleDto>(root.GetRawText(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                        }
-                        else
-                        {
-                            // Parsear errores de validación
-                            if (root.TryGetProperty("message", out var msgProp))
-                                result.Message = msgProp.GetString();
-
-                            if (root.TryGetProperty("errors", out var errorsProp) && errorsProp.ValueKind == JsonValueKind.Array)
-                            {
-                                foreach (var error in errorsProp.EnumerateArray())
-                                {
-                                    var field = error.TryGetProperty("field", out var f) ? f.GetString() ?? "general" : "general";
-                                    var message = error.TryGetProperty("message", out var m) ? m.GetString() ?? "Error" : "Error";
-                                    
-                                    if (!result.Errors.ContainsKey(field))
-                                        result.Errors[field] = new List<string>();
-                                    result.Errors[field].Add(message);
-                                }
-                            }
-                        }
-                    }
-                    catch (System.Text.Json.JsonException)
+                    // 2. Procesar éxito o error de forma separada
+                    if (resp.IsSuccessStatusCode)
                     {
-                        // Se ignora el error de deserialización intencionalmente.
-                        // Si la API de ventas devuelve una respuesta que no es un JSON válido
-                        // mantenemos el estado HTTP en el objeto 'result' sin crashear.
+                        var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        result.Sale = JsonSerializer.Deserialize<SaleDto>(root.GetRawText(), opts);
                     }
+                    else
+                    {
+                        ParseSaleErrors(root, result);
+                    }
+                }
+                catch (JsonException)
+                {
+                    // Mantenemos el silencio administrativo para evitar crasheos
                 }
 
                 return result;
             }
             catch (Exception ex)
             {
-                return new SaleApiResult
-                {
-                    Success = false,
-                    Message = $"Error al comunicarse con el servicio: {ex.Message}",
-                    Errors = new Dictionary<string, List<string>> { { "general", new List<string> { ex.Message } } }
-                };
+                return CreateErrorResult(ex.Message);
             }
+        }
+
+
+        private void ParseSaleErrors(JsonElement root, SaleApiResult result)
+        {
+            // Extraer mensaje general
+            if (root.TryGetProperty("message", out var msgProp))
+                result.Message = msgProp.GetString();
+
+            // Extraer lista de errores detallados
+            if (root.TryGetProperty("errors", out var errorsProp) && errorsProp.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var error in errorsProp.EnumerateArray())
+                {
+                    var field = JsonHelper.GetString(error, "field") ?? "general";
+                    var message = JsonHelper.GetString(error, "message") ?? "Error";
+
+                    if (!result.Errors.ContainsKey(field))
+                        result.Errors[field] = new List<string>();
+
+                    result.Errors[field].Add(message);
+                }
+            }
+        }
+
+        private SaleApiResult CreateErrorResult(string message)
+        {
+            return new SaleApiResult
+            {
+                Success = false,
+                Message = $"Error al comunicarse con el servicio: {message}",
+                Errors = new Dictionary<string, List<string>> { { "general", new List<string> { message } } }
+            };
         }
 
         public async Task<SaleDto?> GetByIdAsync(Guid id, CancellationToken ct)
@@ -408,48 +515,60 @@ namespace MicroServiceWeb.External.Http
         {
             var url = $"api/User/paged?page={page}&pageSize={pageSize}";
             var resp = await _http.GetAsync(url, ct);
+
             if (!resp.IsSuccessStatusCode)
                 return new PagedResult<UserFullDto>(new List<UserFullDto>(), page, pageSize, 0, 0);
+
             try
             {
                 var json = await resp.Content.ReadAsStringAsync(ct);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var doc = JsonDocument.Parse(json);
+                using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
+
+                // 1. Extraer los items usando el nuevo método de mapeo
                 var items = new List<UserFullDto>();
                 if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
                 {
                     foreach (var el in itemsProp.EnumerateArray())
                     {
-                        try
-                        {
-                            var id = el.TryGetProperty("id", out var idP) && Guid.TryParse(idP.GetString(), out var gid) ? gid : Guid.Empty;
-                            var username = el.TryGetProperty("username", out var unP) ? unP.GetString() ?? "" : "";
-                            var email = el.TryGetProperty("email", out var emP) ? emP.GetString() : null;
-                            var firstName = el.TryGetProperty("firstName", out var fnP) ? fnP.GetString() : null;
-                            var middleName = el.TryGetProperty("middleName", out var mnP) ? mnP.GetString() : null;
-                            var lastName = el.TryGetProperty("lastName", out var lnP) ? lnP.GetString() : null;
-                            var mustChange = el.TryGetProperty("mustChangePassword", out var mcP) && mcP.GetBoolean();
-                            var pwdHash = el.TryGetProperty("passwordHash", out var phP) ? phP.GetString() ?? "" : "";
-                            items.Add(new UserFullDto(id, username, email, firstName, middleName, lastName, mustChange, new List<string>(), pwdHash));
-                        }
-                        catch (System.Text.Json.JsonException)
-                        {
-                            // Se ignora intencionalmente la excepción al parsear este usuario.
-                            // Si un elemento del JSON viene mal formado, simplemente lo saltamos 
-                            // para no interrumpir la carga del resto de la lista.
-                        }
+                        var dto = MapJsonToUserFullDto(el);
+                        if (dto != null) items.Add(dto);
                     }
                 }
-                int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
-                int totalPages = root.TryGetProperty("totalPages", out var tp) && tp.TryGetInt32(out var tpVal) ? tpVal : (int)Math.Ceiling((double)totalItems / pageSize);
-                int currentPage = root.TryGetProperty("page", out var pg) && pg.TryGetInt32(out var pgVal) ? pgVal : page;
-                int currentPageSize = root.TryGetProperty("pageSize", out var ps) && ps.TryGetInt32(out var psVal) ? psVal : pageSize;
-                return new PagedResult<UserFullDto>(items, currentPage, currentPageSize, totalItems, totalPages);
+
+                // 2. Extraer metadatos de paginación usando el Helper
+                int totalItems = JsonHelper.GetInt(root, "totalItems") > 0 ? JsonHelper.GetInt(root, "totalItems") : items.Count;
+                int totalPages = JsonHelper.GetInt(root, "totalPages") > 0 ? JsonHelper.GetInt(root, "totalPages") : (int)Math.Ceiling((double)totalItems / pageSize);
+                int currentPage = JsonHelper.GetInt(root, "page") > 0 ? JsonHelper.GetInt(root, "page") : page;
+
+                return new PagedResult<UserFullDto>(items, currentPage, pageSize, totalItems, totalPages);
             }
             catch
             {
                 return new PagedResult<UserFullDto>(new List<UserFullDto>(), page, pageSize, 0, 0);
+            }
+        }
+
+
+        private UserFullDto MapJsonToUserFullDto(JsonElement el)
+        {
+            try
+            {
+                return new UserFullDto(
+                    Id: JsonHelper.GetGuid(el, "id", "Id"),
+                    Username: JsonHelper.GetString(el, "username", "Username"),
+                    Email: JsonHelper.GetString(el, "email", "Email"),
+                    FirstName: JsonHelper.GetString(el, "firstName", "FirstName"),
+                    MiddleName: JsonHelper.GetString(el, "middleName", "MiddleName"),
+                    LastName: JsonHelper.GetString(el, "lastName", "LastName"),
+                    MustChangePassword: el.TryGetProperty("mustChangePassword", out var mc) && mc.GetBoolean(),
+                    Roles: new List<string>(), // Se asume lista vacía por defecto
+                    PasswordHash: JsonHelper.GetString(el, "passwordHash", "PasswordHash")
+                );
+            }
+            catch (JsonException)
+            {
+                return null; // El bucle lo ignorará
             }
         }
         public async Task<IReadOnlyList<string>> GetRolesAsync(Guid id, CancellationToken ct)
@@ -491,111 +610,154 @@ namespace MicroServiceWeb.External.Http
         private static async Task<AuthLoginResult> ParseAuthResponse(HttpResponseMessage resp, CancellationToken ct)
         {
             var result = new AuthLoginResult();
-            var status = resp.StatusCode;
-            if (resp.Content.Headers.ContentType?.MediaType == "application/json")
-            {
-                var json = await resp.Content.ReadAsStringAsync(ct);
-                try
-                {
-                    using var doc = JsonDocument.Parse(json); var root = doc.RootElement;
-                    if (resp.IsSuccessStatusCode && root.ValueKind == JsonValueKind.Object)
-                    {
-                        result.Success = true;
-                        // Soportar 'accessToken' (backend actual) y 'token' (fallback)
-                        if (root.TryGetProperty("accessToken", out var accessToken)) result.Token = accessToken.GetString();
-                        else if (root.TryGetProperty("token", out var token)) result.Token = token.GetString();
-                        if (root.TryGetProperty("expiresAt", out var exp) && exp.ValueKind == JsonValueKind.String && DateTimeOffset.TryParse(exp.GetString(), out var dtoExp)) result.ExpiresAt = dtoExp;
-                        if (root.TryGetProperty("userName", out var uname)) result.UserName = uname.GetString() ?? string.Empty;
-                        else if (root.TryGetProperty("user", out var u) && u.ValueKind == JsonValueKind.String) result.UserName = u.GetString() ?? string.Empty;
-                        if (root.TryGetProperty("email", out var em)) result.Email = em.GetString();
-                        if (root.TryGetProperty("firstName", out var fn) && fn.ValueKind == JsonValueKind.String) result.FirstName = fn.GetString();
-                        if (root.TryGetProperty("middleName", out var mn) && mn.ValueKind == JsonValueKind.String) result.MiddleName = mn.GetString();
-                        if (root.TryGetProperty("lastName", out var ln) && ln.ValueKind == JsonValueKind.String) result.LastName = ln.GetString();
-                        if (root.TryGetProperty("roles", out var roles) && roles.ValueKind == JsonValueKind.Array)
-                            foreach (var r in roles.EnumerateArray()) if (r.ValueKind == JsonValueKind.String) result.Roles.Add(r.GetString()!);
-                        if (root.TryGetProperty("mustChangePassword", out var mcp)) result.MustChangePassword = mcp.GetBoolean();
-                    }
-                    else
-                    {
-                        string? msg = null;
-                        foreach (var name in new[] { "message", "Message", "error", "title" })
-                        {
-                            if (root.TryGetProperty(name, out var prop) && prop.ValueKind == JsonValueKind.String)
-                            { msg = prop.GetString(); break; }
-                        }
-                        if (string.IsNullOrWhiteSpace(msg))
-                        {
-                            msg = status switch
-                            {
-                                System.Net.HttpStatusCode.Unauthorized => "Credenciales inválidas o usuario inactivo.",
-                                System.Net.HttpStatusCode.Forbidden => "Acceso denegado.",
-                                _ => "Error al iniciar sesión."
-                            };
-                        }
-                        result.Error = msg;
-                        result.Success = false;
-                    }
-                }
-                catch
-                {
-                    result.Success = false; result.Error = "Error al procesar la respuesta del servidor.";
-                }
-            }
-            else
+
+            // 1. Si no es JSON, manejamos el error básico por Status Code y salimos
+            if (resp.Content.Headers.ContentType?.MediaType != "application/json")
             {
                 result.Success = resp.IsSuccessStatusCode;
-                if (!result.Success)
+                if (!result.Success) result.Error = GetDefaultErrorMessage(resp.StatusCode);
+                return result;
+            }
+
+            try
+            {
+                var json = await resp.Content.ReadAsStringAsync(ct);
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                // 2. Si es ÉXITO (200 OK)
+                if (resp.IsSuccessStatusCode)
                 {
-                    result.Error = status switch
-                    {
-                        System.Net.HttpStatusCode.Unauthorized => "Credenciales inválidas o usuario inactivo.",
-                        System.Net.HttpStatusCode.Forbidden => "Acceso denegado.",
-                        _ => "Error en la autenticación."
-                    };
+                    MapSuccessfulAuth(root, result);
+                }
+                // 3. Si es ERROR (401, 403, etc.)
+                else
+                {
+                    result.Success = false;
+                    result.Error = ExtractAuthError(root, resp.StatusCode);
                 }
             }
-            Console.WriteLine(result);
+            catch
+            {
+                result.Success = false;
+                result.Error = "Error al procesar la respuesta del servidor.";
+            }
+
             return result;
+        }
+
+        // --- MÉTODOS DE APOYO PARA MATAR LA COMPLEJIDAD ---
+
+        private static void MapSuccessfulAuth(JsonElement root, AuthLoginResult result)
+        {
+            result.Success = true;
+            result.Token = JsonHelper.GetString(root, "accessToken", "token");
+            result.UserName = JsonHelper.GetString(root, "userName", "user");
+            result.Email = JsonHelper.GetString(root, "email");
+            result.FirstName = JsonHelper.GetString(root, "firstName");
+            result.MiddleName = JsonHelper.GetString(root, "middleName");
+            result.LastName = JsonHelper.GetString(root, "lastName");
+            result.MustChangePassword = root.TryGetProperty("mustChangePassword", out var mcp) && mcp.GetBoolean();
+
+            if (root.TryGetProperty("expiresAt", out var exp) && DateTimeOffset.TryParse(exp.GetString(), out var dtoExp))
+                result.ExpiresAt = dtoExp;
+
+            if (root.TryGetProperty("roles", out var roles) && roles.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var r in roles.EnumerateArray())
+                    if (r.ValueKind == JsonValueKind.String) result.Roles.Add(r.GetString()!);
+            }
+        }
+
+        private static string ExtractAuthError(JsonElement root, System.Net.HttpStatusCode status)
+        {
+            // Buscar mensaje en el JSON
+            var msg = JsonHelper.GetString(root, "message", "Message", "error", "title");
+
+            // Si no hay mensaje en JSON, usar el default por Status Code
+            return !string.IsNullOrWhiteSpace(msg) ? msg : GetDefaultErrorMessage(status);
+        }
+
+        private static string GetDefaultErrorMessage(System.Net.HttpStatusCode status)
+        {
+            return status switch
+            {
+                System.Net.HttpStatusCode.Unauthorized => "Credenciales inválidas o usuario inactivo.",
+                System.Net.HttpStatusCode.Forbidden => "Acceso denegado.",
+                _ => "Error en la autenticación."
+            };
         }
         private static async Task<UserApiResult> ParseUserResult(HttpResponseMessage resp, CancellationToken ct)
         {
             var result = new UserApiResult { Success = resp.IsSuccessStatusCode };
-            if (resp.Content.Headers.ContentType?.MediaType == "application/json")
+
+            // 1. Verificación de tipo de contenido (Fail Fast)
+            if (resp.Content.Headers.ContentType?.MediaType != "application/json")
             {
-                var json = await resp.Content.ReadAsStringAsync(ct);
-                try
+                return result;
+            }
+
+            var json = await resp.Content.ReadAsStringAsync(ct);
+
+            try
+            {
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                // 2. Si la respuesta es exitosa, mapeamos el usuario
+                if (resp.IsSuccessStatusCode && root.ValueKind == JsonValueKind.Object)
                 {
-                    using var doc = JsonDocument.Parse(json); var root = doc.RootElement;
-                    if (resp.IsSuccessStatusCode && root.ValueKind == JsonValueKind.Object)
-                    {
-                        var id = root.TryGetProperty("id", out var idProp) && Guid.TryParse(idProp.GetString(), out var gid) ? gid : Guid.Empty;
-                        var username = root.TryGetProperty("username", out var unProp) ? unProp.GetString() : null;
-                        var email = root.TryGetProperty("email", out var emProp) ? emProp.GetString() : null;
-                        var roles = new List<string>();
-                        if (root.TryGetProperty("roles", out var rlProp) && rlProp.ValueKind == JsonValueKind.Array)
-                            foreach (var r in rlProp.EnumerateArray()) if (r.ValueKind == JsonValueKind.String) roles.Add(r.GetString()!);
-                        result.User = new UserFullDto(id, username ?? string.Empty, email, null, null, null, false, roles, string.Empty);
-                    }
-                    else if (root.ValueKind == JsonValueKind.Object)
-                    {
-                        foreach (var prop in root.EnumerateObject())
-                        {
-                            if (prop.Value.ValueKind == JsonValueKind.Array)
-                            {
-                                var list = new List<string>(); foreach (var item in prop.Value.EnumerateArray()) list.Add(item.GetString() ?? "Error");
-                                result.Errors[prop.Name] = list;
-                            }
-                        }
-                    }
+                    result.User = MapToUserDto(root);
+                    return result;
                 }
-                catch (System.Text.Json.JsonException)
+
+                // 3. Si hubo error, extraemos el diccionario de errores
+                if (root.ValueKind == JsonValueKind.Object)
                 {
-                    // Se ignora intencionalmente la excepción de parseo JSON.
-                    // Si el servidor de usuarios devuelve un cuerpo corrupto o HTML en lugar de JSON,
-                    // el método no falla y retorna el 'result' base de forma segura.
+                    ExtractApiErrors(root, result.Errors);
                 }
             }
+            catch (JsonException)
+            {
+                // Se mantiene el manejo silencioso para evitar excepciones en cascada
+            }
+
             return result;
+        }
+
+
+        private static UserFullDto MapToUserDto(JsonElement root)
+        {
+            var id = JsonHelper.GetGuid(root, "id", "Id");
+            var username = JsonHelper.GetString(root, "username", "Username");
+            var email = JsonHelper.GetString(root, "email", "Email");
+
+            var roles = new List<string>();
+            if (root.TryGetProperty("roles", out var rlProp) && rlProp.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var r in rlProp.EnumerateArray())
+                {
+                    if (r.ValueKind == JsonValueKind.String) roles.Add(r.GetString()!);
+                }
+            }
+
+            return new UserFullDto(id, username, email, null, null, null, false, roles, string.Empty);
+        }
+
+        private static void ExtractApiErrors(JsonElement root, Dictionary<string, List<string>> errorDict)
+        {
+            foreach (var prop in root.EnumerateObject())
+            {
+                if (prop.Value.ValueKind == JsonValueKind.Array)
+                {
+                    var list = new List<string>();
+                    foreach (var item in prop.Value.EnumerateArray())
+                    {
+                        list.Add(item.GetString() ?? "Error");
+                    }
+                    errorDict[prop.Name] = list;
+                }
+            }
         }
     }
 
@@ -630,52 +792,57 @@ namespace MicroServiceWeb.External.Http
         {
             var url = $"api/Client/paged?page={page}&pageSize={pageSize}";
             var resp = await _http.GetAsync(url, ct);
+
             if (!resp.IsSuccessStatusCode)
                 return new PagedResult<ClientDto>(new List<ClientDto>(), page, pageSize, 0, 0);
+
             try
             {
                 var json = await resp.Content.ReadAsStringAsync(ct);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var doc = JsonDocument.Parse(json);
+                using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
+
+                // 1. Mapeo de items usando la función privada para limpiar el bucle
                 var items = new List<ClientDto>();
                 if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
                 {
                     foreach (var el in itemsProp.EnumerateArray())
                     {
-                        try
-                        {
-                            var dto = System.Text.Json.JsonSerializer.Deserialize<ClientDto>(el.GetRawText(), options);
-                            if (dto == null)
-                            {
-                                var id = el.TryGetProperty("id", out var idP) && Guid.TryParse(idP.GetString(), out var gid) ? gid : Guid.Empty;
-                                var firstName = el.TryGetProperty("firstName", out var fnP) ? fnP.GetString() ?? string.Empty : string.Empty;
-                                var lastName = el.TryGetProperty("lastName", out var lnP) ? lnP.GetString() ?? string.Empty : string.Empty;
-                                var ci = el.TryGetProperty("ci", out var ciP) ? (ciP.GetString() ?? string.Empty) : string.Empty;
-                                var email = el.TryGetProperty("email", out var emP) ? emP.GetString() : null;
-                                var phone = el.TryGetProperty("phone", out var phP) ? phP.GetString() : null;
-                                var address = el.TryGetProperty("address", out var adP) ? adP.GetString() : null;
-                                dto = new ClientDto(id, firstName, lastName, ci, email, phone, address);
-                            }
-                            if (dto != null) items.Add(dto);
-                        }
-                        catch (Exception)
-                        {
-                            // Se ignora intencionalmente la excepción al parsear este cliente.
-                            // Si el JSON de un cliente específico está corrupto, lo omitimos
-                            // para que la lista general se siga cargando correctamente.
-                        }
+                        var dto = MapJsonToClientDto(el);
+                        if (dto != null) items.Add(dto);
                     }
                 }
-                int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
-                int totalPages = root.TryGetProperty("totalPages", out var tp) && tp.TryGetInt32(out var tpVal) ? tpVal : (int)Math.Ceiling((double)totalItems / pageSize);
-                int currentPage = root.TryGetProperty("page", out var pg) && pg.TryGetInt32(out var pgVal) ? pgVal : page;
-                int currentPageSize = root.TryGetProperty("pageSize", out var ps) && ps.TryGetInt32(out var psVal) ? psVal : pageSize;
-                return new PagedResult<ClientDto>(items, currentPage, currentPageSize, totalItems, totalPages);
+
+                // 2. Extraer metadatos usando el JsonHelper que ya tienes en el archivo
+                int totalItems = JsonHelper.GetInt(root, "totalItems") > 0 ? JsonHelper.GetInt(root, "totalItems") : items.Count;
+                int totalPages = JsonHelper.GetInt(root, "totalPages") > 0 ? JsonHelper.GetInt(root, "totalPages") : (int)Math.Ceiling((double)totalItems / pageSize);
+                int currentPage = JsonHelper.GetInt(root, "page") > 0 ? JsonHelper.GetInt(root, "page") : page;
+
+                return new PagedResult<ClientDto>(items, currentPage, pageSize, totalItems, totalPages);
             }
             catch
             {
                 return new PagedResult<ClientDto>(new List<ClientDto>(), page, pageSize, 0, 0);
+            }
+        }
+
+        private static ClientDto? MapJsonToClientDto(JsonElement el)
+        {
+            try
+            {
+                return new ClientDto(
+                    Id: JsonHelper.GetGuid(el, "id", "Id"),
+                    FirstName: JsonHelper.GetString(el, "firstName", "FirstName"),
+                    LastName: JsonHelper.GetString(el, "lastName", "LastName"),
+                    Ci: JsonHelper.GetString(el, "ci", "Ci"),
+                    Email: JsonHelper.GetString(el, "email", "Email"),
+                    Phone: JsonHelper.GetString(el, "phone", "Phone"),
+                    Address: JsonHelper.GetString(el, "address", "Address")
+                );
+            }
+            catch
+            {
+                return null; // El bucle lo ignorará si el elemento está corrupto
             }
         }
         public async Task<ClientApiResult> CreateAsync(ClientCreateDto dto, CancellationToken ct) { var resp = await _http.PostAsJsonAsync("api/Client", dto, ct); return await BuildResult(resp, ct); }
@@ -684,42 +851,55 @@ namespace MicroServiceWeb.External.Http
         private static async Task<ClientApiResult> BuildResult(HttpResponseMessage resp, CancellationToken ct)
         {
             var result = new ClientApiResult { Success = resp.IsSuccessStatusCode };
-            if (resp.Content.Headers.ContentType?.MediaType == "application/json")
+
+            // 1. Verificación rápida (Early Return)
+            if (resp.Content.Headers.ContentType?.MediaType != "application/json")
             {
-                try
+                return result;
+            }
+
+            try
+            {
+                var json = await resp.Content.ReadAsStringAsync(ct);
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                // 2. Si es ÉXITO
+                if (resp.IsSuccessStatusCode)
                 {
-                    using var stream = await resp.Content.ReadAsStreamAsync(ct);
-                    using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: ct);
-                    if (resp.IsSuccessStatusCode)
+                    if (root.ValueKind == JsonValueKind.Object && root.TryGetProperty("id", out _))
                     {
-                        if (doc.RootElement.ValueKind == JsonValueKind.Object && doc.RootElement.TryGetProperty("id", out _))
-                            result.Client = System.Text.Json.JsonSerializer.Deserialize<ClientDto>(doc.RootElement.GetRawText());
+                        result.Client = JsonSerializer.Deserialize<ClientDto>(root.GetRawText());
                     }
-                    else if (doc.RootElement.ValueKind == JsonValueKind.Object)
-                    {
-                        foreach (var prop in doc.RootElement.EnumerateObject())
-                        {
-                            if (prop.Value.ValueKind == JsonValueKind.Array)
-                            {
-                                var list = new List<string>(); foreach (var item in prop.Value.EnumerateArray()) list.Add(item.GetString() ?? "Error");
-                                result.Errors[prop.Name] = list;
-                            }
-                        }
-                    }
+                    return result;
                 }
-                catch (System.Text.Json.JsonException)
+
+                // 3. Si es ERROR (Procesamos el diccionario de errores)
+                if (root.ValueKind == JsonValueKind.Object)
                 {
-                    // Se ignora intencionalmente la excepción de parseo JSON.
-                    // Si el servidor falla y retorna un cuerpo HTML o corrupto en lugar de JSON,
-                    // evitamos que la aplicación colapse y retornamos el objeto 'result' base.
-                }
-                catch (System.Exception)
-                {
-                    // Captura de seguridad genérica en caso de que el stream falle a nivel de red
-                    // durante la lectura asíncrona, manteniendo el retorno seguro.
+                    ParseClientApiErrors(root, result.Errors);
                 }
             }
+            catch (JsonException) { /* Silencio intencional para evitar colapso */ }
+            catch (Exception) { /* Silencio de seguridad de red */ }
+
             return result;
+        }
+
+        private static void ParseClientApiErrors(JsonElement root, Dictionary<string, List<string>> errorDict)
+        {
+            foreach (var prop in root.EnumerateObject())
+            {
+                if (prop.Value.ValueKind == JsonValueKind.Array)
+                {
+                    var list = new List<string>();
+                    foreach (var item in prop.Value.EnumerateArray())
+                    {
+                        list.Add(item.GetString() ?? "Error");
+                    }
+                    errorDict[prop.Name] = list;
+                }
+            }
         }
     }
     public class DistributorsApiClient : IDistributorsApiClient
@@ -742,49 +922,58 @@ namespace MicroServiceWeb.External.Http
         {
             var page = page_parameter ?? 1;
             var pageSize = pageSize_parameter ?? 10;
-            // Llama al endpoint paginado: api/distributors/paged?page={page}&pageSize={pageSize}
             var url = $"api/distributors/paged?page={page}&pageSize={pageSize}";
+
             var resp = await _http.GetAsync(url, ct);
             if (!resp.IsSuccessStatusCode)
             {
                 return new PagedResult<DistributorDto>(new List<DistributorDto>(), page, pageSize, 0, 0);
             }
+
             try
             {
                 var json = await resp.Content.ReadAsStringAsync(ct);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var doc = JsonDocument.Parse(json);
+                using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
-                // Se espera estructura: { items: [...], page: n, pageSize: n, totalItems: n, totalPages: n }
-                var items = new List<DistributorDto>();
-                if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
-                {
-                    foreach (var el in itemsProp.EnumerateArray())
-                    {
-                        try
-                        {
-                            var dto = System.Text.Json.JsonSerializer.Deserialize<DistributorDto>(el.GetRawText(), options);
-                            if (dto != null) items.Add(dto);
-                        }
-                        catch (System.Text.Json.JsonException)
-                        {
-                            // Se ignora intencionalmente la excepción de deserialización.
-                            // Esta estrategia de tolerancia a fallos permite que, si un distribuidor 
-                            // específico en el JSON está corrupto, el proceso iterativo continúe 
-                            // construyendo la lista con los registros válidos restantes.
-                        }
-                    }
-                }
-                int totalItems = root.TryGetProperty("totalItems", out var ti) && ti.TryGetInt32(out var tiVal) ? tiVal : items.Count;
-                int totalPages = root.TryGetProperty("totalPages", out var tp) && tp.TryGetInt32(out var tpVal) ? tpVal : (int)Math.Ceiling((double)totalItems / pageSize);
-                int currentPage = root.TryGetProperty("page", out var pg) && pg.TryGetInt32(out var pgVal) ? pgVal : page;
-                int currentPageSize = root.TryGetProperty("pageSize", out var ps) && ps.TryGetInt32(out var psVal) ? psVal : pageSize;
-                return new PagedResult<DistributorDto>(items, currentPage, currentPageSize, totalItems, totalPages);
+
+                // 1. Extraer items usando un método privado (baja la complejidad cognitiva)
+                var items = ParseDistributorList(root);
+
+                // 2. Extraer metadatos usando el JsonHelper centralizado
+                int totalItems = JsonHelper.GetInt(root, "totalItems") > 0 ? JsonHelper.GetInt(root, "totalItems") : items.Count;
+                int totalPages = JsonHelper.GetInt(root, "totalPages") > 0 ? JsonHelper.GetInt(root, "totalPages") : (int)Math.Ceiling((double)totalItems / pageSize);
+                int currentPage = JsonHelper.GetInt(root, "page") > 0 ? JsonHelper.GetInt(root, "page") : page;
+                int currentSize = JsonHelper.GetInt(root, "pageSize") > 0 ? JsonHelper.GetInt(root, "pageSize") : pageSize;
+
+                return new PagedResult<DistributorDto>(items, currentPage, currentSize, totalItems, totalPages);
             }
             catch
             {
                 return new PagedResult<DistributorDto>(new List<DistributorDto>(), page, pageSize, 0, 0);
             }
+        }
+
+        private static List<DistributorDto> ParseDistributorList(JsonElement root)
+        {
+            var items = new List<DistributorDto>();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            if (root.TryGetProperty("items", out var itemsProp) && itemsProp.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var el in itemsProp.EnumerateArray())
+                {
+                    try
+                    {
+                        var dto = JsonSerializer.Deserialize<DistributorDto>(el.GetRawText(), options);
+                        if (dto != null) items.Add(dto);
+                    }
+                    catch (JsonException)
+                    {
+                        // Tolerancia a fallos para elementos corruptos
+                    }
+                }
+            }
+            return items;
         }
         public async Task<DistributorApiResult> CreateAsync(DistributorCreateDto dto, CancellationToken ct)
         { var resp = await _http.PostAsJsonAsync("api/distributors", dto, ct); return await ParseResult(resp, ct); }
@@ -795,34 +984,62 @@ namespace MicroServiceWeb.External.Http
         private static async Task<DistributorApiResult> ParseResult(HttpResponseMessage resp, CancellationToken ct)
         {
             var result = new DistributorApiResult { Success = resp.IsSuccessStatusCode };
-            if (resp.Content.Headers.ContentType?.MediaType == "application/json")
+
+            // 1. Verificación de tipo (Early Return)
+            if (resp.Content.Headers.ContentType?.MediaType != "application/json")
             {
-                var json = await resp.Content.ReadAsStringAsync(ct);
-                try
+                return result;
+            }
+
+            var json = await resp.Content.ReadAsStringAsync(ct);
+
+            try
+            {
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                // 2. Si es ÉXITO
+                if (resp.IsSuccessStatusCode)
                 {
-                    using var doc = JsonDocument.Parse(json);
-                    var root = doc.RootElement;
-                    if (resp.IsSuccessStatusCode && root.ValueKind == JsonValueKind.Object)
-                    { result.Distributor = System.Text.Json.JsonSerializer.Deserialize<DistributorDto>(root.GetRawText()); }
-                    else if (root.ValueKind == JsonValueKind.Object)
+                    if (root.ValueKind == JsonValueKind.Object)
                     {
-                        foreach (var prop in root.EnumerateObject())
-                        {
-                            if (prop.Value.ValueKind == JsonValueKind.Array)
-                            { var list = new List<string>(); foreach (var item in prop.Value.EnumerateArray()) list.Add(item.GetString() ?? "Error"); result.Errors[prop.Name] = list; }
-                            else if (prop.Value.ValueKind == JsonValueKind.String)
-                            { result.Errors[prop.Name] = new List<string> { prop.Value.GetString() ?? "Error" }; }
-                        }
+                        result.Distributor = JsonSerializer.Deserialize<DistributorDto>(root.GetRawText());
                     }
+                    return result;
                 }
-                catch (System.Text.Json.JsonException)
+
+                // 3. Si es ERROR (Procesamos el diccionario de errores)
+                if (root.ValueKind == JsonValueKind.Object)
                 {
-                    // Se ignora intencionalmente la excepción de parseo JSON.
-                    // Si el servidor de distribuidores retorna un formato inválido o no JSON,
-                    // evitamos que la aplicación colapse y retornamos el 'result' base de forma segura.
+                    ExtractDistributorErrors(root, result.Errors);
                 }
             }
+            catch (JsonException)
+            {
+                // Se ignora el error de parseo para mantener la estabilidad
+            }
+
             return result;
+        }
+
+        private static void ExtractDistributorErrors(JsonElement root, Dictionary<string, List<string>> errorDict)
+        {
+            foreach (var prop in root.EnumerateObject())
+            {
+                var list = new List<string>();
+
+                if (prop.Value.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var item in prop.Value.EnumerateArray())
+                        list.Add(item.GetString() ?? "Error");
+                }
+                else if (prop.Value.ValueKind == JsonValueKind.String)
+                {
+                    list.Add(prop.Value.GetString() ?? "Error");
+                }
+
+                if (list.Count > 0) errorDict[prop.Name] = list;
+            }
         }
     }
 }
