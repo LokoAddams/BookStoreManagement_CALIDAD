@@ -38,8 +38,9 @@ namespace MicroServiceClient.Infrastructure.Repositories
 
         public async Task<int> CountAsync(CancellationToken ct = default)
         {
-            await using var conn = (NpgsqlConnection)_database.GetConnection();
-            await using var cmd = new NpgsqlCommand("SELECT COUNT(*) FROM clients WHERE is_active = TRUE", conn);
+            await using var conn = _database.GetConnection();
+            await using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) FROM clients WHERE is_active = TRUE";
             var count = await cmd.ExecuteScalarAsync(ct);
             return Convert.ToInt32(count);
         }
@@ -74,7 +75,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             int colAddress = reader.GetOrdinal("address");
             int colCreatedAt = reader.GetOrdinal("created_at");
 
-            while (await ((NpgsqlDataReader)reader).ReadAsync(ct))
+            while (await reader.ReadAsync(ct))
             {
                 clients.Add(new Client
                 {
@@ -161,8 +162,9 @@ namespace MicroServiceClient.Infrastructure.Repositories
 
         public async Task<Client?> GetByCiAsync(string ci, CancellationToken ct = default)
         {
-            await using var conn = (NpgsqlConnection)_database.GetConnection();
-            await using var cmd = new NpgsqlCommand("SELECT * FROM clients WHERE ci = @ci AND is_active = TRUE LIMIT 1", conn);
+            await using var conn = _database.GetConnection();
+            await using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT * FROM clients WHERE ci = @ci AND is_active = TRUE LIMIT 1";
             AddParameter(cmd, "@ci", ci);
 
             await using var reader = await cmd.ExecuteReaderAsync(ct);
@@ -212,7 +214,7 @@ namespace MicroServiceClient.Infrastructure.Repositories
             cmd.Parameters.Add(parameter);
         }
 
-        private static Client MapClient(Npgsql.NpgsqlDataReader reader)
+        private static Client MapClient(System.Data.Common.DbDataReader reader)
         {
             return new Client
             {
