@@ -5,6 +5,10 @@ using MicroServiceSales.Domain.Validations;
 
 namespace MicroServiceSales.Controllers
 {
+    public record SaleStatusResponse(string Status, string Message);
+    public record ValidationErrorResponse(string Message, IEnumerable<ValidationErrorDetail> Errors);
+    public record ValidationErrorDetail(string Field, string Message);
+
     [ApiController]
     [Route("api/[controller]")]
     public class SalesController : ControllerBase
@@ -18,6 +22,7 @@ namespace MicroServiceSales.Controllers
 
         // GET: api/sales
         [HttpGet]
+        [ProducesResponseType(typeof(List<Sale>), StatusCodes.Status200OK)]
         public ActionResult<List<Sale>> GetAll()
         {
             var list = _service.GetAll();
@@ -26,6 +31,8 @@ namespace MicroServiceSales.Controllers
 
         // GET: api/sales/{id}
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(Sale), StatusCodes.Status200OK)] 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Sale> GetById(Guid id)
         {
             var sale = _service.Read(id);
@@ -38,16 +45,13 @@ namespace MicroServiceSales.Controllers
         // GET: api/sales/{id}/status
         // Endpoint para verificar el estado de una venta (usado por el frontend para polling)
         [HttpGet("{id:guid}/status")]
+        [ProducesResponseType(typeof(SaleStatusResponse), StatusCodes.Status200OK)]
         public ActionResult GetStatus(Guid id)
         {
             var sale = _service.Read(id);
             if (sale is null)
             {
-                // La venta aún no existe en la DB (puede estar en proceso o nunca existió)
-                return Ok(new { 
-                    Status = "PENDING", 
-                    Message = "La venta está siendo procesada..." 
-                });
+                return Ok(new SaleStatusResponse("PENDING", "La venta está siendo procesada..."));
             }
             
             // La venta existe, retornar su estado con mensaje específico
@@ -60,14 +64,13 @@ namespace MicroServiceSales.Controllers
                 _ => $"Estado: {sale.Status}"
             };
             
-            return Ok(new { 
-                Status = sale.Status,
-                Message = message
-            });
+            return Ok(new SaleStatusResponse(sale.Status, message));
         }
 
         // GET: api/sales/{id}/details
         [HttpGet("{id:guid}/details")]
+        [ProducesResponseType(typeof(List<SaleDetail>), StatusCodes.Status200OK)] 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<SaleDetail>> GetDetails(Guid id)
         {
             var sale = _service.Read(id);
@@ -78,6 +81,8 @@ namespace MicroServiceSales.Controllers
 
         // POST: api/sales
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)] 
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
         public ActionResult Create([FromBody] Sale sale)
         {
             try
@@ -87,16 +92,15 @@ namespace MicroServiceSales.Controllers
             }
             catch (ValidationException ex)
             {
-                return BadRequest(new
-                {
-                    Message = "Errores de validación",
-                    Errors = ex.Errors.Select(e => new { e.Field, e.Message })
-                });
+                var errors = ex.Errors.Select(e => new ValidationErrorDetail(e.Field, e.Message));
+                return BadRequest(new ValidationErrorResponse("Errores de validación", errors));
             }
         }
 
         // PUT: api/sales/{id}
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), StatusCodes.Status400BadRequest)]
         public ActionResult Update(Guid id, [FromBody] Sale sale)
         {
             if (sale is null) return BadRequest();
@@ -108,16 +112,14 @@ namespace MicroServiceSales.Controllers
             }
             catch (ValidationException ex)
             {
-                return BadRequest(new
-                {
-                    Message = "Errores de validación",
-                    Errors = ex.Errors.Select(e => new { e.Field, e.Message })
-                });
+                var errors = ex.Errors.Select(e => new ValidationErrorDetail(e.Field, e.Message));
+                return BadRequest(new ValidationErrorResponse("Errores de validación", errors));
             }
         }
 
         // DELETE: api/sales/{id}
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult Delete(Guid id)
         {
             _service.Delete(id);

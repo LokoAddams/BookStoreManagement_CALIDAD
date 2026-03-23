@@ -20,6 +20,7 @@ namespace MicroServiceClient.Controllers
 
         // GET: api/client
         [HttpGet]
+        [ProducesResponseType(typeof(List<Client>), StatusCodes.Status200OK)]
         public ActionResult<List<Client>> GetAll()
         {
             var list = _service.GetAll();
@@ -40,6 +41,8 @@ namespace MicroServiceClient.Controllers
 
         // GET: api/client/by-ci/{ci}
         [HttpGet("by-ci/{ci}")]
+        [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)] 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Client>> GetByCi([FromRoute] string ci, CancellationToken ct = default)
         {
             var normalized = TextRules.NormalizeCi(ci);
@@ -50,6 +53,8 @@ namespace MicroServiceClient.Controllers
 
         // GET: api/client/{id}
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)] 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Client> GetById(Guid id)
         {
             var client = _service.Read(id);
@@ -59,6 +64,8 @@ namespace MicroServiceClient.Controllers
 
         // POST: api/client
         [HttpPost]
+        [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)] 
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
         public ActionResult Create([FromBody] Client client)
         {
             try
@@ -78,6 +85,8 @@ namespace MicroServiceClient.Controllers
 
         // PUT: api/client/{id}
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
         public ActionResult Update(Guid id, [FromBody] Client client)
         {
             if (client is null) return BadRequest();
@@ -101,6 +110,7 @@ namespace MicroServiceClient.Controllers
 
         // DELETE: api/client/{id}
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult Delete(Guid id)
         {
             _service.Delete(id);
