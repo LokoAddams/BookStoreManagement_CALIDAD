@@ -237,8 +237,8 @@ function defaultPrefilter( elem, props, opts ) {
 					showHide( [ elem ] );
 				}
 				dataPriv.remove( elem, "fxshow" );
-				for ( prop in orig ) {
-					jQuery.style( elem, prop, orig[ prop ] );
+				for ( let p in orig ) {
+					jQuery.style( elem, p, orig[ p ] );
 				}
 			} );
 		}
@@ -280,10 +280,10 @@ function propFilter( props, specialEasing ) {
 
 			// Not quite $.extend, this won't overwrite existing keys.
 			// Reusing 'index' because we have the correct "name"
-			for ( index in value ) {
-				if ( !( index in props ) ) {
-					props[ index ] = value[ index ];
-					specialEasing[ index ] = easing;
+			for ( let i in value ) {
+				if ( !( i in props ) ) {
+					props[ i ] = value[ i ];
+					specialEasing[ i ] = easing;
 				}
 			}
 		} else {
@@ -656,14 +656,15 @@ jQuery.fx.tick = function() {
 
 	fxNow = Date.now();
 
-	for ( ; i < timers.length; i++ ) {
-		timer = timers[ i ];
+	while ( i < timers.length ) {
+        timer = timers[ i ];
 
-		// Run the timer and safely remove it when done (allowing for external removal)
-		if ( !timer() && timers[ i ] === timer ) {
-			timers.splice( i--, 1 );
-		}
-	}
+        if ( !timer() && timers[ i ] === timer ) {
+            timers.splice( i, 1 ); 
+        } else {
+            i++; 
+        }
+    }
 
 	if ( !timers.length ) {
 		jQuery.fx.stop();
