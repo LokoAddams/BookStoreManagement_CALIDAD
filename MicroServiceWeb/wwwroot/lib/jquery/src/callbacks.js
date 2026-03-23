@@ -64,32 +64,26 @@ jQuery.Callbacks = function( options ) {
 		// Queue of execution data for repeatable lists
 		queue = [],
 
-		// Index of currently firing callback (modified by add/remove as needed)
 		firingIndex = -1,
 
-		// Fire callbacks
 		fire = function() {
 
-			// Enforce single-firing
 			locked = locked || options.once;
 
-			// Execute callbacks for all pending executions,
-			// respecting firingIndex overrides and runtime changes
 			fired = firing = true;
-			for ( ; queue.length; firingIndex = -1 ) {
-				memory = queue.shift();
-				while ( ++firingIndex < list.length ) {
-
-					// Run callback and check for early termination
-					if ( list[ firingIndex ].apply( memory[ 0 ], memory[ 1 ] ) === false &&
-						options.stopOnFalse ) {
-
-						// Jump to end and forget the data so .add doesn't re-fire
-						memory = false;
-						break;
-					}
-				}
-			}
+			while (queue.length > 0) {
+                memory = queue.shift();
+                firingIndex++; 
+                
+                while (firingIndex < list.length) {
+                    if (list[firingIndex].apply(memory[0], memory[1]) === false && options.stopOnFalse) {
+                        memory = false;
+                        break; 
+                    }
+                    firingIndex++;
+                }
+                firingIndex = -1;
+            }
 
 			// Forget the data if we're done with it
 			if ( !options.memory ) {
