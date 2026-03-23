@@ -280,10 +280,10 @@ function propFilter( props, specialEasing ) {
 
 			// Not quite $.extend, this won't overwrite existing keys.
 			// Reusing 'index' because we have the correct "name"
-			for ( index in value ) {
-				if ( !( index in props ) ) {
-					props[ index ] = value[ index ];
-					specialEasing[ index ] = easing;
+			for ( let i in value ) {
+				if ( !( i in props ) ) {
+					props[ i ] = value[ i ];
+					specialEasing[ i ] = easing;
 				}
 			}
 		} else {
