@@ -237,8 +237,8 @@ function defaultPrefilter( elem, props, opts ) {
 					showHide( [ elem ] );
 				}
 				dataPriv.remove( elem, "fxshow" );
-				for ( prop in orig ) {
-					jQuery.style( elem, prop, orig[ prop ] );
+				for ( let p in orig ) {
+					jQuery.style( elem, p, orig[ p ] );
 				}
 			} );
 		}
