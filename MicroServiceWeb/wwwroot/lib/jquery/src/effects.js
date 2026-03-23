@@ -656,14 +656,15 @@ jQuery.fx.tick = function() {
 
 	fxNow = Date.now();
 
-	for ( ; i < timers.length; i++ ) {
-		timer = timers[ i ];
+	while ( i < timers.length ) {
+        timer = timers[ i ];
 
-		// Run the timer and safely remove it when done (allowing for external removal)
-		if ( !timer() && timers[ i ] === timer ) {
-			timers.splice( i--, 1 );
-		}
-	}
+        if ( !timer() && timers[ i ] === timer ) {
+            timers.splice( i, 1 ); 
+        } else {
+            i++; 
+        }
+    }
 
 	if ( !timers.length ) {
 		jQuery.fx.stop();
