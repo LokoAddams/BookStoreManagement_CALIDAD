@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace MicroServiceClient.Controllers;
 
+public record DevTokenResponse(string Token, string Alg, string Issuer, string Audience);
+
 [ApiController]
 [Route("api/debug-auth")] // Solo para desarrollo
 public class AuthDebugController : ControllerBase
@@ -23,6 +25,9 @@ public class AuthDebugController : ControllerBase
 
     [HttpPost("token")]
     [AllowAnonymous]
+    [ProducesResponseType(typeof(DevTokenResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public IActionResult CreateDevToken([FromQuery] string userId = "dev-user", [FromQuery] string role = "User")
     {
         if (!_env.IsDevelopment()) return NotFound();
@@ -57,6 +62,6 @@ public class AuthDebugController : ControllerBase
 
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         Console.WriteLine(tokenString);
-        return Ok(new { token = tokenString, alg = SecurityAlgorithms.HmacSha256, issuer, audience });
+        return Ok(new DevTokenResponse(tokenString, SecurityAlgorithms.HmacSha256, issuer, audience));
     }
 }
