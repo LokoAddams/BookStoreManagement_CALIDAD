@@ -85,8 +85,8 @@ jQuery.Callbacks = function( options ) {
 						options.stopOnFalse ) {
 
 						// Jump to end and forget the data so .add doesn't re-fire
-						firingIndex = list.length;
 						memory = false;
+						break;
 					}
 				}
 			}
