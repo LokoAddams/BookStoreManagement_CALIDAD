@@ -1,0 +1,29 @@
+name: .NET CI Pipeline
+
+# Se dispara automáticamente cuando se abre o actualiza un PR hacia la rama main
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Usar Linux es más rápido y barato en GitHub Actions
+
+    steps:
+    - name: 1. Descargar el código del repositorio
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar entorno .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' # Cambia esto si tu proyecto usa .NET 7 o .NET 9
+
+    - name: 3. Restaurar dependencias (NuGet)
+      run: dotnet restore
+
+    - name: 4. Compilar la solución
+      run: dotnet build --no-restore
+
+    - name: 5. Ejecutar Pruebas Unitarias (xUnit)
+      # El flag --no-build ahorra tiempo porque ya se compiló en el paso anterior
+      run: dotnet test --no-build --verbosity normal
