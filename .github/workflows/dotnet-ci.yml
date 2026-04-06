@@ -1,0 +1,40 @@
+name: .NET CI Pipeline
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Descargar el código del repositorio
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar entorno .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 3. Restaurar dependencias (NuGet)
+      run: dotnet restore
+
+    - name: 4. Compilar la solución
+      run: dotnet build --no-restore
+
+    - name: 5. Ejecutar Pruebas Unitarias con Cobertura
+      # Añadimos --collect:"XPlat Code Coverage" para generar el archivo .xml de cobertura
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+    - name: 6. Procesar resultados de Cobertura
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: TestResults/**/coverage.cobertura.xml
+        badge: true
+        format: markdown
+        output: both
+
+    - name: 7. Publicar Resumen de Cobertura en el Job Summary
+      # Esto hace que el porcentaje aparezca visualmente en la pestaña 'Summary' de GitHub
+      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
