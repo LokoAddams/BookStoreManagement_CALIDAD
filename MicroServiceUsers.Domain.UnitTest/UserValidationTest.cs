@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using MicroServiceUsers.Domain.Models;
 using MicroServiceUsers.Domain.Validations;
 
@@ -260,6 +262,55 @@ namespace MicroServiceUsers.Domain.UnitTest
 
             Assert.Single(errors);
             Assert.Equal("El segundo nombre no debe superar 50 caracteres.", errors[0].Message);
+        }
+
+        [Fact]
+        public void ValidateField_TC1_IsRequiredTrue_ValueAbc_SinErrores()
+        {
+            var errors = InvokeValidateField("Username", "abc", isRequired: true, maxLength: 5);
+
+            Assert.Empty(errors);
+        }
+
+        [Fact]
+        public void ValidateField_TC2_IsRequiredTrue_ValueVacio_ErrorObligatorio()
+        {
+            var errors = InvokeValidateField("Username", "", isRequired: true, maxLength: 5);
+
+            Assert.Single(errors);
+            Assert.Equal("El Username es obligatorio.", errors[0].Message);
+        }
+
+        [Fact]
+        public void ValidateField_TC3_IsRequiredFalse_ValueAbc_SinErrores()
+        {
+            var errors = InvokeValidateField("Username", "abc", isRequired: false, maxLength: 5);
+
+            Assert.Empty(errors);
+        }
+
+        [Fact]
+        public void ValidateField_TC4_IsRequiredTrue_ValueMayorMax_ErrorLongitud()
+        {
+            var errors = InvokeValidateField("Username", "abcdef", isRequired: true, maxLength: 5);
+
+            Assert.Single(errors);
+            Assert.Equal("No debe superar 5 caracteres.", errors[0].Message);
+        }
+
+        [Fact]
+        public void ValidateField_TC5_IsRequiredFalse_ValueNull_SinErrores()
+        {
+            var errors = InvokeValidateField("Username", null, isRequired: false, maxLength: 5);
+
+            Assert.Empty(errors);
+        }
+
+        private static List<ValidationError> InvokeValidateField(string fieldName, string? value, bool isRequired, int maxLength)
+        {
+            var method = typeof(UserValidation).GetMethod("ValidateField", BindingFlags.NonPublic | BindingFlags.Static)!;
+            var result = (IEnumerable<ValidationError>)method.Invoke(null, new object?[] { fieldName, value, isRequired, maxLength })!;
+            return result.ToList();
         }
 
         private static User CreateValidUser() => new()
