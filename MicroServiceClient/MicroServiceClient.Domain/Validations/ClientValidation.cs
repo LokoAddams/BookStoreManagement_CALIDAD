@@ -37,7 +37,7 @@ namespace MicroServiceClient.Domain.Validations
             foreach (var error in ValidateAddress(c.Address)) yield return error;
         }
 
-        private static IEnumerable<ValidationError> ValidateCi(string ciRaw)
+        public static IEnumerable<ValidationError> ValidateCi(string ciRaw)
         {
             var ci = TextRules.NormalizeSpaces(ciRaw).ToUpperInvariant();
             if (string.IsNullOrWhiteSpace(ci))
@@ -48,7 +48,7 @@ namespace MicroServiceClient.Domain.Validations
                 yield return new ValidationError("Ci", "El CI debe contener solo números y una extensión válida opcional (p. ej. 1234567-CB).");
         }
 
-        private static IEnumerable<ValidationError> ValidateFirstName(string nameRaw)
+        public static IEnumerable<ValidationError> ValidateFirstName(string nameRaw)
         {
             var first = TextRules.NormalizeSpaces(nameRaw);
             if (string.IsNullOrWhiteSpace(first))
@@ -61,7 +61,7 @@ namespace MicroServiceClient.Domain.Validations
                 yield return new ValidationError("FirstName", "El nombre solo puede contener letras.");
         }
 
-        private static IEnumerable<ValidationError> ValidateLastName(string lastRaw)
+        public static IEnumerable<ValidationError> ValidateLastName(string lastRaw)
         {
             var last = TextRules.NormalizeSpaces(lastRaw);
             if (string.IsNullOrWhiteSpace(last))
@@ -72,7 +72,7 @@ namespace MicroServiceClient.Domain.Validations
                 yield return new ValidationError("LastName", "El apellido solo puede contener letras y espacios.");
         }
 
-        private static IEnumerable<ValidationError> ValidateEmail(string emailRaw)
+        public static IEnumerable<ValidationError> ValidateEmail(string emailRaw)
         {
             var email = emailRaw?.Trim();
             if (string.IsNullOrWhiteSpace(email))
@@ -83,7 +83,7 @@ namespace MicroServiceClient.Domain.Validations
                 yield return new ValidationError("Email", "Debe ingresar un correo electrónico válido.");
         }
 
-        private static IEnumerable<ValidationError> ValidatePhone(string phoneRaw)
+        public static IEnumerable<ValidationError> ValidatePhone(string phoneRaw)
         {
             var phone = TextRules.NormalizeSpaces(phoneRaw);
             if (string.IsNullOrWhiteSpace(phone))
@@ -92,7 +92,7 @@ namespace MicroServiceClient.Domain.Validations
                 yield return new ValidationError("Phone", "El número de teléfono debe tener exactamente 8 dígitos.");
         }
 
-        private static IEnumerable<ValidationError> ValidateAddress(string addressRaw)
+        public static IEnumerable<ValidationError> ValidateAddress(string addressRaw)
         {
             var address = TextRules.NormalizeSpaces(addressRaw);
             if (string.IsNullOrWhiteSpace(address))
