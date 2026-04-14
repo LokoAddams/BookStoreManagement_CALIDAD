@@ -306,10 +306,78 @@ namespace MicroServiceUsers.Domain.UnitTest
             Assert.Empty(errors);
         }
 
+        [Fact]
+        public void ValidateNameField_TC1_Ana_AllowSpacesFalse_SinErrores()
+        {
+            var errors = InvokeValidateNameField("FirstName", "Ana", maxLength: 5, label: "El nombre", allowSpaces: false);
+
+            Assert.Empty(errors);
+        }
+
+        [Fact]
+        public void ValidateNameField_TC2_ValorVacio_AllowSpacesFalse_YieldBreakSinErrores()
+        {
+            var errors = InvokeValidateNameField("FirstName", "", maxLength: 5, label: "El nombre", allowSpaces: false);
+
+            Assert.Empty(errors);
+        }
+
+        [Fact]
+        public void ValidateNameField_TC3_AnaMaria_AllowSpacesFalse_ErrorLongitud()
+        {
+            var errors = InvokeValidateNameField("FirstName", "AnaMaria", maxLength: 5, label: "El nombre", allowSpaces: false);
+
+            Assert.Single(errors);
+            Assert.Equal("El nombre no debe superar 5 caracteres.", errors[0].Message);
+        }
+
+        [Fact]
+        public void ValidateNameField_TC4_AnM_AllowSpacesFalse_DosErrores()
+        {
+            var errors = InvokeValidateNameField("FirstName", "An M", maxLength: 5, label: "El nombre", allowSpaces: false);
+
+            Assert.Equal(2, errors.Count);
+            Assert.Contains(errors, e => e.Message == "El nombre no debe contener espacios.");
+            Assert.Contains(errors, e => e.Message == "El nombre solo puede contener letras.");
+        }
+
+        [Fact]
+        public void ValidateNameField_TC5_AnM_AllowSpacesTrue_SinErrores()
+        {
+            var errors = InvokeValidateNameField("LastName", "An M", maxLength: 5, label: "El apellido", allowSpaces: true);
+
+            Assert.Empty(errors);
+        }
+
+        [Fact]
+        public void ValidateNameField_TC6_Ana1_AllowSpacesFalse_ErrorFormatoSoloLetras()
+        {
+            var errors = InvokeValidateNameField("FirstName", "Ana1", maxLength: 5, label: "El nombre", allowSpaces: false);
+
+            Assert.Single(errors);
+            Assert.Equal("El nombre solo puede contener letras.", errors[0].Message);
+        }
+
+        [Fact]
+        public void ValidateNameField_TC7_An1_AllowSpacesTrue_ErrorFormatoLetrasYEspacios()
+        {
+            var errors = InvokeValidateNameField("LastName", "An 1", maxLength: 5, label: "El apellido", allowSpaces: true);
+
+            Assert.Single(errors);
+            Assert.Equal("El apellido solo puede contener letras y espacios.", errors[0].Message);
+        }
+
         private static List<ValidationError> InvokeValidateField(string fieldName, string? value, bool isRequired, int maxLength)
         {
             var method = typeof(UserValidation).GetMethod("ValidateField", BindingFlags.NonPublic | BindingFlags.Static)!;
             var result = (IEnumerable<ValidationError>)method.Invoke(null, new object?[] { fieldName, value, isRequired, maxLength })!;
+            return result.ToList();
+        }
+
+        private static List<ValidationError> InvokeValidateNameField(string fieldName, string? value, int maxLength, string label, bool allowSpaces = false)
+        {
+            var method = typeof(UserValidation).GetMethod("ValidateNameField", BindingFlags.NonPublic | BindingFlags.Static)!;
+            var result = (IEnumerable<ValidationError>)method.Invoke(null, new object?[] { fieldName, value, maxLength, label, allowSpaces })!;
             return result.ToList();
         }
 
