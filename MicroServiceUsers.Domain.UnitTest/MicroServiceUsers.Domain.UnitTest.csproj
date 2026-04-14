@@ -5,8 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <AssemblyName>MicroServiceProduct.XUnit.Tests</AssemblyName>
-    <PackageId>MicroServiceProduct.XUnit.Tests</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MicroServiceProduct.Application\MicroServiceProduct.Application.csproj" />
-    <ProjectReference Include="..\MicroServiceProduct.Infraestructure\MicroServiceProduct.Infraestructure.csproj" />
+    <ProjectReference Include="..\MicroServiceUsers\MicroServiceUsers.Domain\MicroServiceUsers.Domain.csproj" />
   </ItemGroup>
 
 </Project>
