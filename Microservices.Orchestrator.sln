@@ -72,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		clients.sql = clients.sql
 		.github\workflows\ContinuousIntegrationWorkflow.yml = .github\workflows\ContinuousIntegrationWorkflow.yml
 		distributors.sql = distributors.sql
+		.github\workflows\dotnet-ci.yml = .github\workflows\dotnet-ci.yml
 		product.sql = product.sql
 		reports.sql = reports.sql
 		sales.sql = sales.sql
@@ -90,6 +91,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnit", "MicroServiceProduct\XUnit\XUnit.csproj", "{2988C905-1A3A-32F0-403E-05D82EA79410}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceUsers.Domain.UnitTest", "MicroServiceUsers.Domain.UnitTest\MicroServiceUsers.Domain.UnitTest.csproj", "{0F323661-8508-4EE4-A3A7-2C122A9C19FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceClient.Domain.UnitTest", "MicroServiceClient.Domain.UnitTest\MicroServiceClient.Domain.UnitTest.csproj", "{EED6DC06-D4A8-431C-9636-7B7B288FE906}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -461,6 +464,18 @@ Global
 		{0F323661-8508-4EE4-A3A7-2C122A9C19FD}.Release|x64.Build.0 = Release|Any CPU
 		{0F323661-8508-4EE4-A3A7-2C122A9C19FD}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F323661-8508-4EE4-A3A7-2C122A9C19FD}.Release|x86.Build.0 = Release|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Debug|x64.Build.0 = Debug|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Debug|x86.Build.0 = Debug|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Release|x64.ActiveCfg = Release|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Release|x64.Build.0 = Release|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Release|x86.ActiveCfg = Release|Any CPU
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -495,6 +510,7 @@ Global
 		{25C23707-5C6B-4F00-B2A0-5C8D7D50C014} = {288A445D-3B59-671C-B7F0-31F5A1053A95}
 		{2988C905-1A3A-32F0-403E-05D82EA79410} = {288A445D-3B59-671C-B7F0-31F5A1053A95}
 		{0F323661-8508-4EE4-A3A7-2C122A9C19FD} = {F3EF090A-8EAA-B67E-D746-51FA7453DB97}
+		{EED6DC06-D4A8-431C-9636-7B7B288FE906} = {360628A2-BE65-DA5C-AC04-76A69A9DE92B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFA94410-D72E-4F55-AD74-F31651A23E29}
