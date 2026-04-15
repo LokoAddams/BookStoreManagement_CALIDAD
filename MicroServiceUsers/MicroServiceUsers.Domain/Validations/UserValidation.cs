@@ -73,14 +73,5 @@ namespace MicroServiceUsers.Domain.Validations
             if (!isValid)
                 yield return new ValidationError(fieldName, $"{label} solo puede contener letras{(allowSpaces ? " y espacios" : "")}.");
         }
-
-
-        public static Result<User> ValidateAndWrap(User u)
-        {
-            var errors = Validate(u).ToList();
-            return errors.Count == 0
-                ? Result<User>.Ok(u)
-                : Result<User>.FromErrors(errors);
-        }
     }
 }
