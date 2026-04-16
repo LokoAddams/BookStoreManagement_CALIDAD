@@ -66,6 +66,11 @@ logs/
 
 # Test / Cobertura
 TestResults/
+**/CoverageReport/
+CoverageReport/
+GlobalCoverageReport/
+**/coverage/
+coverage/
 *.trx
 *.coverage
 *.coveragexml
