@@ -52,16 +52,5 @@ namespace MicroServiceDistributors.Domain.Validations
             else if (address.Length > AddressMaxLength)
                 yield return new ValidationError(nameof(d.Address), $"La dirección no debe superar {AddressMaxLength} caracteres.");
         }
-
-        public static Result ValidateAsResult(Distributor d)
-            => Result.FromValidation(Validate(d));
-
-        public static Result<Distributor> ValidateAndWrap(Distributor d)
-        {
-            var errors = Validate(d).ToList();
-            return errors.Count == 0
-                ? Result<Distributor>.Ok(d)
-                : Result<Distributor>.FromErrors(errors);
-        }
     }
 }
