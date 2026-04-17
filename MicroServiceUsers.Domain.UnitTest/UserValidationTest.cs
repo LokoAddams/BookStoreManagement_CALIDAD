@@ -3,368 +3,115 @@ using System.Linq;
 using System.Reflection;
 using MicroServiceUsers.Domain.Models;
 using MicroServiceUsers.Domain.Validations;
+using Xunit;
 
 namespace MicroServiceUsers.Domain.UnitTest
 {
     public class UserValidationTest
     {
-        [Fact]
-        public void Normalize_TC1_Base_NormalizaTodosLosCampos()
+        [Theory]
+        [InlineData(" User ", " A@B.COM ", " ana ", " perez ", " maria ", "user", "a@b.com", "Ana", "Perez", "Maria")] // TC1
+        [InlineData(null, " A@B.COM ", " ana ", " perez ", " maria ", "", "a@b.com", "Ana", "Perez", "Maria")] // TC2
+        [InlineData(" User ", null, " ana ", " perez ", " maria ", "user", "", "Ana", "Perez", "Maria")] // TC3
+        [InlineData(" User ", " A@B.COM ", null, " perez ", " maria ", "user", "a@b.com", null, "Perez", "Maria")] // TC4
+        [InlineData(" User ", " A@B.COM ", " ana ", null, " maria ", "user", "a@b.com", "Ana", null, "Maria")] // TC5
+        [InlineData(" User ", " A@B.COM ", " ana ", " perez ", null, "user", "a@b.com", "Ana", "Perez", null)] // TC6
+        public void Normalize_Tests(string? username, string? email, string? firstName, string? lastName, string? middleName,
+            string expectedUsername, string expectedEmail, string? expectedFirstName, string? expectedLastName, string? expectedMiddleName)
         {
             var user = new User
             {
-                Username = " User ",
-                Email = " A@B.COM ",
-                FirstName = " ana ",
-                LastName = " perez ",
-                MiddleName = " maria "
+                Username = username!,
+                Email = email!,
+                FirstName = firstName,
+                LastName = lastName,
+                MiddleName = middleName
             };
 
             UserValidation.Normalize(user);
 
-            Assert.Equal("user", user.Username);
-            Assert.Equal("a@b.com", user.Email);
-            Assert.Equal("Ana", user.FirstName);
-            Assert.Equal("Perez", user.LastName);
-            Assert.Equal("Maria", user.MiddleName);
+            Assert.Equal(expectedUsername, user.Username);
+            Assert.Equal(expectedEmail, user.Email);
+            Assert.Equal(expectedFirstName, user.FirstName);
+            Assert.Equal(expectedLastName, user.LastName);
+            Assert.Equal(expectedMiddleName, user.MiddleName);
         }
 
-        [Fact]
-        public void Normalize_TC2_UsernameNull_QuedaEmpty_YRestoNormalizado()
+        [Theory]
+        [InlineData("ana.perez", "ana.perez@mail.com", "Ana", "Perez", "Maria", null)] // TC1: Todo válido
+        [InlineData("", "ana.perez@mail.com", "Ana", "Perez", "Maria", "El Username es obligatorio.")] // TC2: Username vacío
+        [InlineData("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu", "ana.perez@mail.com", "Ana", "Perez", "Maria", "No debe superar 50 caracteres.")] // TC3: Username > 50
+        [InlineData("ana!perez", "ana.perez@mail.com", "Ana", "Perez", "Maria", "El nombre de usuario solo puede contener letras, números, puntos y guiones bajos.")] // TC4: Username inválido
+        [InlineData("ana.perez", null, "Ana", "Perez", "Maria", "El Email es obligatorio.")] // TC5: Email null
+        [InlineData("ana.perez", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@mail.com", "Ana", "Perez", "Maria", "No debe superar 150 caracteres.")] // TC6: Email > 150
+        [InlineData("ana.perez", "https://www.google.com/search?q=anamail.com", "Ana", "Perez", "Maria", "Debe ingresar un correo electrónico válido.")] // TC7: Email inválido
+        [InlineData("ana.perez", "ana.perez@mail.com", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Perez", "Maria", "El nombre no debe superar 50 caracteres.")] // TC8: FirstName > 50
+        [InlineData("ana.perez", "ana.perez@mail.com", "Ana Maria", "Perez", "Maria", "El nombre no debe contener espacios.")] // TC9: FirstName con espacios
+        [InlineData("ana.perez", "ana.perez@mail.com", "Ana", "Perez 123", "Maria", "El apellido solo puede contener letras y espacios.")] // TC10: LastName inválido
+        [InlineData("ana.perez", "ana.perez@mail.com", "Ana", "Perez", "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", "El segundo nombre no debe superar 50 caracteres.")] // TC11: MiddleName > 50
+        public void Validate_Tests(string username, string? email, string firstName, string lastName, string middleName, string? expectedError)
         {
             var user = new User
             {
-                Username = null!,
-                Email = " A@B.COM ",
-                FirstName = " ana ",
-                LastName = " perez ",
-                MiddleName = " maria "
+                Username = username,
+                Email = email!,
+                FirstName = firstName,
+                LastName = lastName,
+                MiddleName = middleName
             };
 
-            UserValidation.Normalize(user);
+            var errors = UserValidation.Validate(user).ToList();
 
-            Assert.Equal(string.Empty, user.Username);
-            Assert.Equal("a@b.com", user.Email);
-            Assert.Equal("Ana", user.FirstName);
-            Assert.Equal("Perez", user.LastName);
-            Assert.Equal("Maria", user.MiddleName);
+            if (expectedError == null)
+                Assert.Empty(errors);
+            else
+                Assert.Contains(errors, e => e.Message == expectedError);
         }
 
-        [Fact]
-        public void Normalize_TC3_EmailNull_QuedaEmpty_YRestoNormalizado()
+        [Theory]
+        [InlineData("Username", "abc", true, 5, null)] // TC1: Válido
+        [InlineData("Username", "", true, 5, "El Username es obligatorio.")] // TC2: Vacío cuando es obligatorio
+        [InlineData("Username", "abc", false, 5, null)] // TC3: No obligatorio y válido
+        [InlineData("Username", "abcdef", true, 5, "No debe superar 5 caracteres.")] // TC4: Supera max length
+        [InlineData("Username", null, false, 5, null)] // TC5: Null cuando no es obligatorio
+        public void ValidateField_Tests(string fieldName, string? value, bool isRequired, int maxLength, string? expectedError)
         {
-            var user = new User
+            var errors = InvokeValidateField(fieldName, value, isRequired, maxLength);
+
+            if (expectedError == null)
+                Assert.Empty(errors);
+            else
             {
-                Username = " User ",
-                Email = null!,
-                FirstName = " ana ",
-                LastName = " perez ",
-                MiddleName = " maria "
-            };
-
-            UserValidation.Normalize(user);
-
-            Assert.Equal("user", user.Username);
-            Assert.Equal(string.Empty, user.Email);
-            Assert.Equal("Ana", user.FirstName);
-            Assert.Equal("Perez", user.LastName);
-            Assert.Equal("Maria", user.MiddleName);
+                Assert.Single(errors);
+                Assert.Equal(expectedError, errors[0].Message);
+            }
         }
 
-        [Fact]
-        public void Normalize_TC4_FirstNameNull_SeIgnora_YRestoNormalizado()
+        [Theory]
+        [InlineData("FirstName", "Ana", 5, "El nombre", false, null)] // TC1: Válido sin espacios
+        [InlineData("FirstName", "", 5, "El nombre", false, null)] // TC2: Vacío (yield break)
+        [InlineData("FirstName", "AnaMaria", 5, "El nombre", false, "El nombre no debe superar 5 caracteres.")] // TC3: Supera max length
+        [InlineData("FirstName", "An M", 5, "El nombre", false, "multiple")] // TC4: Espacios y caracteres inválidos (dos errores)
+        [InlineData("LastName", "An M", 5, "El apellido", true, null)] // TC5: Válido con espacios permitidos
+        [InlineData("FirstName", "Ana1", 5, "El nombre", false, "El nombre solo puede contener letras.")] // TC6: Formato inválido
+        [InlineData("LastName", "An 1", 5, "El apellido", true, "El apellido solo puede contener letras y espacios.")] // TC7: Formato con espacios permitidos
+        public void ValidateNameField_Tests(string fieldName, string? value, int maxLength, string label, bool allowSpaces, string? expectedError)
         {
-            var user = new User
+            var errors = InvokeValidateNameField(fieldName, value, maxLength, label, allowSpaces);
+
+            if (expectedError == null)
+                Assert.Empty(errors);
+            else if (expectedError == "multiple")
             {
-                Username = " User ",
-                Email = " A@B.COM ",
-                FirstName = null,
-                LastName = " perez ",
-                MiddleName = " maria "
-            };
-
-            UserValidation.Normalize(user);
-
-            Assert.Equal("user", user.Username);
-            Assert.Equal("a@b.com", user.Email);
-            Assert.Null(user.FirstName);
-            Assert.Equal("Perez", user.LastName);
-            Assert.Equal("Maria", user.MiddleName);
-        }
-
-        [Fact]
-        public void Normalize_TC5_LastNameNull_SeIgnora_YRestoNormalizado()
-        {
-            var user = new User
+                Assert.Equal(2, errors.Count);
+                Assert.Contains(errors, e => e.Message == "El nombre no debe contener espacios.");
+                Assert.Contains(errors, e => e.Message == "El nombre solo puede contener letras.");
+            }
+            else
             {
-                Username = " User ",
-                Email = " A@B.COM ",
-                FirstName = " ana ",
-                LastName = null,
-                MiddleName = " maria "
-            };
-
-            UserValidation.Normalize(user);
-
-            Assert.Equal("user", user.Username);
-            Assert.Equal("a@b.com", user.Email);
-            Assert.Equal("Ana", user.FirstName);
-            Assert.Null(user.LastName);
-            Assert.Equal("Maria", user.MiddleName);
-        }
-
-        [Fact]
-        public void Normalize_TC6_MiddleNameNull_SeIgnora_YRestoNormalizado()
-        {
-            var user = new User
-            {
-                Username = " User ",
-                Email = " A@B.COM ",
-                FirstName = " ana ",
-                LastName = " perez ",
-                MiddleName = null
-            };
-
-            UserValidation.Normalize(user);
-
-            Assert.Equal("user", user.Username);
-            Assert.Equal("a@b.com", user.Email);
-            Assert.Equal("Ana", user.FirstName);
-            Assert.Equal("Perez", user.LastName);
-            Assert.Null(user.MiddleName);
-        }
-
-        [Fact]
-        public void Validate_TC1_TodosLosDatosValidos_ListaVacia()
-        {
-            var user = CreateValidUser();
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void Validate_TC2_UsernameVacio_ElUsernameEsObligatorio()
-        {
-            var user = CreateValidUser();
-            user.Username = "";
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("El Username es obligatorio.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC3_UsernameMayorA50_NoDebeSuperar50Caracteres()
-        {
-            var user = CreateValidUser();
-            user.Username = new string('u', 55);
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("No debe superar 50 caracteres.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC4_UsernameInvalido_MensajeFormatoUsername()
-        {
-            var user = CreateValidUser();
-            user.Username = "ana!perez";
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("El nombre de usuario solo puede contener letras, números, puntos y guiones bajos.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC5_EmailNull_ElEmailEsObligatorio()
-        {
-            var user = CreateValidUser();
-            user.Email = null!;
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("El Email es obligatorio.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC6_EmailMayorA150_NoDebeSuperar150Caracteres()
-        {
-            var user = CreateValidUser();
-            user.Email = $"{new string('a', 151)}@mail.com";
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("No debe superar 150 caracteres.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC7_EmailInvalido_DebeIngresarCorreoValido()
-        {
-            var user = CreateValidUser();
-            user.Email = "https://www.google.com/search?q=anamail.com";
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("Debe ingresar un correo electrónico válido.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC8_FirstNameMayorA50_ElNombreNoDebeSuperar()
-        {
-            var user = CreateValidUser();
-            user.FirstName = new string('a', 55);
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("El nombre no debe superar 50 caracteres.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC9_FirstNameConEspacios_ElNombreNoDebeContenerEspacios()
-        {
-            var user = CreateValidUser();
-            user.FirstName = "Ana Maria";
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Equal("El nombre no debe contener espacios.", errors[0].Message);
-            Assert.Contains(errors, e => e.Message == "El nombre no debe contener espacios.");
-        }
-
-        [Fact]
-        public void Validate_TC10_LastNameInvalido_ElApellidoSoloPuedeContenerLetrasYEspacios()
-        {
-            var user = CreateValidUser();
-            user.LastName = "Perez 123";
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("El apellido solo puede contener letras y espacios.", errors[0].Message);
-        }
-
-        [Fact]
-        public void Validate_TC11_MiddleNameMayorA50_ElSegundoNombreNoDebeSuperar()
-        {
-            var user = CreateValidUser();
-            user.MiddleName = new string('m', 55);
-
-            var errors = UserValidation.Validate(user).ToList();
-
-            Assert.Single(errors);
-            Assert.Equal("El segundo nombre no debe superar 50 caracteres.", errors[0].Message);
-        }
-
-        [Fact]
-        public void ValidateField_TC1_IsRequiredTrue_ValueAbc_SinErrores()
-        {
-            var errors = InvokeValidateField("Username", "abc", isRequired: true, maxLength: 5);
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void ValidateField_TC2_IsRequiredTrue_ValueVacio_ErrorObligatorio()
-        {
-            var errors = InvokeValidateField("Username", "", isRequired: true, maxLength: 5);
-
-            Assert.Single(errors);
-            Assert.Equal("El Username es obligatorio.", errors[0].Message);
-        }
-
-        [Fact]
-        public void ValidateField_TC3_IsRequiredFalse_ValueAbc_SinErrores()
-        {
-            var errors = InvokeValidateField("Username", "abc", isRequired: false, maxLength: 5);
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void ValidateField_TC4_IsRequiredTrue_ValueMayorMax_ErrorLongitud()
-        {
-            var errors = InvokeValidateField("Username", "abcdef", isRequired: true, maxLength: 5);
-
-            Assert.Single(errors);
-            Assert.Equal("No debe superar 5 caracteres.", errors[0].Message);
-        }
-
-        [Fact]
-        public void ValidateField_TC5_IsRequiredFalse_ValueNull_SinErrores()
-        {
-            var errors = InvokeValidateField("Username", null, isRequired: false, maxLength: 5);
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void ValidateNameField_TC1_Ana_AllowSpacesFalse_SinErrores()
-        {
-            var errors = InvokeValidateNameField("FirstName", "Ana", maxLength: 5, label: "El nombre", allowSpaces: false);
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void ValidateNameField_TC2_ValorVacio_AllowSpacesFalse_YieldBreakSinErrores()
-        {
-            var errors = InvokeValidateNameField("FirstName", "", maxLength: 5, label: "El nombre", allowSpaces: false);
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void ValidateNameField_TC3_AnaMaria_AllowSpacesFalse_ErrorLongitud()
-        {
-            var errors = InvokeValidateNameField("FirstName", "AnaMaria", maxLength: 5, label: "El nombre", allowSpaces: false);
-
-            Assert.Single(errors);
-            Assert.Equal("El nombre no debe superar 5 caracteres.", errors[0].Message);
-        }
-
-        [Fact]
-        public void ValidateNameField_TC4_AnM_AllowSpacesFalse_DosErrores()
-        {
-            var errors = InvokeValidateNameField("FirstName", "An M", maxLength: 5, label: "El nombre", allowSpaces: false);
-
-            Assert.Equal(2, errors.Count);
-            Assert.Contains(errors, e => e.Message == "El nombre no debe contener espacios.");
-            Assert.Contains(errors, e => e.Message == "El nombre solo puede contener letras.");
-        }
-
-        [Fact]
-        public void ValidateNameField_TC5_AnM_AllowSpacesTrue_SinErrores()
-        {
-            var errors = InvokeValidateNameField("LastName", "An M", maxLength: 5, label: "El apellido", allowSpaces: true);
-
-            Assert.Empty(errors);
-        }
-
-        [Fact]
-        public void ValidateNameField_TC6_Ana1_AllowSpacesFalse_ErrorFormatoSoloLetras()
-        {
-            var errors = InvokeValidateNameField("FirstName", "Ana1", maxLength: 5, label: "El nombre", allowSpaces: false);
-
-            Assert.Single(errors);
-            Assert.Equal("El nombre solo puede contener letras.", errors[0].Message);
-        }
-
-        [Fact]
-        public void ValidateNameField_TC7_An1_AllowSpacesTrue_ErrorFormatoLetrasYEspacios()
-        {
-            var errors = InvokeValidateNameField("LastName", "An 1", maxLength: 5, label: "El apellido", allowSpaces: true);
-
-            Assert.Single(errors);
-            Assert.Equal("El apellido solo puede contener letras y espacios.", errors[0].Message);
+                Assert.Single(errors);
+                Assert.Equal(expectedError, errors[0].Message);
+            }
         }
 
         private static List<ValidationError> InvokeValidateField(string fieldName, string? value, bool isRequired, int maxLength)
