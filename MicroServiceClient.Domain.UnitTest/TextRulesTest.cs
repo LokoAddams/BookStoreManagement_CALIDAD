@@ -20,5 +20,47 @@ namespace MicroServiceClient.Domain.UnitTest
             // Assert
             Assert.Equal(expected, result);
         }
+
+
+
+        // Pruebas para Funciones Canonical
+        [Theory]
+        [InlineData(null, "")] // TC1
+        [InlineData("mAMANI", "Mamani")] // TC2
+        public void CanonicalPersonName_Tests(string input, string expected)
+        {
+            var result = TextRules.CanonicalPersonName(input);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("", "")] // TC3
+        [InlineData("esto Es UNA prueba", "Esto Es UNA prueba")] // TC4
+        public void CanonicalSentence_Tests(string input, string expected)
+        {
+            var result = TextRules.CanonicalSentence(input);
+            Assert.Equal(expected, result);
+        }
+
+        // Pruebas para Validaciones de Texto
+        [Theory]
+        [InlineData("  ", false)] // TC5
+        [InlineData("Juan", true)] // TC6
+        [InlineData("Juan123", false)] // TC7
+        public void IsValidLettersOnly_Tests(string input, bool expected)
+        {
+            var result = TextRules.IsValidLettersOnly(input);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(null, false)] // TC8
+        [InlineData("De La Cruz", true)] // TC9
+        [InlineData("Juan_2", false)] // TC10
+        public void IsValidLettersAndSpaces_Tests(string input, bool expected)
+        {
+            var result = TextRules.IsValidLettersAndSpaces(input);
+            Assert.Equal(expected, result);
+        }
     }
 }
