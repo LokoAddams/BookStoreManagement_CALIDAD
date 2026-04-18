@@ -76,5 +76,19 @@ namespace MicroServiceClient.Domain.UnitTest
             // Assert
             Assert.Equal(expected, result);
         }
+
+
+        [Theory]
+        [InlineData("", false)]           // TC1: Vacío
+        [InlineData("123-ABC", false)]    // TC2: Formato incorrecto
+        [InlineData("1234567-CB", true)]  // TC3: Formato válido
+        public void IsValidBoliviaCi_PathCoverage_Tests(string input, bool expected)
+        {
+            // Act
+            var result = TextRules.IsValidBoliviaCi(input);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
