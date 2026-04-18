@@ -3,7 +3,6 @@ $ErrorActionPreference = 'Stop'
 # Resuelve la raiz del repositorio a partir de la ubicacion del script.
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $SolutionPath = Join-Path $RepoRoot 'Microservices.Orchestrator.sln'
-$SalesTestProject = Join-Path $RepoRoot 'MicroServiceSales\MicroServiceSales.Tests\MicroServiceSales.Tests.csproj'
 $ResultsDir = Join-Path $RepoRoot 'TestResults'
 $ReportDir = Join-Path $RepoRoot 'GlobalCoverageReport'
 
@@ -15,10 +14,6 @@ if (Test-Path $DotnetToolsPath) {
 
 if (-not (Test-Path $SolutionPath)) {
   throw "No se encontro la solucion en: $SolutionPath"
-}
-
-if (-not (Test-Path $SalesTestProject)) {
-  throw "No se encontro el proyecto de pruebas de Sales en: $SalesTestProject"
 }
 
 # Genera una corrida limpia para evitar mezclar artefactos anteriores.
@@ -41,15 +36,11 @@ dotnet test $SolutionPath `
   --collect:"XPlat Code Coverage" `
   --results-directory $ResultsDir
 
-# Ejecuta explicitamente los tests de Sales para incluir su cobertura global.
-dotnet test $SalesTestProject `
-  --collect:"XPlat Code Coverage" `
-  --results-directory $ResultsDir
-
 # Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML.
 reportgenerator `
   "-reports:$ResultsDir\**\coverage.cobertura.xml" `
   "-targetdir:$ReportDir" `
+  "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
   -reporttypes:Html
 
 Write-Host "Reporte generado en: $ReportDir\index.html"
