@@ -90,5 +90,17 @@ namespace MicroServiceClient.Domain.UnitTest
             // Assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(null, "")] // TC1: Manejo de nulos
+        [InlineData(" 1234567-lp  ", "1234567-LP")] // TC2: Normalización y Mayúsculas
+        public void NormalizeCi_CodeCoverage_Tests(string input, string expected)
+        {
+            // Act
+            var result = TextRules.NormalizeCi(input);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
