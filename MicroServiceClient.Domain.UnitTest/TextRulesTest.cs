@@ -62,5 +62,19 @@ namespace MicroServiceClient.Domain.UnitTest
             var result = TextRules.IsValidLettersAndSpaces(input);
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(null, false)]            // TC1: Nulo
+        [InlineData("   ", false)]           // TC1: Espacios
+        [InlineData("usuario.com", false)]    // TC2: Formato inválido
+        [InlineData("test@mail.com", true)]   // TC3: Formato válido
+        public void IsValidEmail_PathCoverage_Tests(string input, bool expected)
+        {
+            // Act
+            var result = TextRules.IsValidEmail(input);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
