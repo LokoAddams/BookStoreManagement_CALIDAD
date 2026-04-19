@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MicroServiceUsers\MicroServiceUsers.Application\MicroServiceUsers.Application.csproj" />
     <ProjectReference Include="..\MicroServiceUsers\MicroServiceUsers.Domain\MicroServiceUsers.Domain.csproj" />
     <ProjectReference Include="..\MicroServiceUsers\MicroServiceUsers.Infrastructure\MicroServiceUsers.Infrastructure.csproj" />
   </ItemGroup>
