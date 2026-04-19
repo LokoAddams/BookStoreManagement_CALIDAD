@@ -24,17 +24,14 @@ jobs:
       run: dotnet build --no-restore
 
     - name: 5. Ejecutar Pruebas Unitarias con Cobertura
-      # Añadimos --collect:"XPlat Code Coverage" para generar el archivo .xml de cobertura
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults
 
-    - name: 6. Procesar resultados de Cobertura
-      uses: irongut/CodeCoverageSummary@v1.3.0
-      with:
-        filename: TestResults/**/coverage.cobertura.xml
-        badge: true
-        format: markdown
-        output: both
+    - name: 6. Generar informe detallado de cobertura
+      run: pwsh -File ./Scripts/global-coverage.ps1
 
-    - name: 7. Publicar Resumen de Cobertura en el Job Summary
-      # Esto hace que el porcentaje aparezca visualmente en la pestaña 'Summary' de GitHub
-      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+    - name: 7. Publicar informe de cobertura como artefacto
+      uses: actions/upload-artifact@v4
+      with:
+        name: global-coverage-report
+        path: GlobalCoverageReport
+        if-no-files-found: error

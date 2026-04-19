@@ -36,7 +36,7 @@ dotnet test $SolutionPath `
   --collect:"XPlat Code Coverage" `
   --results-directory $ResultsDir
 
-# Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML.
+# Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML detallado.
 reportgenerator `
   "-reports:$ResultsDir\**\coverage.cobertura.xml" `
   "-targetdir:$ReportDir" `
