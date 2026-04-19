@@ -51,7 +51,7 @@ reportgenerator `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
   "-filefilters:+*;-*ValidationError.cs" `
-  -reporttypes:Html;MarkdownSummaryGithub
+  "-reporttypes:Html;MarkdownSummaryGithub"
 
 $IndexFile = Join-Path $ReportDir 'index.html'
 if (-not (Test-Path $IndexFile)) {
