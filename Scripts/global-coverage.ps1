@@ -50,6 +50,7 @@ reportgenerator `
   $ReportsArg `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
+	"-classfilters:-MicroServiceUsers.Infrastructure.DataBase.DataBaseConnection;-MicroServiceUsers.Infrastructure.Email.SendGridEmailService;-MicroServiceUsers.Infrastructure.Email.SendGridOptions;-MicroServiceUsers.Infrastructure.Repositories.RoleRepository;-MicroServiceUsers.Infrastructure.Repositories.UserRepository" `
   "-filefilters:+*;-*ValidationError.cs" `
   "-reporttypes:Html;MarkdownSummaryGithub"
 
