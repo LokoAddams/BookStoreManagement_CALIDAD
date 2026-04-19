@@ -1,15 +1,17 @@
 $ErrorActionPreference = 'Stop'
 
-# Resuelve la raiz del repositorio a partir de la ubicacion del script.
-$RepoRoot = Split-Path -Parent $PSScriptRoot
+# Resuelve la raiz del repositorio desde GitHub Actions o, en local, desde la ubicacion del script.
+$RepoRoot = if ($env:GITHUB_WORKSPACE) { $env:GITHUB_WORKSPACE } else { Split-Path -Parent $PSScriptRoot }
 $SolutionPath = Join-Path $RepoRoot 'Microservices.Orchestrator.sln'
 $ResultsDir = Join-Path $RepoRoot 'TestResults'
 $ReportDir = Join-Path $RepoRoot 'GlobalCoverageReport'
 
 # Asegura que el binario global de .NET Tools quede disponible en esta sesion.
-$DotnetToolsPath = Join-Path $env:USERPROFILE '.dotnet\tools'
+$UserProfilePath = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
+$DotnetToolsPath = Join-Path $UserProfilePath '.dotnet/tools'
 if (Test-Path $DotnetToolsPath) {
-  $env:PATH = "$DotnetToolsPath;$env:PATH"
+  $PathSeparator = [System.IO.Path]::PathSeparator
+  $env:PATH = "$DotnetToolsPath$PathSeparator$env:PATH"
 }
 
 if (-not (Test-Path $SolutionPath)) {
@@ -36,11 +38,29 @@ dotnet test $SolutionPath `
   --collect:"XPlat Code Coverage" `
   --results-directory $ResultsDir
 
-# Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML.
+# Descubre todos los archivos de cobertura y falla con mensaje claro si no existen.
+$CoverageFiles = Get-ChildItem -Path $ResultsDir -Recurse -Filter 'coverage.cobertura.xml' -File
+if (-not $CoverageFiles -or $CoverageFiles.Count -eq 0) {
+  throw "No se encontraron archivos coverage.cobertura.xml en: $ResultsDir"
+}
+
+# Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML detallado.
+$ReportsArg = '-reports:' + (($CoverageFiles | ForEach-Object { $_.FullName }) -join ';')
 reportgenerator `
-  "-reports:$ResultsDir\**\coverage.cobertura.xml" `
+  $ReportsArg `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
-  -reporttypes:Html
+  "-filefilters:+*;-*ValidationError.cs" `
+  "-reporttypes:Html;MarkdownSummaryGithub"
 
-Write-Host "Reporte generado en: $ReportDir\index.html"
+$IndexFile = Join-Path $ReportDir 'index.html'
+if (-not (Test-Path $IndexFile)) {
+  throw "ReportGenerator no genero index.html en: $ReportDir"
+}
+
+$GithubSummaryFile = Join-Path $ReportDir 'SummaryGithub.md'
+if ((Test-Path $GithubSummaryFile) -and -not [string]::IsNullOrWhiteSpace($env:GITHUB_STEP_SUMMARY)) {
+  Get-Content $GithubSummaryFile | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+}
+
+Write-Host "Reporte generado en: $IndexFile"

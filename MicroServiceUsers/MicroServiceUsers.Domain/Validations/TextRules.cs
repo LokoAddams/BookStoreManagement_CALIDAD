@@ -27,14 +27,6 @@ namespace MicroServiceUsers.Domain.Validations
             if (string.IsNullOrEmpty(norm)) return string.Empty;
             return char.ToUpper(norm[0]) + norm.Substring(1).ToLower();
         }
-
-        public static string CanonicalSentence(string? s)
-        {
-            var norm = NormalizeSpaces(s);
-            if (string.IsNullOrEmpty(norm)) return string.Empty;
-            return char.ToUpper(norm[0]) + norm.Substring(1);
-        }
-
         public static bool IsValidLettersOnly(string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return false;
