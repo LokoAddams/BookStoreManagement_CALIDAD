@@ -7,7 +7,8 @@ $ResultsDir = Join-Path $RepoRoot 'TestResults'
 $ReportDir = Join-Path $RepoRoot 'GlobalCoverageReport'
 
 # Asegura que el binario global de .NET Tools quede disponible en esta sesion.
-$DotnetToolsPath = Join-Path $env:USERPROFILE '.dotnet\tools'
+$UserProfilePath = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
+$DotnetToolsPath = Join-Path $UserProfilePath '.dotnet/tools'
 if (Test-Path $DotnetToolsPath) {
   $env:PATH = "$DotnetToolsPath;$env:PATH"
 }
