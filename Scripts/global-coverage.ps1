@@ -10,7 +10,8 @@ $ReportDir = Join-Path $RepoRoot 'GlobalCoverageReport'
 $UserProfilePath = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
 $DotnetToolsPath = Join-Path $UserProfilePath '.dotnet/tools'
 if (Test-Path $DotnetToolsPath) {
-  $env:PATH = "$DotnetToolsPath;$env:PATH"
+  $PathSeparator = [System.IO.Path]::PathSeparator
+  $env:PATH = "$DotnetToolsPath$PathSeparator$env:PATH"
 }
 
 if (-not (Test-Path $SolutionPath)) {
@@ -37,12 +38,24 @@ dotnet test $SolutionPath `
   --collect:"XPlat Code Coverage" `
   --results-directory $ResultsDir
 
+# Descubre todos los archivos de cobertura y falla con mensaje claro si no existen.
+$CoverageFiles = Get-ChildItem -Path $ResultsDir -Recurse -Filter 'coverage.cobertura.xml' -File
+if (-not $CoverageFiles -or $CoverageFiles.Count -eq 0) {
+  throw "No se encontraron archivos coverage.cobertura.xml en: $ResultsDir"
+}
+
 # Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML detallado.
+$ReportsArg = '-reports:' + (($CoverageFiles | ForEach-Object { $_.FullName }) -join ';')
 reportgenerator `
-  "-reports:$ResultsDir\**\coverage.cobertura.xml" `
+  $ReportsArg `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
   "-filefilters:+*;-*ValidationError.cs" `
   -reporttypes:Html
 
-Write-Host "Reporte generado en: $ReportDir\index.html"
+$IndexFile = Join-Path $ReportDir 'index.html'
+if (-not (Test-Path $IndexFile)) {
+  throw "ReportGenerator no genero index.html en: $ReportDir"
+}
+
+Write-Host "Reporte generado en: $IndexFile"
