@@ -6,7 +6,7 @@ using MicroServiceUsers.Domain.Models;
 using MicroServiceUsers.Domain.Results;
 using MicroServiceUsers.Domain.Validations;
 
-namespace MicroServiceUsers.Infrastructure.UnitTests;
+namespace MicroServiceUsers.Application.UnitTests;
 
 public class UserFacadeTests
 {
