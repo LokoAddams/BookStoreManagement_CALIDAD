@@ -59,7 +59,7 @@ if (-not (Test-Path $IndexFile)) {
 }
 
 $GithubSummaryFile = Join-Path $ReportDir 'SummaryGithub.md'
-if (Test-Path $GithubSummaryFile -and $env:GITHUB_STEP_SUMMARY) {
+if ((Test-Path $GithubSummaryFile) -and -not [string]::IsNullOrWhiteSpace($env:GITHUB_STEP_SUMMARY)) {
   Get-Content $GithubSummaryFile | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
 }
 
