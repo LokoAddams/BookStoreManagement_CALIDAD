@@ -55,12 +55,6 @@ namespace MicroServiceClient.Domain.Validations
             return EmailPattern.IsMatch(s);
         }
 
-        public static bool IsValidPhone(string? s)
-        {
-            if (string.IsNullOrWhiteSpace(s)) return false;
-            return PhoneDigits.IsMatch(s);
-        }
-
         public static bool IsValidBoliviaCi(string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return false;
@@ -71,34 +65,6 @@ namespace MicroServiceClient.Domain.Validations
         {
             var norm = NormalizeSpaces(ci).ToUpperInvariant();
             return norm;
-        }
-
-        public static bool IsValidProductDescriptionLoose(string? s)
-        {
-            if (string.IsNullOrWhiteSpace(s)) return false;
-            return Regex.IsMatch(s, @"^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\.,\-]+$");
-        }
-
-        public static string CanonicalProductName(string? s)
-        {
-            var norm = NormalizeSpaces(s);
-            if (string.IsNullOrEmpty(norm)) return string.Empty;
-            return char.ToUpper(norm[0]) + norm.Substring(1);
-        }
-
-        public static IEnumerable<string> GetProductNameErrors(string? name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                yield return "El nombre es obligatorio.";
-                yield break;
-            }
-
-            if (name.Length > 100)
-                yield return "El nombre no debe superar los 100 caracteres.";
-
-            if (!Regex.IsMatch(name, @"^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$"))
-                yield return "El nombre contiene caracteres inválidos.";
         }
     }
 }
