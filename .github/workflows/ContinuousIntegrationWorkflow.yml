@@ -8,9 +8,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest # Usar Linux es más rápido y barato en GitHub Actions
-    strategy:
-      matrix:
-        dotnet-version: ['8.0.x', '9.0.x']
 
     steps:
     - name: 1. Descargar el código del repositorio
@@ -19,7 +16,7 @@ jobs:
     - name: 2. Configurar entorno .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        dotnet-version: '9.0.x'
 
     - name: 3. Restaurar dependencias (NuGet)
       run: dotnet restore
