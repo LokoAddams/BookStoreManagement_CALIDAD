@@ -24,6 +24,19 @@ public class SalesValidationTests
         Assert.Equal(10.56m, sale.Total);
     }
 
+    [Theory]
+    [InlineData(null, "")]
+    [InlineData(" ", "")]
+    [InlineData("   ", "")]
+    [InlineData("Hola   Mundo", "Hola Mundo")]
+    [InlineData("  Hola    Mundo  ", "Hola Mundo")]
+    public void NormalizeSpaces_Should_Return_Normalized_Text(string? input, string expected)
+    {
+        var result = TextRules.NormalizeSpaces(input);
+
+        Assert.Equal(expected, result);
+    }
+
     [Fact]
     public void Validate_Should_Return_NoErrors_For_A_Valid_Sale()
     {
