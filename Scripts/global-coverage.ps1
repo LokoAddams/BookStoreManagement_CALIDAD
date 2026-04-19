@@ -51,11 +51,16 @@ reportgenerator `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
   "-filefilters:+*;-*ValidationError.cs" `
-  -reporttypes:Html
+  -reporttypes:Html;MarkdownSummaryGithub
 
 $IndexFile = Join-Path $ReportDir 'index.html'
 if (-not (Test-Path $IndexFile)) {
   throw "ReportGenerator no genero index.html en: $ReportDir"
+}
+
+$GithubSummaryFile = Join-Path $ReportDir 'SummaryGithub.md'
+if (Test-Path $GithubSummaryFile -and $env:GITHUB_STEP_SUMMARY) {
+  Get-Content $GithubSummaryFile | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
 }
 
 Write-Host "Reporte generado en: $IndexFile"
