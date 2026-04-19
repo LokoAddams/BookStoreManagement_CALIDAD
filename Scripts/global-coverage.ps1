@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
-# Resuelve la raiz del repositorio a partir de la ubicacion del script.
-$RepoRoot = Split-Path -Parent $PSScriptRoot
+# Resuelve la raiz del repositorio desde GitHub Actions o, en local, desde la ubicacion del script.
+$RepoRoot = if ($env:GITHUB_WORKSPACE) { $env:GITHUB_WORKSPACE } else { Split-Path -Parent $PSScriptRoot }
 $SolutionPath = Join-Path $RepoRoot 'Microservices.Orchestrator.sln'
 $ResultsDir = Join-Path $RepoRoot 'TestResults'
 $ReportDir = Join-Path $RepoRoot 'GlobalCoverageReport'
@@ -42,6 +42,7 @@ reportgenerator `
   "-reports:$ResultsDir\**\coverage.cobertura.xml" `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
+  "-filefilters:+*;-*ValidationError.cs" `
   -reporttypes:Html
 
 Write-Host "Reporte generado en: $ReportDir\index.html"

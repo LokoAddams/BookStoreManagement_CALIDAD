@@ -29,9 +29,12 @@ jobs:
     - name: 6. Generar informe detallado de cobertura
       run: pwsh -File ./Scripts/global-coverage.ps1
 
-    - name: 7. Publicar informe de cobertura como artefacto
+    - name: 7. Verificar salida del reporte
+      run: ls -la ./GlobalCoverageReport
+
+    - name: 8. Publicar informe de cobertura como artefacto
       uses: actions/upload-artifact@v4
       with:
         name: global-coverage-report
-        path: ${{ github.workspace }}/GlobalCoverageReport/**
+        path: ./GlobalCoverageReport/
         if-no-files-found: error
