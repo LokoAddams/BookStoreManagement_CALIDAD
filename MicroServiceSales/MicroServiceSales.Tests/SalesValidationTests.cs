@@ -34,148 +34,40 @@ public class SalesValidationTests
         Assert.Empty(errors);
     }
 
-    [Fact]
-    public void Validate_Should_Return_Client_Error_When_ClientId_Is_Empty()
+    [Theory]
+    [InlineData("ClientIdEmpty", nameof(Sale.ClientId))]
+    [InlineData("UserIdEmpty", nameof(Sale.UserId))]
+    [InlineData("SaleDateDefault", nameof(Sale.SaleDate))]
+    [InlineData("StatusEmpty", nameof(Sale.Status))]
+    [InlineData("StatusTooLong", nameof(Sale.Status))]
+    [InlineData("StatusInvalid", nameof(Sale.Status))]
+    [InlineData("CancelledAtMissing", nameof(Sale.CancelledAt))]
+    [InlineData("CancelledByMissing", nameof(Sale.CancelledBy))]
+    [InlineData("TotalMismatch", nameof(Sale.Total))]
+    [InlineData("CreatedAtDefault", nameof(Sale.CreatedAt))]
+    public void Validate_Should_Return_Expected_Single_Error_For_Invalid_Scenarios(string scenario, string expectedField)
     {
         var sale = CreateValidSale();
-        sale.ClientId = Guid.Empty;
+        ApplyInvalidSaleScenario(sale, scenario);
 
         var errors = SalesValidation.Validate(sale).ToList();
 
         Assert.Single(errors);
-        Assert.Equal(nameof(Sale.ClientId), errors[0].Field);
+        Assert.Equal(expectedField, errors[0].Field);
     }
 
-    [Fact]
-    public void Validate_Should_Return_User_Error_When_UserId_Is_Empty()
+    [Theory]
+    [InlineData(-10, -10, nameof(Sale.Subtotal))]
+    [InlineData(10, -10, nameof(Sale.Total))]
+    public void Validate_Should_Return_Amount_Error_When_Amounts_Are_Negative(decimal subtotal, decimal total, string expectedField)
     {
         var sale = CreateValidSale();
-        sale.UserId = Guid.Empty;
+        sale.Subtotal = subtotal;
+        sale.Total = total;
 
         var errors = SalesValidation.Validate(sale).ToList();
 
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.UserId), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_SaleDate_Error_When_Date_Is_Default()
-    {
-        var sale = CreateValidSale();
-        sale.SaleDate = default;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.SaleDate), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_Subtotal_Error_When_Subtotal_Is_Negative()
-    {
-        var sale = CreateValidSale();
-        sale.Subtotal = -10m;
-        sale.Total = -10m;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Contains(errors, error => error.Field == nameof(Sale.Subtotal));
-    }
-
-    [Fact]
-    public void Validate_Should_Return_Total_Error_When_Total_Is_Negative()
-    {
-        var sale = CreateValidSale();
-        sale.Total = -10m;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Contains(errors, error => error.Field == nameof(Sale.Total));
-    }
-
-    [Fact]
-    public void Validate_Should_Return_Status_Error_When_Status_Is_Empty()
-    {
-        var sale = CreateValidSale();
-        sale.Status = string.Empty;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.Status), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_Status_Length_Error_When_Status_Exceeds_Maximum()
-    {
-        var sale = CreateValidSale();
-        sale.Status = "STRING_MUY_LARGO_AQUI_XXXX";
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.Status), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_Status_Invalid_Error_When_Status_Is_Not_Allowed()
-    {
-        var sale = CreateValidSale();
-        sale.Status = "ESTADO_INVALIDADO";
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.Status), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_CancelledAt_Error_When_CancelledBy_Exists_And_Date_Is_Missing()
-    {
-        var sale = CreateValidSale();
-        sale.CancelledBy = Guid.NewGuid();
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.CancelledAt), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_CancelledBy_Error_When_CancelledAt_Exists_And_User_Is_Missing()
-    {
-        var sale = CreateValidSale();
-        sale.CancelledAt = DateTimeOffset.UtcNow;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.CancelledBy), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_Total_Equality_Error_When_Total_Does_Not_Match_Subtotal()
-    {
-        var sale = CreateValidSale();
-        sale.Total = 100m;
-        sale.Subtotal = 90m;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.Total), errors[0].Field);
-    }
-
-    [Fact]
-    public void Validate_Should_Return_CreatedAt_Error_When_CreatedAt_Is_Default()
-    {
-        var sale = CreateValidSale();
-        sale.CreatedAt = default;
-
-        var errors = SalesValidation.Validate(sale).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(Sale.CreatedAt), errors[0].Field);
+        Assert.Contains(errors, error => error.Field == expectedField);
     }
 
     [Fact]
@@ -188,82 +80,29 @@ public class SalesValidationTests
         Assert.Empty(errors);
     }
 
-    [Fact]
-    public void ValidateDetail_Should_Return_SaleId_Error_When_SaleId_Is_Empty()
+    [Theory]
+    [InlineData("SaleIdEmpty", 1, nameof(SaleDetail.SaleId))]
+    [InlineData("ProductIdEmpty", 1, nameof(SaleDetail.ProductId))]
+    [InlineData("QuantityZero", 1, nameof(SaleDetail.Quantity))]
+    [InlineData("UnitPriceNegative", 2, nameof(SaleDetail.UnitPrice) + "|" + nameof(SaleDetail.Subtotal))]
+    [InlineData("SubtotalNegative", 2, nameof(SaleDetail.Subtotal) + "|" + nameof(SaleDetail.Subtotal))]
+    [InlineData("SubtotalMismatch", 1, nameof(SaleDetail.Subtotal))]
+    public void ValidateDetail_Should_Return_Expected_Errors_For_Invalid_Scenarios(string scenario, int expectedCount, string expectedFields)
     {
         var detail = CreateValidDetail();
-        detail.SaleId = Guid.Empty;
+        ApplyInvalidDetailScenario(detail, scenario);
 
         var errors = SalesValidation.ValidateDetail(detail).ToList();
 
-        Assert.Single(errors);
-        Assert.Equal(nameof(SaleDetail.SaleId), errors[0].Field);
-    }
+        Assert.Equal(expectedCount, errors.Count);
 
-    [Fact]
-    public void ValidateDetail_Should_Return_ProductId_Error_When_ProductId_Is_Empty()
-    {
-        var detail = CreateValidDetail();
-        detail.ProductId = Guid.Empty;
-
-        var errors = SalesValidation.ValidateDetail(detail).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(SaleDetail.ProductId), errors[0].Field);
-    }
-
-    [Fact]
-    public void ValidateDetail_Should_Return_Quantity_Error_When_Quantity_Is_Zero()
-    {
-        var detail = CreateValidDetail();
-        detail.Subtotal = 0m;
-        detail.Quantity = 0;
-
-        var errors = SalesValidation.ValidateDetail(detail).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(SaleDetail.Quantity), errors[0].Field);
-    }
-
-    [Fact]
-    public void ValidateDetail_Should_Return_UnitPrice_Error_When_UnitPrice_Is_Negative()
-    {
-        var detail = CreateValidDetail();
-        detail.Subtotal = -5m;
-        detail.Quantity = 1;
-        detail.UnitPrice = -5m;
-
-        var errors = SalesValidation.ValidateDetail(detail).ToList();
-
-        Assert.Equal(2, errors.Count);
-        Assert.Contains(errors, error => error.Field == nameof(SaleDetail.UnitPrice));
-        Assert.Contains(errors, error => error.Field == nameof(SaleDetail.Subtotal));
-    }
-
-    [Fact]
-    public void ValidateDetail_Should_Return_Subtotal_Error_When_Subtotal_Is_Negative()
-    {
-        var detail = CreateValidDetail();
-        detail.Subtotal = -10m;
-
-        var errors = SalesValidation.ValidateDetail(detail).ToList();
-
-        Assert.Equal(2, errors.Count);
-        Assert.All(errors, error => Assert.Equal(nameof(SaleDetail.Subtotal), error.Field));
-    }
-
-    [Fact]
-    public void ValidateDetail_Should_Return_Subtotal_Error_When_Subtotal_Does_Not_Match_Quantity_Times_UnitPrice()
-    {
-        var detail = CreateValidDetail();
-        detail.Quantity = 2;
-        detail.UnitPrice = 10m;
-        detail.Subtotal = 15m;
-
-        var errors = SalesValidation.ValidateDetail(detail).ToList();
-
-        Assert.Single(errors);
-        Assert.Equal(nameof(SaleDetail.Subtotal), errors[0].Field);
+        var expectedFieldList = expectedFields.Split('|');
+        foreach (var expectedField in expectedFieldList.Distinct())
+        {
+            var expectedOccurrences = expectedFieldList.Count(field => field == expectedField);
+            var actualOccurrences = errors.Count(error => error.Field == expectedField);
+            Assert.Equal(expectedOccurrences, actualOccurrences);
+        }
     }
 
     [Fact]
@@ -354,5 +193,77 @@ public class SalesValidationTests
             UnitPrice = 10m,
             Subtotal = 20m
         };
+    }
+
+    private static void ApplyInvalidSaleScenario(Sale sale, string scenario)
+    {
+        switch (scenario)
+        {
+            case "ClientIdEmpty":
+                sale.ClientId = Guid.Empty;
+                break;
+            case "UserIdEmpty":
+                sale.UserId = Guid.Empty;
+                break;
+            case "SaleDateDefault":
+                sale.SaleDate = default;
+                break;
+            case "StatusEmpty":
+                sale.Status = string.Empty;
+                break;
+            case "StatusTooLong":
+                sale.Status = "STRING_MUY_LARGO_AQUI_XXXX";
+                break;
+            case "StatusInvalid":
+                sale.Status = "ESTADO_INVALIDADO";
+                break;
+            case "CancelledAtMissing":
+                sale.CancelledBy = Guid.NewGuid();
+                break;
+            case "CancelledByMissing":
+                sale.CancelledAt = DateTimeOffset.UtcNow;
+                break;
+            case "TotalMismatch":
+                sale.Total = 100m;
+                sale.Subtotal = 90m;
+                break;
+            case "CreatedAtDefault":
+                sale.CreatedAt = default;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(scenario), scenario, null);
+        }
+    }
+
+    private static void ApplyInvalidDetailScenario(SaleDetail detail, string scenario)
+    {
+        switch (scenario)
+        {
+            case "SaleIdEmpty":
+                detail.SaleId = Guid.Empty;
+                break;
+            case "ProductIdEmpty":
+                detail.ProductId = Guid.Empty;
+                break;
+            case "QuantityZero":
+                detail.Subtotal = 0m;
+                detail.Quantity = 0;
+                break;
+            case "UnitPriceNegative":
+                detail.Subtotal = -5m;
+                detail.Quantity = 1;
+                detail.UnitPrice = -5m;
+                break;
+            case "SubtotalNegative":
+                detail.Subtotal = -10m;
+                break;
+            case "SubtotalMismatch":
+                detail.Quantity = 2;
+                detail.UnitPrice = 10m;
+                detail.Subtotal = 15m;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(scenario), scenario, null);
+        }
     }
 }
