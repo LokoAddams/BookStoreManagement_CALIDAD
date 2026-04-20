@@ -9,11 +9,26 @@ namespace MicroServiceSales.Infrastructure.Repositories
 {
     public class SalesRepository : ISalesRepository
     {
-        private readonly IDataBase _database;
+        private const string InsertSaleDetailSql = @"
+                    INSERT INTO sale_details (id, sale_id, product_id, quantity, unit_price, subtotal)
+                    VALUES (@id, @sale_id, @product_id, @quantity, @unit_price, @subtotal)
+                ";
 
-        public SalesRepository(IDataBase database)
+        private readonly IDataBase _database;
+        private readonly Func<NpgsqlConnection, NpgsqlCommand> _createDetailInsertCommand;
+        private readonly Action<NpgsqlCommand> _executeNonQuery;
+        private readonly Func<NpgsqlConnection, Guid, Sale?> _readSaleById;
+
+        public SalesRepository(
+            IDataBase database,
+            Func<NpgsqlConnection, NpgsqlCommand>? createDetailInsertCommand = null,
+            Action<NpgsqlCommand>? executeNonQuery = null,
+            Func<NpgsqlConnection, Guid, Sale?>? readSaleById = null)
         {
             _database = database;
+            _createDetailInsertCommand = createDetailInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleDetailSql, conn));
+            _executeNonQuery = executeNonQuery ?? (cmd => cmd.ExecuteNonQuery());
+            _readSaleById = readSaleById ?? ReadSaleByIdFromDatabase;
         }
 
         public List<Sale> GetAll()
@@ -38,6 +53,11 @@ namespace MicroServiceSales.Infrastructure.Repositories
         public Sale? Read(Guid id)
         {
             using var conn = _database.GetConnection();
+            return _readSaleById(conn, id);
+        }
+
+        private static Sale? ReadSaleByIdFromDatabase(NpgsqlConnection conn, Guid id)
+        {
             using var cmd = new NpgsqlCommand(@"
                 SELECT id, client_id, user_id, sale_date, subtotal, total, status,
                        cancellation_reason, cancelled_at, cancelled_by, created_at
@@ -103,10 +123,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
             using var conn = _database.GetConnection();
             foreach (var d in details)
             {
-                using var cmd = new NpgsqlCommand(@"
-                    INSERT INTO sale_details (id, sale_id, product_id, quantity, unit_price, subtotal)
-                    VALUES (@id, @sale_id, @product_id, @quantity, @unit_price, @subtotal)
-                ", conn);
+                using var cmd = _createDetailInsertCommand(conn);
 
                 var id = d.Id == Guid.Empty ? Guid.NewGuid() : d.Id;
                 cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Uuid, id);
@@ -116,7 +133,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
                 cmd.Parameters.AddWithValue("@unit_price", NpgsqlDbType.Numeric, d.UnitPrice);
                 cmd.Parameters.AddWithValue("@subtotal", NpgsqlDbType.Numeric, d.Subtotal);
 
-                cmd.ExecuteNonQuery();
+                _executeNonQuery(cmd);
             }
         }
 
