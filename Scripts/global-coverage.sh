@@ -5,7 +5,8 @@ set -eu
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 SOLUTION_PATH="$REPO_ROOT/Microservices.Orchestrator.sln"
-SALES_TEST_PROJECT="$REPO_ROOT/MicroServiceSales/MicroServiceSales.Tests/MicroServiceSales.Tests.csproj"
+SALES_TEST_PROJECT="$REPO_ROOT/MicroServiceSales/MicroServiceSales.Domain.UnitTest/MicroServiceSales.Domain.UnitTest.csproj"
+SALES_INFRA_TEST_PROJECT="$REPO_ROOT/MicroServiceSales.Infrastructure.UnitTests/MicroServiceSales.Infrastructure.UnitTests.csproj"
 RESULTS_DIR="$REPO_ROOT/TestResults"
 REPORT_DIR="$REPO_ROOT/GlobalCoverageReport"
 
@@ -19,6 +20,11 @@ fi
 
 if [ ! -f "$SALES_TEST_PROJECT" ]; then
   echo "No se encontro el proyecto de pruebas de Sales en: $SALES_TEST_PROJECT" >&2
+  exit 1
+fi
+
+if [ ! -f "$SALES_INFRA_TEST_PROJECT" ]; then
+  echo "No se encontro el proyecto de pruebas de Infrastructure de Sales en: $SALES_INFRA_TEST_PROJECT" >&2
   exit 1
 fi
 
@@ -38,6 +44,11 @@ dotnet test "$SOLUTION_PATH" \
 
 # Ejecuta explicitamente los tests de Sales para incluir su cobertura global.
 dotnet test "$SALES_TEST_PROJECT" \
+  --collect:"XPlat Code Coverage" \
+  --results-directory "$RESULTS_DIR"
+
+# Ejecuta explicitamente los tests de infraestructura de Sales para incluir su cobertura global.
+dotnet test "$SALES_INFRA_TEST_PROJECT" \
   --collect:"XPlat Code Coverage" \
   --results-directory "$RESULTS_DIR"
 
