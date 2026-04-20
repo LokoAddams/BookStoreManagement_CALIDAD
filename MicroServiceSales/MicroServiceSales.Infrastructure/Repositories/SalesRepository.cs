@@ -37,10 +37,13 @@ namespace MicroServiceSales.Infrastructure.Repositories
                     cancelled_by = @cancelled_by
                 WHERE id = @id";
 
+        private const string DeleteSaleSql = "DELETE FROM sales WHERE id = @id";
+
         private readonly IDataBase _database;
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createSaleInsertCommand;
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createDetailInsertCommand;
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createSaleUpdateCommand;
+        private readonly Func<NpgsqlConnection, NpgsqlCommand> _createSaleDeleteCommand;
         private readonly Action<NpgsqlCommand> _executeNonQuery;
         private readonly Func<NpgsqlConnection, List<Sale>> _getAllSales;
         private readonly Func<NpgsqlConnection, Guid, Sale?> _readSaleById;
@@ -51,6 +54,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
             Func<NpgsqlConnection, NpgsqlCommand>? createSaleInsertCommand = null,
             Func<NpgsqlConnection, NpgsqlCommand>? createDetailInsertCommand = null,
             Func<NpgsqlConnection, NpgsqlCommand>? createSaleUpdateCommand = null,
+            Func<NpgsqlConnection, NpgsqlCommand>? createSaleDeleteCommand = null,
             Action<NpgsqlCommand>? executeNonQuery = null,
             Func<NpgsqlConnection, List<Sale>>? getAllSales = null,
             Func<NpgsqlConnection, Guid, Sale?>? readSaleById = null,
@@ -60,6 +64,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
             _createSaleInsertCommand = createSaleInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleSql, conn));
             _createDetailInsertCommand = createDetailInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleDetailSql, conn));
             _createSaleUpdateCommand = createSaleUpdateCommand ?? (conn => new NpgsqlCommand(UpdateSaleSql, conn));
+            _createSaleDeleteCommand = createSaleDeleteCommand ?? (conn => new NpgsqlCommand(DeleteSaleSql, conn));
             _executeNonQuery = executeNonQuery ?? (cmd => cmd.ExecuteNonQuery());
             _getAllSales = getAllSales ?? GetAllFromDatabase;
             _readSaleById = readSaleById ?? ReadSaleByIdFromDatabase;
@@ -197,9 +202,10 @@ namespace MicroServiceSales.Infrastructure.Repositories
         public void Delete(Guid id)
         {
             using var conn = _database.GetConnection();
-            using var cmd = new NpgsqlCommand("DELETE FROM sales WHERE id = @id", conn);
+            using var cmd = _createSaleDeleteCommand(conn);
             cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Uuid, id);
-            cmd.ExecuteNonQuery();
+
+            _executeNonQuery(cmd);
         }
 
         private static Sale MapSale(NpgsqlDataReader reader)
