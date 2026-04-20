@@ -54,6 +54,7 @@ reportgenerator `
   "-filefilters:+*;-*ValidationError.cs" `
   "-reporttypes:Html;MarkdownSummaryGithub"
 
+$MicroserviceSummaries = @()
 $Microservices = @(
   @{ Name = 'Sales'; AssemblyFilter = '+MicroServiceSales.*' },
   @{ Name = 'Client'; AssemblyFilter = '+MicroServiceClient.*' },
@@ -73,7 +74,44 @@ foreach ($Microservice in $Microservices) {
     "-targetdir:$MicroserviceReportDir" `
     "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
     "-filefilters:+*;-*ValidationError.cs" `
-    -reporttypes:Html
+    -reporttypes:Html;MarkdownSummaryGithub
+
+  $MicroserviceSummaryFile = Join-Path $MicroserviceReportDir 'SummaryGithub.md'
+  $MicroserviceCoverage = 'N/A'
+
+  if (Test-Path $MicroserviceSummaryFile) {
+    $SummaryContent = Get-Content $MicroserviceSummaryFile -Raw
+    $CoverageMatch = [regex]::Match($SummaryContent, '(\d+(?:\.\d+)?)\s*%')
+    if ($CoverageMatch.Success) {
+      $MicroserviceCoverage = $CoverageMatch.Groups[1].Value + '%'
+    }
+  }
+
+  $MicroserviceSummaries += [pscustomobject]@{
+    Name = $Microservice.Name
+    Coverage = $MicroserviceCoverage
+  }
+
+  if ((Test-Path $MicroserviceSummaryFile) -and -not [string]::IsNullOrWhiteSpace($env:GITHUB_STEP_SUMMARY)) {
+    Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`
+## $($Microservice.Name)"
+    Get-Content $MicroserviceSummaryFile | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+    Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`n"
+  }
+}
+
+if (-not [string]::IsNullOrWhiteSpace($env:GITHUB_STEP_SUMMARY)) {
+  Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`
+## Cobertura por microservicio`
+| Microservicio | Cobertura |
+| --- | ---: |
+"
+
+  foreach ($MicroserviceSummary in $MicroserviceSummaries) {
+    Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| $($MicroserviceSummary.Name) | $($MicroserviceSummary.Coverage) |"
+  }
+
+  Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`n"
 }
 
 $IndexFile = Join-Path $ReportDir 'index.html'
