@@ -214,18 +214,13 @@ public class SalesServiceCreateTests
         };
     }
 
-    private sealed class FakeSalesRepository : ISalesRepository
+    private sealed class FakeSalesRepository : FakeSalesRepositoryBase
     {
         public List<Sale> CreatedSales { get; } = new();
         public List<(Guid saleId, List<SaleDetail> details)> CreatedDetailsCalls { get; } = new();
 
-        public List<Sale> GetAll() => [];
-        public Sale? Read(Guid id) => null;
-        public List<SaleDetail> GetDetails(Guid saleId) => [];
-        public void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details) => CreatedDetailsCalls.Add((saleId, details.ToList()));
-        public void Create(Sale sale) => CreatedSales.Add(sale);
-        public void Update(Sale sale) { }
-        public void Delete(Guid id) { }
+        public override void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details) => CreatedDetailsCalls.Add((saleId, details.ToList()));
+        public override void Create(Sale sale) => CreatedSales.Add(sale);
     }
 
     private sealed class FakeEventPublisher : IEventPublisher
