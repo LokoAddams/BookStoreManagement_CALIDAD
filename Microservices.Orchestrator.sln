@@ -93,6 +93,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Domain.Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceDistributors.Domain.UnitTest", "MicroServiceDistributors\MicroServiceDistributors.Domain.UnitTest\MicroServiceDistributors.Domain.UnitTest.csproj", "{5F1EEF85-7BFA-BFAD-C493-DE21FE4E677B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceUsers.Infrastructure.UnitTests", "MicroServiceUsers.Infrastructure.UnitTests\MicroServiceUsers.Infrastructure.UnitTests.csproj", "{29E8CB48-402D-4CE9-A7B8-66D392E9476B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceUsers.Application.UnitTests", "MicroServiceUsers.Application.UnitTests\MicroServiceUsers.Application.UnitTests.csproj", "{42F09EEE-6574-4B31-A554-CFD466C9A058}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceProduct.Infrestucture.test", "MicroServiceProduct\MicroServiceProduct.Infrestucture.test\MicroServiceProduct.Infrestucture.test.csproj", "{6DF0071D-A246-44F9-B81D-771BFBA993F8}"
 EndProject
 Global
@@ -453,6 +457,30 @@ Global
 		{5F1EEF85-7BFA-BFAD-C493-DE21FE4E677B}.Release|x64.Build.0 = Release|Any CPU
 		{5F1EEF85-7BFA-BFAD-C493-DE21FE4E677B}.Release|x86.ActiveCfg = Release|Any CPU
 		{5F1EEF85-7BFA-BFAD-C493-DE21FE4E677B}.Release|x86.Build.0 = Release|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Debug|x64.Build.0 = Debug|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Debug|x86.Build.0 = Debug|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Release|x64.ActiveCfg = Release|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Release|x64.Build.0 = Release|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Release|x86.ActiveCfg = Release|Any CPU
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B}.Release|x86.Build.0 = Release|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Debug|x64.Build.0 = Debug|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Debug|x86.Build.0 = Debug|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Release|x64.ActiveCfg = Release|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Release|x64.Build.0 = Release|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Release|x86.ActiveCfg = Release|Any CPU
+		{42F09EEE-6574-4B31-A554-CFD466C9A058}.Release|x86.Build.0 = Release|Any CPU
 		{6DF0071D-A246-44F9-B81D-771BFBA993F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6DF0071D-A246-44F9-B81D-771BFBA993F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DF0071D-A246-44F9-B81D-771BFBA993F8}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -498,6 +526,8 @@ Global
 		{EED6DC06-D4A8-431C-9636-7B7B288FE906} = {360628A2-BE65-DA5C-AC04-76A69A9DE92B}
 		{9C19C21E-C5AC-48D1-E981-7FA5B0A634C2} = {10504121-1BBD-4FB4-9C0B-9D93D42A3172}
 		{5F1EEF85-7BFA-BFAD-C493-DE21FE4E677B} = {1EA356A3-F4AF-A578-58D6-41F39E0EC380}
+		{29E8CB48-402D-4CE9-A7B8-66D392E9476B} = {F3EF090A-8EAA-B67E-D746-51FA7453DB97}
+		{42F09EEE-6574-4B31-A554-CFD466C9A058} = {F3EF090A-8EAA-B67E-D746-51FA7453DB97}
 		{6DF0071D-A246-44F9-B81D-771BFBA993F8} = {288A445D-3B59-671C-B7F0-31F5A1053A95}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
