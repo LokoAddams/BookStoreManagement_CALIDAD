@@ -27,6 +27,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createSaleInsertCommand;
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createDetailInsertCommand;
         private readonly Action<NpgsqlCommand> _executeNonQuery;
+        private readonly Func<NpgsqlConnection, List<Sale>> _getAllSales;
         private readonly Func<NpgsqlConnection, Guid, Sale?> _readSaleById;
         private readonly Func<NpgsqlConnection, Guid, List<SaleDetail>> _getDetailsBySaleId;
 
@@ -35,6 +36,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
             Func<NpgsqlConnection, NpgsqlCommand>? createSaleInsertCommand = null,
             Func<NpgsqlConnection, NpgsqlCommand>? createDetailInsertCommand = null,
             Action<NpgsqlCommand>? executeNonQuery = null,
+            Func<NpgsqlConnection, List<Sale>>? getAllSales = null,
             Func<NpgsqlConnection, Guid, Sale?>? readSaleById = null,
             Func<NpgsqlConnection, Guid, List<SaleDetail>>? getDetailsBySaleId = null)
         {
@@ -42,14 +44,20 @@ namespace MicroServiceSales.Infrastructure.Repositories
             _createSaleInsertCommand = createSaleInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleSql, conn));
             _createDetailInsertCommand = createDetailInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleDetailSql, conn));
             _executeNonQuery = executeNonQuery ?? (cmd => cmd.ExecuteNonQuery());
+            _getAllSales = getAllSales ?? GetAllFromDatabase;
             _readSaleById = readSaleById ?? ReadSaleByIdFromDatabase;
             _getDetailsBySaleId = getDetailsBySaleId ?? GetDetailsBySaleIdFromDatabase;
         }
 
         public List<Sale> GetAll()
         {
-            var sales = new List<Sale>();
             using var conn = _database.GetConnection();
+            return _getAllSales(conn);
+        }
+
+        private static List<Sale> GetAllFromDatabase(NpgsqlConnection conn)
+        {
+            var sales = new List<Sale>();
             using var cmd = new NpgsqlCommand(@"
                 SELECT id, client_id, user_id, sale_date, subtotal, total, status,
                        cancellation_reason, cancelled_at, cancelled_by, created_at
