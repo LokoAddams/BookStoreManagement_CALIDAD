@@ -74,7 +74,7 @@ foreach ($Microservice in $Microservices) {
     "-targetdir:$MicroserviceReportDir" `
     "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
     "-filefilters:+*;-*ValidationError.cs" `
-    -reporttypes:Html;MarkdownSummaryGithub
+    "-reporttypes:Html;MarkdownSummaryGithub"
 
   $MicroserviceSummaryFile = Join-Path $MicroserviceReportDir 'SummaryGithub.md'
   $MicroserviceCoverage = 'N/A'
