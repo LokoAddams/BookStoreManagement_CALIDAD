@@ -54,6 +54,28 @@ reportgenerator `
   "-filefilters:+*;-*ValidationError.cs" `
   "-reporttypes:Html;MarkdownSummaryGithub"
 
+$Microservices = @(
+  @{ Name = 'Sales'; AssemblyFilter = '+MicroServiceSales.*' },
+  @{ Name = 'Client'; AssemblyFilter = '+MicroServiceClient.*' },
+  @{ Name = 'Product'; AssemblyFilter = '+MicroServiceProduct.*' },
+  @{ Name = 'Distributors'; AssemblyFilter = '+MicroServiceDistributors.*' },
+  @{ Name = 'Users'; AssemblyFilter = '+MicroServiceUsers.*' },
+  @{ Name = 'Reports'; AssemblyFilter = '+MicroServiceReports.*' },
+  @{ Name = 'Web'; AssemblyFilter = '+MicroServiceWeb.*' }
+)
+
+foreach ($Microservice in $Microservices) {
+  $MicroserviceReportDir = Join-Path $ReportDir $Microservice.Name
+  New-Item -ItemType Directory -Path $MicroserviceReportDir -Force | Out-Null
+
+  reportgenerator `
+    $ReportsArg `
+    "-targetdir:$MicroserviceReportDir" `
+    "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
+    "-filefilters:+*;-*ValidationError.cs" `
+    -reporttypes:Html
+}
+
 $IndexFile = Join-Path $ReportDir 'index.html'
 if (-not (Test-Path $IndexFile)) {
   throw "ReportGenerator no genero index.html en: $ReportDir"

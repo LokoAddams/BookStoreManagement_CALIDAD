@@ -43,4 +43,25 @@ reportgenerator `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
   -reporttypes:Html
 
+$Microservices = @(
+  @{ Name = 'Sales'; AssemblyFilter = '+MicroServiceSales.*' },
+  @{ Name = 'Client'; AssemblyFilter = '+MicroServiceClient.*' },
+  @{ Name = 'Product'; AssemblyFilter = '+MicroServiceProduct.*' },
+  @{ Name = 'Distributors'; AssemblyFilter = '+MicroServiceDistributors.*' },
+  @{ Name = 'Users'; AssemblyFilter = '+MicroServiceUsers.*' },
+  @{ Name = 'Reports'; AssemblyFilter = '+MicroServiceReports.*' },
+  @{ Name = 'Web'; AssemblyFilter = '+MicroServiceWeb.*' }
+)
+
+foreach ($Microservice in $Microservices) {
+  $MicroserviceReportDir = Join-Path $ReportDir $Microservice.Name
+  New-Item -ItemType Directory -Path $MicroserviceReportDir -Force | Out-Null
+
+  reportgenerator `
+    "-reports:$ResultsDir\**\coverage.cobertura.xml" `
+    "-targetdir:$MicroserviceReportDir" `
+    "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
+    -reporttypes:Html
+}
+
 Write-Host "Reporte generado en: $ReportDir\index.html"
