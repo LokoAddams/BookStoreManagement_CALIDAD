@@ -24,7 +24,7 @@ namespace MicroServiceProduct.Infraestructure.Messaging
                 DispatchConsumersAsync = true
             };
             _exchange = cfg["RabbitMQ:Exchange"] ?? "saga.exchange";
-            _conn = factory.CreateConnection();
+            _conn = connection ?? factory.CreateConnection();
             _channel = _conn.CreateModel();
             _channel.ExchangeDeclare(_exchange, ExchangeType.Topic, durable: true);
         }

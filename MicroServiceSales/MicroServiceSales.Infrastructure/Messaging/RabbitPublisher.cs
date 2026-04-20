@@ -27,6 +27,13 @@ namespace MicroServiceSales.Infrastructure.Messaging
             _channel.ExchangeDeclare(_exchange, ExchangeType.Topic, durable: true);
         }
 
+        internal RabbitPublisher(IConnection connection, IModel channel, string exchange)
+        {
+            _conn = connection;
+            _channel = channel;
+            _exchange = exchange;
+        }
+
         public Task PublishAsync(string routingKey, object @event)
         {
             if (_disposed)

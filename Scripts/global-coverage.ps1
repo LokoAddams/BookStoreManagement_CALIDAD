@@ -46,13 +46,75 @@ if (-not $CoverageFiles -or $CoverageFiles.Count -eq 0) {
 
 # Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML detallado.
 $ReportsArg = '-reports:' + (($CoverageFiles | ForEach-Object { $_.FullName }) -join ';')
+$ClassFilters = '-MicroServiceUsers.Application.DTOs.ChangePasswordDto;-MicroServiceUsers.Application.Services.UserService;-MicroServiceUsers.Domain.Models.PagedResult`1;-MicroServiceUsers.Domain.Models.Role;-MicroServiceUsers.Domain.Validations.ValidationException;-MicroServiceUsers.Infrastructure.DataBase.DataBaseConnection;-MicroServiceUsers.Infrastructure.Email.SendGridEmailService;-MicroServiceUsers.Infrastructure.Email.SendGridOptions;-MicroServiceUsers.Infrastructure.Repositories.RoleRepository;-MicroServiceUsers.Infrastructure.Repositories.UserRepository;-MicroServiceSales.Domain.Validations.ValidationException;-MicroServiceSales.Infrastructure.Repositories.SalesRepository;-MicroServiceSales.Infrastructure.DataBase.DataBaseConnection'
 reportgenerator `
   $ReportsArg `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
-	"-classfilters:-MicroServiceUsers.Infrastructure.DataBase.DataBaseConnection;-MicroServiceUsers.Infrastructure.Email.SendGridEmailService;-MicroServiceUsers.Infrastructure.Email.SendGridOptions;-MicroServiceUsers.Infrastructure.Repositories.RoleRepository;-MicroServiceUsers.Infrastructure.Repositories.UserRepository;-MicroServiceUsers.Application.DTOs.ChangePasswordDto;-MicroServiceUsers.Domain.Models.PagedResult*;-MicroServiceUsers.Domain.Models.Role;-MicroServiceUsers.Domain.Validations.ValidationException" `
+    "-classfilters:$ClassFilters" `
   "-filefilters:+*;-*ValidationError.cs" `
   "-reporttypes:Html;MarkdownSummaryGithub"
+
+$MicroserviceSummaries = @()
+$Microservices = @(
+  @{ Name = 'Sales'; AssemblyFilter = '+MicroServiceSales.*' },
+  @{ Name = 'Client'; AssemblyFilter = '+MicroServiceClient.*' },
+  @{ Name = 'Product'; AssemblyFilter = '+MicroServiceProduct.*' },
+  @{ Name = 'Distributors'; AssemblyFilter = '+MicroServiceDistributors.*' },
+  @{ Name = 'Users'; AssemblyFilter = '+MicroServiceUsers.*' },
+  @{ Name = 'Reports'; AssemblyFilter = '+MicroServiceReports.*' },
+  @{ Name = 'Web'; AssemblyFilter = '+MicroServiceWeb.*' }
+)
+
+foreach ($Microservice in $Microservices) {
+  $MicroserviceReportDir = Join-Path $ReportDir $Microservice.Name
+  New-Item -ItemType Directory -Path $MicroserviceReportDir -Force | Out-Null
+
+  reportgenerator `
+    $ReportsArg `
+    "-targetdir:$MicroserviceReportDir" `
+    "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
+    "-classfilters:$ClassFilters" `
+    "-filefilters:+*;-*ValidationError.cs" `
+    "-reporttypes:Html;MarkdownSummaryGithub"
+
+  $MicroserviceSummaryFile = Join-Path $MicroserviceReportDir 'SummaryGithub.md'
+  $MicroserviceCoverage = 'N/A'
+
+  if (Test-Path $MicroserviceSummaryFile) {
+    $SummaryContent = Get-Content $MicroserviceSummaryFile -Raw
+    $CoverageMatch = [regex]::Match($SummaryContent, '(\d+(?:\.\d+)?)\s*%')
+    if ($CoverageMatch.Success) {
+      $MicroserviceCoverage = $CoverageMatch.Groups[1].Value + '%'
+    }
+  }
+
+  $MicroserviceSummaries += [pscustomobject]@{
+    Name = $Microservice.Name
+    Coverage = $MicroserviceCoverage
+  }
+
+  if ((Test-Path $MicroserviceSummaryFile) -and -not [string]::IsNullOrWhiteSpace($env:GITHUB_STEP_SUMMARY)) {
+    Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`
+## $($Microservice.Name)"
+    Get-Content $MicroserviceSummaryFile | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+    Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`n"
+  }
+}
+
+if (-not [string]::IsNullOrWhiteSpace($env:GITHUB_STEP_SUMMARY)) {
+  Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`
+## Cobertura por microservicio`
+| Microservicio | Cobertura |
+| --- | ---: |
+"
+
+  foreach ($MicroserviceSummary in $MicroserviceSummaries) {
+    Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| $($MicroserviceSummary.Name) | $($MicroserviceSummary.Coverage) |"
+  }
+
+  Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "`n"
+}
 
 $IndexFile = Join-Path $ReportDir 'index.html'
 if (-not (Test-Path $IndexFile)) {
