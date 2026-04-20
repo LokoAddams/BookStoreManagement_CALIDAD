@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales", "MicroS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Application", "MicroServiceSales.Application\MicroServiceSales.Application.csproj", "{C091875B-B968-4CCF-8D74-C432A6C3B16C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Application.UnitTests", "MicroServiceSales.Application.UnitTests\MicroServiceSales.Application.UnitTests.csproj", "{B92408B9-C4B9-4947-A0A8-609F39E20CA0}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Domain", "MicroServiceSales.Domain\MicroServiceSales.Domain.csproj", "{8D6CBB17-0EF9-4B2D-BDA0-D193835DB13E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Infrastructure", "MicroServiceSales.Infrastructure\MicroServiceSales.Infrastructure.csproj", "{2559A67C-5E9B-486D-9592-0E1C7727E3A9}"
@@ -29,6 +31,10 @@ Global
 		{C091875B-B968-4CCF-8D74-C432A6C3B16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C091875B-B968-4CCF-8D74-C432A6C3B16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C091875B-B968-4CCF-8D74-C432A6C3B16C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92408B9-C4B9-4947-A0A8-609F39E20CA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92408B9-C4B9-4947-A0A8-609F39E20CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92408B9-C4B9-4947-A0A8-609F39E20CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92408B9-C4B9-4947-A0A8-609F39E20CA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D6CBB17-0EF9-4B2D-BDA0-D193835DB13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8D6CBB17-0EF9-4B2D-BDA0-D193835DB13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D6CBB17-0EF9-4B2D-BDA0-D193835DB13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
