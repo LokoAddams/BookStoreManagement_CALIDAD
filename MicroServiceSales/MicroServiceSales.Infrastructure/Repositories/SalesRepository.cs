@@ -9,23 +9,35 @@ namespace MicroServiceSales.Infrastructure.Repositories
 {
     public class SalesRepository : ISalesRepository
     {
+        private const string InsertSaleSql = @"
+                INSERT INTO sales (
+                    id, client_id, user_id, sale_date, subtotal, total, status, 
+                    cancellation_reason, cancelled_at, cancelled_by
+                ) VALUES (
+                    @id, @client_id, @user_id, @sale_date, @subtotal, @total, @status,
+                    @cancellation_reason, @cancelled_at, @cancelled_by
+                )";
+
         private const string InsertSaleDetailSql = @"
                     INSERT INTO sale_details (id, sale_id, product_id, quantity, unit_price, subtotal)
                     VALUES (@id, @sale_id, @product_id, @quantity, @unit_price, @subtotal)
                 ";
 
         private readonly IDataBase _database;
+        private readonly Func<NpgsqlConnection, NpgsqlCommand> _createSaleInsertCommand;
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createDetailInsertCommand;
         private readonly Action<NpgsqlCommand> _executeNonQuery;
         private readonly Func<NpgsqlConnection, Guid, Sale?> _readSaleById;
 
         public SalesRepository(
             IDataBase database,
+            Func<NpgsqlConnection, NpgsqlCommand>? createSaleInsertCommand = null,
             Func<NpgsqlConnection, NpgsqlCommand>? createDetailInsertCommand = null,
             Action<NpgsqlCommand>? executeNonQuery = null,
             Func<NpgsqlConnection, Guid, Sale?>? readSaleById = null)
         {
             _database = database;
+            _createSaleInsertCommand = createSaleInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleSql, conn));
             _createDetailInsertCommand = createDetailInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleDetailSql, conn));
             _executeNonQuery = executeNonQuery ?? (cmd => cmd.ExecuteNonQuery());
             _readSaleById = readSaleById ?? ReadSaleByIdFromDatabase;
@@ -95,14 +107,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
         public void Create(Sale sale)
         {
             using var conn = _database.GetConnection();
-            using var cmd = new NpgsqlCommand(@"
-                INSERT INTO sales (
-                    id, client_id, user_id, sale_date, subtotal, total, status, 
-                    cancellation_reason, cancelled_at, cancelled_by
-                ) VALUES (
-                    @id, @client_id, @user_id, @sale_date, @subtotal, @total, @status,
-                    @cancellation_reason, @cancelled_at, @cancelled_by
-                )", conn);
+            using var cmd = _createSaleInsertCommand(conn);
 
             cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Uuid, sale.Id);
             cmd.Parameters.AddWithValue("@client_id", NpgsqlDbType.Uuid, sale.ClientId);
@@ -115,7 +120,7 @@ namespace MicroServiceSales.Infrastructure.Repositories
             cmd.Parameters.AddWithValue("@cancelled_at", NpgsqlDbType.TimestampTz, (object?)sale.CancelledAt ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@cancelled_by", NpgsqlDbType.Uuid, (object?)sale.CancelledBy ?? DBNull.Value);
 
-            cmd.ExecuteNonQuery();
+            _executeNonQuery(cmd);
         }
 
         public void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details)

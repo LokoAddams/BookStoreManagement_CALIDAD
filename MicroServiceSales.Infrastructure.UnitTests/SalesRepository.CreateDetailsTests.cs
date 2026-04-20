@@ -80,13 +80,13 @@ public class SalesRepositoryCreateDetailsTests
     {
         return new SalesRepository(
             database,
-            _ =>
+            createDetailInsertCommand: _ =>
             {
                 var cmd = new NpgsqlCommand();
                 createdCommands.Add(cmd);
                 return cmd;
             },
-            _ => onExecute());
+            executeNonQuery: _ => onExecute());
     }
 
     private static SaleDetail CreateDetail(Guid id)
