@@ -14,7 +14,7 @@ namespace MicroServiceProduct.Infraestructure.Messaging
         private readonly string _exchange;
         private bool _disposed;
 
-        public RabbitPublisher(IConfiguration cfg)
+        public RabbitPublisher(IConfiguration cfg, IConnection connection = null)
         {
             var factory = new ConnectionFactory
             {
