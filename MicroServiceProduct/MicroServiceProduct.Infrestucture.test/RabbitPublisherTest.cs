@@ -20,7 +20,6 @@ namespace MicroServiceProduct.Infraestructure.test
             _mockConn = new Mock<IConnection>();
             _mockChannel = new Mock<IModel>();
 
-            // 1. Necesitamos un Mock para las propiedades del mensaje
             var mockProps = new Mock<IBasicProperties>();
 
             _mockConfig.Setup(c => c["RabbitMQ:Host"]).Returns("localhost");
@@ -28,7 +27,6 @@ namespace MicroServiceProduct.Infraestructure.test
 
             _mockConn.Setup(x => x.CreateModel()).Returns(_mockChannel.Object);
 
-            // 2. EL FIX: Cuando el código pida propiedades, entregamos nuestro Mock en lugar de null
             _mockChannel.Setup(x => x.CreateBasicProperties()).Returns(mockProps.Object);
         }
 
