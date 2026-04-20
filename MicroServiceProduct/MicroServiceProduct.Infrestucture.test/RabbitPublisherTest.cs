@@ -1,9 +1,10 @@
-﻿using Xunit;
-using Moq;
+﻿using MicroServiceProduct.Infraestructure.Messaging;
 using Microsoft.Extensions.Configuration;
+using Moq;
+using RabbitMQ.Client;
 using System;
 using System.Threading.Tasks;
-using MicroServiceProduct.Infraestructure.Messaging;
+using Xunit;
 
 namespace MicroServiceProduct.Infraestructure.test
 {
@@ -36,13 +37,21 @@ namespace MicroServiceProduct.Infraestructure.test
         [Fact]
         public async Task TC_PA2_PublishAsync_WhenDisposed_ShouldThrowException()
         {
-            // Escenario: _disposed es TRUE (Rama True del IF)
-            using var publisher = new RabbitPublisher(_mockConfig.Object);
-            publisher.Dispose(); // Forzamos el estado a true
+            // 1. Creamos los Mocks
+            var mockConn = new Mock<IConnection>();
+            var mockChannel = new Mock<IModel>();
 
-            // Act & Assert
+            // 2. Configuramos el Mock para que entregue un canal falso
+            mockConn.Setup(x => x.CreateModel()).Returns(mockChannel.Object);
+
+            // 3. Inyectamos el Mock en el constructor
+            using var publisher = new RabbitPublisher(_mockConfig.Object, mockConn.Object);
+
+            publisher.Dispose();
+
+            // 4. Act & Assert: Esto pasará en GitHub porque es 100% local
             await Assert.ThrowsAsync<ObjectDisposedException>(() =>
-                publisher.PublishAsync("key", new { Data = "Test" })
+                publisher.PublishAsync("key", new { Msg = "Test" })
             );
         }
 
