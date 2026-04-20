@@ -36,11 +36,15 @@ dotnet test $SolutionPath `
   --collect:"XPlat Code Coverage" `
   --results-directory $ResultsDir
 
+$ClassFilters = '-MicroServiceUsers.Application.DTOs.ChangePasswordDto;-MicroServiceUsers.Application.Services.UserService;-MicroServiceUsers.Domain.Models.PagedResult`1;-MicroServiceUsers.Domain.Models.Role;-MicroServiceUsers.Domain.Validations.ValidationException;-MicroServiceUsers.Infrastructure.DataBase.DataBaseConnection;-MicroServiceUsers.Infrastructure.Email.SendGridEmailService;-MicroServiceUsers.Infrastructure.Email.SendGridOptions;-MicroServiceUsers.Infrastructure.Repositories.RoleRepository;-MicroServiceUsers.Infrastructure.Repositories.UserRepository;-MicroServiceSales.Domain.Validations.ValidationException;-MicroServiceSales.Infrastructure.Repositories.SalesRepository;-MicroServiceSales.Infrastructure.DataBase.DataBaseConnection;-MicroServiceProduct.Infraestructure.DataBase.DataBaseConnection;-MicroServiceProduct.Infraestructure.Repository.CategoryRepository;-MicroServiceProduct.Infraestructure.Repository.ProductRepository'
+
 # Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML.
 reportgenerator `
   "-reports:$ResultsDir\**\coverage.cobertura.xml" `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
+  "-classfilters:$ClassFilters" `
+  "-filefilters:+*;-*ValidationError.cs" `
   -reporttypes:Html
 
 $Microservices = @(
@@ -61,6 +65,8 @@ foreach ($Microservice in $Microservices) {
     "-reports:$ResultsDir\**\coverage.cobertura.xml" `
     "-targetdir:$MicroserviceReportDir" `
     "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
+    "-classfilters:$ClassFilters" `
+    "-filefilters:+*;-*ValidationError.cs" `
     -reporttypes:Html
 }
 
