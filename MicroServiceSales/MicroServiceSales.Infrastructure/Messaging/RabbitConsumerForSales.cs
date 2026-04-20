@@ -52,6 +52,20 @@ namespace MicroServiceSales.Infrastructure.Messaging
             _channel.QueueBind("sales.queue", _exchange, "sales.approved");
         }
 
+        internal RabbitConsumerForSales(
+            IServiceScopeFactory scopeFactory,
+            ILogger<RabbitConsumerForSales> log,
+            IConnection connection,
+            IModel channel,
+            string exchange = "saga.exchange")
+        {
+            _scopeFactory = scopeFactory;
+            _log = log;
+            _conn = connection;
+            _channel = channel;
+            _exchange = exchange;
+        }
+
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             // Use AsyncEventingBasicConsumer in v6.x
@@ -66,6 +80,11 @@ namespace MicroServiceSales.Infrastructure.Messaging
         {
             var json = Encoding.UTF8.GetString(ea.Body.ToArray());
 
+            await ProcessMessageAsync(json);
+        }
+
+        internal async Task ProcessMessageAsync(string json)
+        {
             try
             {
                 using var doc = JsonDocument.Parse(json);
