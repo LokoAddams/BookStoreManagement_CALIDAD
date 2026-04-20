@@ -28,19 +28,22 @@ namespace MicroServiceSales.Infrastructure.Repositories
         private readonly Func<NpgsqlConnection, NpgsqlCommand> _createDetailInsertCommand;
         private readonly Action<NpgsqlCommand> _executeNonQuery;
         private readonly Func<NpgsqlConnection, Guid, Sale?> _readSaleById;
+        private readonly Func<NpgsqlConnection, Guid, List<SaleDetail>> _getDetailsBySaleId;
 
         public SalesRepository(
             IDataBase database,
             Func<NpgsqlConnection, NpgsqlCommand>? createSaleInsertCommand = null,
             Func<NpgsqlConnection, NpgsqlCommand>? createDetailInsertCommand = null,
             Action<NpgsqlCommand>? executeNonQuery = null,
-            Func<NpgsqlConnection, Guid, Sale?>? readSaleById = null)
+            Func<NpgsqlConnection, Guid, Sale?>? readSaleById = null,
+            Func<NpgsqlConnection, Guid, List<SaleDetail>>? getDetailsBySaleId = null)
         {
             _database = database;
             _createSaleInsertCommand = createSaleInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleSql, conn));
             _createDetailInsertCommand = createDetailInsertCommand ?? (conn => new NpgsqlCommand(InsertSaleDetailSql, conn));
             _executeNonQuery = executeNonQuery ?? (cmd => cmd.ExecuteNonQuery());
             _readSaleById = readSaleById ?? ReadSaleByIdFromDatabase;
+            _getDetailsBySaleId = getDetailsBySaleId ?? GetDetailsBySaleIdFromDatabase;
         }
 
         public List<Sale> GetAll()
@@ -87,8 +90,13 @@ namespace MicroServiceSales.Infrastructure.Repositories
 
         public List<SaleDetail> GetDetails(Guid saleId)
         {
-            var details = new List<SaleDetail>();
             using var conn = _database.GetConnection();
+            return _getDetailsBySaleId(conn, saleId);
+        }
+
+        private static List<SaleDetail> GetDetailsBySaleIdFromDatabase(NpgsqlConnection conn, Guid saleId)
+        {
+            var details = new List<SaleDetail>();
             using var cmd = new NpgsqlCommand(@"
                 SELECT id, sale_id, product_id, quantity, unit_price, subtotal
                 FROM sale_details WHERE sale_id = @sale_id
