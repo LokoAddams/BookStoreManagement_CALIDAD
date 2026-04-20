@@ -46,11 +46,12 @@ if (-not $CoverageFiles -or $CoverageFiles.Count -eq 0) {
 
 # Fusiona todos los coverage.cobertura.xml generados por la solucion en un unico HTML detallado.
 $ReportsArg = '-reports:' + (($CoverageFiles | ForEach-Object { $_.FullName }) -join ';')
+$ClassFilters = '-MicroServiceUsers.Application.DTOs.ChangePasswordDto;-MicroServiceUsers.Application.Services.UserService;-MicroServiceUsers.Domain.Models.PagedResult`1;-MicroServiceUsers.Domain.Models.Role;-MicroServiceUsers.Domain.Validations.ValidationException;-MicroServiceUsers.Infrastructure.DataBase.DataBaseConnection;-MicroServiceUsers.Infrastructure.Email.SendGridEmailService;-MicroServiceUsers.Infrastructure.Email.SendGridOptions;-MicroServiceUsers.Infrastructure.Repositories.RoleRepository;-MicroServiceUsers.Infrastructure.Repositories.UserRepository;-MicroServiceSales.Domain.Validations.ValidationException;-MicroServiceSales.Infrastructure.Repositories.SalesRepository;-MicroServiceSales.Infrastructure.DataBase.DataBaseConnection'
 reportgenerator `
   $ReportsArg `
   "-targetdir:$ReportDir" `
   "-assemblyfilters:+*;-*.Tests;-*UnitTest" `
-	"-classfilters:-MicroServiceUsers.Infrastructure.DataBase.DataBaseConnection;-MicroServiceUsers.Infrastructure.Email.SendGridEmailService;-MicroServiceUsers.Infrastructure.Email.SendGridOptions;-MicroServiceUsers.Infrastructure.Repositories.RoleRepository;-MicroServiceUsers.Infrastructure.Repositories.UserRepository;-MicroServiceUsers.Application.DTOs.ChangePasswordDto;-MicroServiceUsers.Domain.Models.PagedResult*;-MicroServiceUsers.Domain.Models.Role;-MicroServiceUsers.Domain.Validations.ValidationException" `
+    "-classfilters:$ClassFilters" `
   "-filefilters:+*;-*ValidationError.cs" `
   "-reporttypes:Html;MarkdownSummaryGithub"
 
@@ -73,6 +74,7 @@ foreach ($Microservice in $Microservices) {
     $ReportsArg `
     "-targetdir:$MicroserviceReportDir" `
     "-assemblyfilters:$($Microservice.AssemblyFilter);-*.Tests;-*UnitTest" `
+    "-classfilters:$ClassFilters" `
     "-filefilters:+*;-*ValidationError.cs" `
     "-reporttypes:Html;MarkdownSummaryGithub"
 
