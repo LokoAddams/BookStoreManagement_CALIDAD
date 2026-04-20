@@ -54,9 +54,4 @@ public class SalesServiceDeleteTests
             _existingIds.Remove(id);
         }
     }
-
-    private sealed class NullEventPublisher : IEventPublisher
-    {
-        public Task PublishAsync(string routingKey, object @event) => Task.CompletedTask;
-    }
 }

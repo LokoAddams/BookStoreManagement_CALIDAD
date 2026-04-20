@@ -67,9 +67,4 @@ public class SalesServiceGetAllTests
 		public void Update(Sale sale) { }
 		public void Delete(Guid id) { }
 	}
-
-	private sealed class NullEventPublisher : IEventPublisher
-	{
-		public Task PublishAsync(string routingKey, object @event) => Task.CompletedTask;
-	}
 }
