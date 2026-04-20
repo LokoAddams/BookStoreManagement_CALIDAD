@@ -27,7 +27,8 @@ namespace MicroServiceProduct.Infraestructure.Messaging
         public RabbitConsumerForProduct(
             IConfiguration cfg,
             IServiceScopeFactory scopeFactory,
-            ILogger<RabbitConsumerForProduct> log)
+            ILogger<RabbitConsumerForProduct> log,
+            IConnection? connection = null)
         {
             _scopeFactory = scopeFactory;
             _log = log;
@@ -42,7 +43,7 @@ namespace MicroServiceProduct.Infraestructure.Messaging
 
             _exchange = cfg["RabbitMQ:Exchange"] ?? "saga.exchange";
 
-            _conn = factory.CreateConnection();
+            _conn = connection ?? factory.CreateConnection();
             _channel = _conn.CreateModel();
             _channel.ExchangeDeclare(_exchange, ExchangeType.Topic, durable: true);
 
@@ -58,7 +59,7 @@ namespace MicroServiceProduct.Infraestructure.Messaging
             return Task.CompletedTask;
         }
 
-        private async Task OnReceived(object sender, BasicDeliverEventArgs ea)
+        public async Task OnReceived(object sender, BasicDeliverEventArgs ea)
         {
             var json = Encoding.UTF8.GetString(ea.Body.ToArray());
 
