@@ -100,16 +100,5 @@ namespace MicroServiceClient.Domain.Validations
             else if (address.Length > AddressMaxLength)
                 yield return new ValidationError("Address", $"La dirección no debe superar {AddressMaxLength} caracteres.");
         }
-
-        public static Result ValidateAsResult(Client c)
-            => Result.FromValidation(Validate(c));
-
-        public static Result<Client> ValidateAndWrap(Client c)
-        {
-            var errors = Validate(c).ToList();
-            return errors.Count == 0
-                ? Result<Client>.Ok(c)
-                : Result<Client>.FromErrors(errors);
-        }
     }
 }
