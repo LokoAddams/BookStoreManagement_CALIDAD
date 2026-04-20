@@ -204,29 +204,34 @@ namespace MicroServiceSales.Infrastructure.Repositories
 
         private static Sale MapSale(NpgsqlDataReader reader)
         {
+            return MapSaleRecord(reader);
+        }
+
+        internal static Sale MapSaleRecord(System.Data.IDataRecord record)
+        {
             var sale = new Sale
             {
-                Id = reader.GetGuid(reader.GetOrdinal("id")),
-                ClientId = reader.GetGuid(reader.GetOrdinal("client_id")),
-                UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-                SaleDate = reader.GetFieldValue<DateTimeOffset>(reader.GetOrdinal("sale_date")),
-                Subtotal = reader.GetDecimal(reader.GetOrdinal("subtotal")),
-                Total = reader.GetDecimal(reader.GetOrdinal("total")),
-                Status = reader.GetString(reader.GetOrdinal("status")),
-                CreatedAt = reader.GetFieldValue<DateTimeOffset>(reader.GetOrdinal("created_at"))
+                Id = record.GetGuid(record.GetOrdinal("id")),
+                ClientId = record.GetGuid(record.GetOrdinal("client_id")),
+                UserId = record.GetGuid(record.GetOrdinal("user_id")),
+                SaleDate = (DateTimeOffset)record.GetValue(record.GetOrdinal("sale_date")),
+                Subtotal = record.GetDecimal(record.GetOrdinal("subtotal")),
+                Total = record.GetDecimal(record.GetOrdinal("total")),
+                Status = record.GetString(record.GetOrdinal("status")),
+                CreatedAt = (DateTimeOffset)record.GetValue(record.GetOrdinal("created_at"))
             };
 
-            var cancellationReasonIdx = reader.GetOrdinal("cancellation_reason");
-            if (!reader.IsDBNull(cancellationReasonIdx))
-                sale.CancellationReason = reader.GetString(cancellationReasonIdx);
+            var cancellationReasonIdx = record.GetOrdinal("cancellation_reason");
+            if (!record.IsDBNull(cancellationReasonIdx))
+                sale.CancellationReason = record.GetString(cancellationReasonIdx);
 
-            var cancelledAtIdx = reader.GetOrdinal("cancelled_at");
-            if (!reader.IsDBNull(cancelledAtIdx))
-                sale.CancelledAt = reader.GetFieldValue<DateTimeOffset>(cancelledAtIdx);
+            var cancelledAtIdx = record.GetOrdinal("cancelled_at");
+            if (!record.IsDBNull(cancelledAtIdx))
+                sale.CancelledAt = (DateTimeOffset)record.GetValue(cancelledAtIdx);
 
-            var cancelledByIdx = reader.GetOrdinal("cancelled_by");
-            if (!reader.IsDBNull(cancelledByIdx))
-                sale.CancelledBy = reader.GetGuid(cancelledByIdx);
+            var cancelledByIdx = record.GetOrdinal("cancelled_by");
+            if (!record.IsDBNull(cancelledByIdx))
+                sale.CancelledBy = record.GetGuid(cancelledByIdx);
 
             return sale;
         }
