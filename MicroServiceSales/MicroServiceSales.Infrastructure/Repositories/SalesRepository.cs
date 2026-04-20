@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using MicroServiceSales.Domain.Interfaces;
 using MicroServiceSales.Domain.Models;
 using Npgsql;
@@ -232,14 +233,19 @@ namespace MicroServiceSales.Infrastructure.Repositories
 
         private static SaleDetail MapSaleDetail(NpgsqlDataReader reader)
         {
+            return MapSaleDetailRecord(reader);
+        }
+
+        internal static SaleDetail MapSaleDetailRecord(IDataRecord record)
+        {
             return new SaleDetail
             {
-                Id = reader.GetGuid(reader.GetOrdinal("id")),
-                SaleId = reader.GetGuid(reader.GetOrdinal("sale_id")),
-                ProductId = reader.GetGuid(reader.GetOrdinal("product_id")),
-                Quantity = reader.GetInt32(reader.GetOrdinal("quantity")),
-                UnitPrice = reader.GetDecimal(reader.GetOrdinal("unit_price")),
-                Subtotal = reader.GetDecimal(reader.GetOrdinal("subtotal"))
+                Id = record.GetGuid(record.GetOrdinal("id")),
+                SaleId = record.GetGuid(record.GetOrdinal("sale_id")),
+                ProductId = record.GetGuid(record.GetOrdinal("product_id")),
+                Quantity = record.GetInt32(record.GetOrdinal("quantity")),
+                UnitPrice = record.GetDecimal(record.GetOrdinal("unit_price")),
+                Subtotal = record.GetDecimal(record.GetOrdinal("subtotal"))
             };
         }
     }
