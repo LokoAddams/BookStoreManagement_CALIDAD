@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Domain", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Infrastructure", "MicroServiceSales.Infrastructure\MicroServiceSales.Infrastructure.csproj", "{2559A67C-5E9B-486D-9592-0E1C7727E3A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Tests", "MicroServiceSales.Tests\MicroServiceSales.Tests.csproj", "{B7B4A8F4-4D7D-4F61-8A68-8C52CDB5E8E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Domain.UnitTest", "MicroServiceSales.Domain.UnitTest\MicroServiceSales.Domain.UnitTest.csproj", "{B7B4A8F4-4D7D-4F61-8A68-8C52CDB5E8E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceSales.Infrastructure.UnitTests", "..\MicroServiceSales.Infrastructure.UnitTests\MicroServiceSales.Infrastructure.UnitTests.csproj", "{4DDF0748-51C5-492E-8BA4-52691AD8E37D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B7B4A8F4-4D7D-4F61-8A68-8C52CDB5E8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7B4A8F4-4D7D-4F61-8A68-8C52CDB5E8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7B4A8F4-4D7D-4F61-8A68-8C52CDB5E8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DDF0748-51C5-492E-8BA4-52691AD8E37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDF0748-51C5-492E-8BA4-52691AD8E37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDF0748-51C5-492E-8BA4-52691AD8E37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDF0748-51C5-492E-8BA4-52691AD8E37D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
