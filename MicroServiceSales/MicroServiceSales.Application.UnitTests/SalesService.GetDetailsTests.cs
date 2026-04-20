@@ -1,5 +1,4 @@
 using MicroServiceSales.Application.Services;
-using MicroServiceSales.Domain.Interfaces;
 using MicroServiceSales.Domain.Models;
 
 namespace MicroServiceSales.Application.UnitTests;
@@ -66,15 +65,12 @@ public class SalesServiceGetDetailsTests
         Assert.Empty(result);
     }
 
-    private sealed class FakeSalesRepository(Dictionary<Guid, List<SaleDetail>> detailsBySaleId) : ISalesRepository
+    private sealed class FakeSalesRepository(Dictionary<Guid, List<SaleDetail>> detailsBySaleId) : FakeSalesRepositoryBase
     {
         public int GetDetailsCalls { get; private set; }
         public Guid LastRequestedSaleId { get; private set; }
 
-        public List<Sale> GetAll() => [];
-        public Sale? Read(Guid id) => null;
-
-        public List<SaleDetail> GetDetails(Guid saleId)
+        public override List<SaleDetail> GetDetails(Guid saleId)
         {
             GetDetailsCalls++;
             LastRequestedSaleId = saleId;
@@ -82,10 +78,5 @@ public class SalesServiceGetDetailsTests
                 ? details
                 : [];
         }
-
-        public void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details) { }
-        public void Create(Sale sale) { }
-        public void Update(Sale sale) { }
-        public void Delete(Guid id) { }
     }
 }

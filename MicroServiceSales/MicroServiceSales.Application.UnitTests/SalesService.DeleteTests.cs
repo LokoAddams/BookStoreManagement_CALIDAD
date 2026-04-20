@@ -1,5 +1,4 @@
 using MicroServiceSales.Application.Services;
-using MicroServiceSales.Domain.Interfaces;
 using MicroServiceSales.Domain.Models;
 
 namespace MicroServiceSales.Application.UnitTests;
@@ -33,21 +32,14 @@ public class SalesServiceDeleteTests
         Assert.Equal(missingId, repository.LastDeletedId);
     }
 
-    private sealed class FakeSalesRepository(IEnumerable<Guid> existingIds) : ISalesRepository
+    private sealed class FakeSalesRepository(IEnumerable<Guid> existingIds) : FakeSalesRepositoryBase
     {
         private readonly HashSet<Guid> _existingIds = [.. existingIds];
 
         public int DeleteCalls { get; private set; }
         public Guid LastDeletedId { get; private set; }
 
-        public List<Sale> GetAll() => [];
-        public Sale? Read(Guid id) => null;
-        public List<SaleDetail> GetDetails(Guid saleId) => [];
-        public void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details) { }
-        public void Create(Sale sale) { }
-        public void Update(Sale sale) { }
-
-        public void Delete(Guid id)
+        public override void Delete(Guid id)
         {
             DeleteCalls++;
             LastDeletedId = id;

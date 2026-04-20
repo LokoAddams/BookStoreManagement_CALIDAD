@@ -1,5 +1,4 @@
 using MicroServiceSales.Application.Services;
-using MicroServiceSales.Domain.Interfaces;
 using MicroServiceSales.Domain.Models;
 using MicroServiceSales.Domain.Validations;
 
@@ -69,23 +68,15 @@ public class SalesServiceUpdateTests
         };
     }
 
-    private sealed class FakeSalesRepository : ISalesRepository
+    private sealed class FakeSalesRepository : FakeSalesRepositoryBase
     {
         public int UpdateCalls { get; private set; }
         public Sale? LastUpdatedSale { get; private set; }
 
-        public List<Sale> GetAll() => [];
-        public Sale? Read(Guid id) => null;
-        public List<SaleDetail> GetDetails(Guid saleId) => [];
-        public void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details) { }
-        public void Create(Sale sale) { }
-
-        public void Update(Sale sale)
+        public override void Update(Sale sale)
         {
             UpdateCalls++;
             LastUpdatedSale = sale;
         }
-
-        public void Delete(Guid id) { }
     }
 }

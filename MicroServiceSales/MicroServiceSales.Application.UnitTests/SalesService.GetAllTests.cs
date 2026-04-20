@@ -1,5 +1,4 @@
 using MicroServiceSales.Application.Services;
-using MicroServiceSales.Domain.Interfaces;
 using MicroServiceSales.Domain.Models;
 
 namespace MicroServiceSales.Application.UnitTests;
@@ -50,21 +49,14 @@ public class SalesServiceGetAllTests
 		Assert.Empty(result);
 	}
 
-	private sealed class FakeSalesRepository(List<Sale> salesToReturn) : ISalesRepository
+	private sealed class FakeSalesRepository(List<Sale> salesToReturn) : FakeSalesRepositoryBase
 	{
 		public int GetAllCalls { get; private set; }
 
-		public List<Sale> GetAll()
+		public override List<Sale> GetAll()
 		{
 			GetAllCalls++;
 			return salesToReturn;
 		}
-
-		public Sale? Read(Guid id) => null;
-		public List<SaleDetail> GetDetails(Guid saleId) => [];
-		public void CreateDetails(Guid saleId, IEnumerable<SaleDetail> details) { }
-		public void Create(Sale sale) { }
-		public void Update(Sale sale) { }
-		public void Delete(Guid id) { }
 	}
 }
