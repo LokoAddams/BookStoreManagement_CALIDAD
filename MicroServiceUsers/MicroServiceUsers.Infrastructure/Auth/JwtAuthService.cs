@@ -32,12 +32,6 @@ namespace MicroServiceUsers.Infrastructure.Auth
             if (verify == PasswordVerificationResult.Failed)
                 return Result<AuthTokenData>.Fail(new ValidationError("Credentials", "Credenciales inválidas."));
 
-            // TODO: Implementar lógica para forzar cambio de contraseña en el frontend
-            // if (user.MustChangePassword)
-            // {
-            //     return Result<AuthTokenData>.Fail(new ValidationError("MustChangePassword", "Debe cambiar su contraseña antes de continuar."));
-            // }
-
             // Obtener roles del usuario desde la base de datos
             var roles = await _users.GetRolesAsync(user.Id, ct);
             if (!roles.Any())
